@@ -49,6 +49,24 @@ public class PlayerControllerIsometric : MonoBehaviour
         isGrounded = false;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!currentlyDashing)
+            {
+                //Dash(input);
+                canMove = false;
+                currentlyDashing = true;
+
+                // while dashing (we haven't dashed long enough)
+                Debug.Log("start");
+
+            }
+        }
+        
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -61,27 +79,60 @@ public class PlayerControllerIsometric : MonoBehaviour
             velocity += Physics.gravity * Time.deltaTime;
         }
 
-        //Collider Logic
 
         //projected position
+        if (currentlyDashing)
+        {
+            timer = timer + Time.deltaTime;
+            // apply the dash to player
+            //transform.Translate(newDirection * Time.deltaTime * dashSpeed, Space.World);
+            //rb.MovePosition(rb.position + (newDirection * dashSpeed) * Time.deltaTime);
+            projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+            Debug.Log("timer:" + timer);
+
+        }
+        if(timer >= dashTime)
+        {
+
+            //enable player movement control
+            canMove = true;
+            currentlyDashing = false;
+            timer = 0;
+            Debug.Log("stop");
+
+        }
+
+        // switch
+        // walking => projectedPosition
+        // dashing => projectedPosition
+        // other => projectedPosition
+
+        // ground movement logic
         if (canMove)
         {
-            projectedPosition = transform.position + (velocity + input * moveSpeed) * Time.deltaTime;
+            projectedPosition = rb.position + (velocity + input * moveSpeed) * Time.deltaTime;
+            //Movement(projectedPosition);
+
+            if (input.magnitude != 0)
+            {
+                lastDirection = input.normalized;
+                radian = degree * Mathf.Deg2Rad;
+                newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
+
+            }
 
         }
+        // normal velocity
         else
         {
-            projectedPosition = transform.position + (velocity) * Time.deltaTime;
+            projectedPosition = rb.position + (velocity) * Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Dash(input);
-        }
 
         //Camera/PlayerRotation
         MouseRotation();
 
+        //Collider Logic
 
         thisCollider.size = skinWidthSize;
         //Debug.Log("thiscollider.size: " + thisCollider.size);
@@ -151,8 +202,10 @@ public class PlayerControllerIsometric : MonoBehaviour
 
             thisCollider.size = originalSize;
             //Debug.Log("thiscollider.size: " + thisCollider.size);
-            rb.MovePosition(projectedPosition);
-
+           // if (canMove)
+                rb.MovePosition(projectedPosition);
+            //newDirection = rb.position;
+            //Debug.Log(velocity);
         }
 
 
@@ -171,86 +224,58 @@ public class PlayerControllerIsometric : MonoBehaviour
         Debug.DrawRay(transform.position, newDirection * 5);
     }
 
-    void Movement(Vector3 input)
-    {
-        transform.Translate(input * moveSpeed * Time.deltaTime, Space.World);
-        if (input.magnitude != 0)
-        {
-            // current => lastDirection
-            // target => input.normalized
-            lastDirection = input.normalized;
-            radian = degree * Mathf.Deg2Rad;
-            newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
-        }
+    //void Movement(Vector3 input)
+    //{
+    //    //transform.Translate(input * moveSpeed * Time.deltaTime, Space.World);
+    //    if (input.magnitude != 0)
+    //    {
+    //        // current => lastDirection
+    //        // target => input.normalized
+            
+            
+    //    }
 
-    }
+    //}
 
     void MouseRotation()
     {
+        ////Get the Screen positions of the object
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        ////Get the Screen position of the mouse
         if (Physics.Raycast(ray, out hit))
         {
-            transform.forward = (hit.point - new Vector3(0.0f, transform.position.y, 0.0f)).normalized;
+            Vector3 targetPoint = hit.point;
+            targetPoint.y = transform.position.y;
 
-        }
-
-        ////Get the Screen positions of the object
-        //Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
-
-        ////Get the Screen position of the mouse
-        //Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
-        ////Get the angle between the points
-        //float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-
-        ////change player rotation
-        //transform.rotation = Quaternion.Euler(new Vector3(0f, -angle, 0f));
-    }
-
-    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
-    {
-        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
-    }
-
-    void Dash(Vector3 input)
-    {
-        if (!currentlyDashing)
-        {
-            StartCoroutine(DashRoutine(input));
+            
+            ///Get the angle between the points
+            Vector3 direction = (targetPoint - transform.position).normalized;
+            ///change player rotation
+            rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
 
         }
     }
 
-    IEnumerator DashRoutine(Vector3 input)
-    {
-        //Debug.Log("Target Time: " + dashTime);
+    //float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    //{
+    //    return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+    //}
 
-        //disable player movement control
-        canMove = false;
-        currentlyDashing = true;
+    //void Dash(Vector3 input)
+    //{
+    //    if (!currentlyDashing)
+    //    {
+    //        StartCoroutine(DashRoutine(input));
 
-        // while dashing (we haven't dashed long enough)
-        while(timer < dashTime)
-        {
-            // increment that timer
-            timer = timer + .1f;
+    //    }
+    //}
 
-            // apply the dash to player
-            //transform.Translate(newDirection * Time.deltaTime * dashSpeed, Space.World);
-            projectedPosition = transform.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+    //IEnumerator DashRoutine(Vector3 input)
+    //{
+    //    //Debug.Log("Target Time: " + dashTime);
 
-
-            //Debug.Log("timer:" + timer);
-            // wait until the next frame
-            yield return new WaitForSecondsRealtime(Time.deltaTime);
-
-        }
-
-        //yield return new WaitForSecondsRealtime(.05f);
-        //enable player movement control
-        canMove = true;
-        currentlyDashing = false;
-        timer = 0;
-    }
+    //    //disable player movement control
+        
+    //}
 }

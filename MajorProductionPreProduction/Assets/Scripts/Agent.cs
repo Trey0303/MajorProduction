@@ -20,4 +20,11 @@ public class Agent : MonoBehaviour
         //new position is equal to newPos = pos + vel * dT
         rbody.MovePosition(rbody.position + velocity * Time.deltaTime);
     }
+
+    public virtual void UpdateRotation(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+
+        rbody.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+    }
 }
