@@ -13,7 +13,7 @@ public class EnemyAi : MonoBehaviour
     public float shootRange = 3.5f;
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //calculate the difference between your target location and current location
         //(this give you an offset from your position to your target)

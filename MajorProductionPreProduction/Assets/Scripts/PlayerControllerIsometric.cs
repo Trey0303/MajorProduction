@@ -26,7 +26,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     public Rigidbody rb;
     private bool isGrounded;
     private Vector3 skinWidthSize;
-    public float skinWidth = .001f;
+    private float skinWidth = .001f;
     LayerMask mask;
     private float maxGroundAngle = 60f;
     Vector3 originalSize;
@@ -187,8 +187,13 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     void MouseRotation()
     {
-        Ray hit = cam.ScreenPointToRay(transform.position);
-        transform.forward = (hit.direction - this.transform.position).normalized;
+        RaycastHit hit;
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            transform.forward = (hit.point - new Vector3(0.0f, transform.position.y, 0.0f)).normalized;
+
+        }
 
         ////Get the Screen positions of the object
         //Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
@@ -236,13 +241,13 @@ public class PlayerControllerIsometric : MonoBehaviour
             projectedPosition = transform.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
 
 
-        //Debug.Log("timer:" + timer);
-        // wait until the next frame
-        yield return new WaitForSecondsRealtime(Time.deltaTime);
+            //Debug.Log("timer:" + timer);
+            // wait until the next frame
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
 
         }
 
-        yield return new WaitForSecondsRealtime(.15f);
+        //yield return new WaitForSecondsRealtime(.05f);
         //enable player movement control
         canMove = true;
         currentlyDashing = false;
