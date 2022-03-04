@@ -10,9 +10,10 @@ public class EnemyAi : MonoBehaviour
     public float speed = 3.0f;
 
     public float range = 5;
+    public float shootRange = 3.5f;
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         //calculate the difference between your target location and current location
         //(this give you an offset from your position to your target)
@@ -26,16 +27,28 @@ public class EnemyAi : MonoBehaviour
             //Normalize the difference
             //(This reduces the length of the offset to 1(aka unit length))
 
-            //Scale the difference by the speed you want to move at
-            agent.velocity = distance.normalized * speed;
-            agent.UpdateMovement();
+            //if in shooting range
+            if(target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
+            {
+                //shoot
+                //Debug.Log("in shooting range");
+
+            }
+            else
+            {
+                agent.velocity = distance.normalized * speed;
+                agent.UpdateMovement();
+            }
 
         }
     }
-    //void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawSphere(transform.position, range);
-    //}
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, range);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(transform.position, shootRange);
+    }
 }
 

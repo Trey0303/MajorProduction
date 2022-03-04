@@ -28,9 +28,11 @@ public class PlayerControllerIsometric : MonoBehaviour
     private Vector3 skinWidthSize;
     public float skinWidth = .001f;
     LayerMask mask;
-    public float maxGroundAngle = 60f;
+    private float maxGroundAngle = 60f;
     Vector3 originalSize;
     public bool gravity = true;
+
+    Vector3 projectedPosition;
 
     private void Start()
     {
@@ -40,7 +42,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         //Collider defaults
         rb = GetComponent<Rigidbody>();
         velocity = rb.velocity;
-        mask = LayerMask.GetMask("Default");
+        mask = LayerMask.GetMask("Default", "Enemy");
         thisCollider = this.GetComponent<BoxCollider>();
         originalSize = thisCollider.size;
         skinWidthSize = new Vector3(thisCollider.size.x + skinWidth, thisCollider.size.y + skinWidth, thisCollider.size.z + skinWidth);
@@ -62,7 +64,24 @@ public class PlayerControllerIsometric : MonoBehaviour
         //Collider Logic
 
         //projected position
-        Vector3 projectedPosition = transform.position + (velocity + input * moveSpeed) * Time.deltaTime;
+        if (canMove)
+        {
+            projectedPosition = transform.position + (velocity + input * moveSpeed) * Time.deltaTime;
+
+        }
+        else
+        {
+            projectedPosition = transform.position + (velocity) * Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dash(input);
+        }
+
+        //Camera/PlayerRotation
+        MouseRotation();
+
 
         thisCollider.size = skinWidthSize;
         //Debug.Log("thiscollider.size: " + thisCollider.size);
@@ -84,7 +103,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                 }
 
                 //Output all of the collider names
-                Debug.Log("Hit : " + hitColliders[i].name + i);
+                //Debug.Log("Hit : " + hitColliders[i].name + i);
 
                 Vector3 otherPosition = hitColliders[i].transform.position;//gets objects position
                 Quaternion otherRotation = hitColliders[i].transform.rotation;//gets objects rotation
@@ -101,7 +120,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                 {
 
                     //                               (vector, planeNormal)
-                    velocity = Vector3.ProjectOnPlane(velocity, direction);
+                    velocity = Vector3.ProjectOnPlane(velocity, direction * 2);
 
                     float angle = Vector3.Angle(direction, Vector3.up);
                     //Debug.Log("angle: " + angle);
@@ -132,33 +151,21 @@ public class PlayerControllerIsometric : MonoBehaviour
 
             thisCollider.size = originalSize;
             //Debug.Log("thiscollider.size: " + thisCollider.size);
-
+            rb.MovePosition(projectedPosition);
 
         }
 
 
         //movement
 
-        if (canMove)
-        {
-            Movement(input);
-            //deltaTime makes player move by 5 seconds instead of 5 frames
+        //if (canMove)
+        //{
+        //    //Movement(input);
+        //    //deltaTime makes player move by 5 seconds instead of 5 frames
             
-        }
+        //}
 
         //Dash
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Dash();
-        }
-
-        //Camera/PlayerRotation
-        MouseRotation();
-
-
-
-
         
 
         Debug.DrawRay(transform.position, newDirection * 5);
@@ -201,16 +208,16 @@ public class PlayerControllerIsometric : MonoBehaviour
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
-    void Dash()
+    void Dash(Vector3 input)
     {
         if (!currentlyDashing)
         {
-            StartCoroutine(DashRoutine());
+            StartCoroutine(DashRoutine(input));
 
         }
     }
 
-    IEnumerator DashRoutine()
+    IEnumerator DashRoutine(Vector3 input)
     {
         //Debug.Log("Target Time: " + dashTime);
 
@@ -225,11 +232,13 @@ public class PlayerControllerIsometric : MonoBehaviour
             timer = timer + .1f;
 
             // apply the dash to player
-            transform.Translate(newDirection * Time.deltaTime * dashSpeed, Space.World);
+            //transform.Translate(newDirection * Time.deltaTime * dashSpeed, Space.World);
+            projectedPosition = transform.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
 
-            //Debug.Log("timer:" + timer);
-            // wait until the next frame
-            yield return new WaitForSecondsRealtime(Time.deltaTime);
+
+        //Debug.Log("timer:" + timer);
+        // wait until the next frame
+        yield return new WaitForSecondsRealtime(Time.deltaTime);
 
         }
 
