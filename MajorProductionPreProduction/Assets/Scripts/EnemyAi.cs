@@ -12,6 +12,10 @@ public class EnemyAi : MonoBehaviour
     public float range = 5;
     public float shootRange = 3.5f;
 
+    public GameObject bulletPrefab;
+    public float firingInterval = 1.0f;
+    private float firingTimer;
+
     // Update is called once per frame
     void LateUpdate()
     {
@@ -22,6 +26,7 @@ public class EnemyAi : MonoBehaviour
 
         if (target.position.x < transform.position.x + range && target.position.z < transform.position.z + range && target.position.x + range > transform.position.x && target.position.z + range > transform.position.z)
         {
+            firingTimer -= Time.deltaTime;
             agent.UpdateRotation(target.position);
             //Debug.Log("Distance to other : " + distance);
 
@@ -32,6 +37,11 @@ public class EnemyAi : MonoBehaviour
             if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
             {
                 //shoot
+                if (firingTimer <= 0.0f /*&& staggered*/)
+                {
+                    GameObject newBullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+                    firingTimer = firingInterval;
+                }
                 //Debug.Log("in shooting range");
 
             }

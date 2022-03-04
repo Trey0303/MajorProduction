@@ -1030,6 +1030,8 @@ MonoBehaviour:
   speed: 19.14
   range: 21.12
   shootRange: 11.18
+  bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
+  firingInterval: 0.9
 --- !u!54 &2147328027
 Rigidbody:
   m_ObjectHideFlags: 0

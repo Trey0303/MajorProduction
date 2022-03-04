@@ -24,7 +24,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private BoxCollider thisCollider;
     private Vector3 velocity;
     public Rigidbody rb;
-    private bool isGrounded;
+    private bool isGrounded = false;
     private Vector3 skinWidthSize;
     private float skinWidth = .001f;
     LayerMask mask;
@@ -79,18 +79,21 @@ public class PlayerControllerIsometric : MonoBehaviour
             velocity += Physics.gravity * Time.deltaTime;
         }
 
+        // switch
+        // walking => projectedPosition
+        // dashing => projectedPosition
+        // other => projectedPosition
 
         //projected position
-        if (currentlyDashing)
+        if (currentlyDashing)//dashing
         {
             timer = timer + Time.deltaTime;
             // apply the dash to player
-            //transform.Translate(newDirection * Time.deltaTime * dashSpeed, Space.World);
-            //rb.MovePosition(rb.position + (newDirection * dashSpeed) * Time.deltaTime);
             projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
             Debug.Log("timer:" + timer);
 
         }
+
         if(timer >= dashTime)
         {
 
@@ -102,13 +105,8 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
 
-        // switch
-        // walking => projectedPosition
-        // dashing => projectedPosition
-        // other => projectedPosition
-
         // ground movement logic
-        if (canMove)
+        if (canMove)//walking
         {
             projectedPosition = rb.position + (velocity + input * moveSpeed) * Time.deltaTime;
             //Movement(projectedPosition);
@@ -123,7 +121,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
         // normal velocity
-        else
+        else//other/idle
         {
             projectedPosition = rb.position + (velocity) * Time.deltaTime;
         }
@@ -207,35 +205,10 @@ public class PlayerControllerIsometric : MonoBehaviour
             //newDirection = rb.position;
             //Debug.Log(velocity);
         }
-
-
-        //movement
-
-        //if (canMove)
-        //{
-        //    //Movement(input);
-        //    //deltaTime makes player move by 5 seconds instead of 5 frames
-            
-        //}
-
-        //Dash
         
 
         Debug.DrawRay(transform.position, newDirection * 5);
     }
-
-    //void Movement(Vector3 input)
-    //{
-    //    //transform.Translate(input * moveSpeed * Time.deltaTime, Space.World);
-    //    if (input.magnitude != 0)
-    //    {
-    //        // current => lastDirection
-    //        // target => input.normalized
-            
-            
-    //    }
-
-    //}
 
     void MouseRotation()
     {
@@ -256,26 +229,4 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
     }
-
-    //float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
-    //{
-    //    return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
-    //}
-
-    //void Dash(Vector3 input)
-    //{
-    //    if (!currentlyDashing)
-    //    {
-    //        StartCoroutine(DashRoutine(input));
-
-    //    }
-    //}
-
-    //IEnumerator DashRoutine(Vector3 input)
-    //{
-    //    //Debug.Log("Target Time: " + dashTime);
-
-    //    //disable player movement control
-        
-    //}
 }
