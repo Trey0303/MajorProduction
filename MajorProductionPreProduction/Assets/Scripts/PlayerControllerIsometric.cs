@@ -34,6 +34,15 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     Vector3 projectedPosition;
 
+    private enum movementType
+    {
+        walk,
+        dash,
+        idle
+    }
+
+    private movementType curMovement;
+
     private void Start()
     {
         timer = 0;
@@ -84,47 +93,57 @@ public class PlayerControllerIsometric : MonoBehaviour
         // dashing => projectedPosition
         // other => projectedPosition
 
-        //projected position
-        if (currentlyDashing)//dashing
+        if (Input.GetKey(KeyCode.Space))
         {
-            timer = timer + Time.deltaTime;
-            // apply the dash to player
-            projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
-            Debug.Log("timer:" + timer);
-
-        }
-
-        if(timer >= dashTime)
-        {
-
-            //enable player movement control
-            canMove = true;
-            currentlyDashing = false;
+            curMovement = movementType.dash;
             timer = 0;
-            Debug.Log("stop");
-
         }
+
+        switch (curMovement)
+        {
+            case movementType.walk:
+                    projectedPosition = rb.position + (velocity + input * moveSpeed) * Time.deltaTime;
+                    //Movement(projectedPosition);
+
+                    if (input.magnitude != 0)
+                    {
+                        lastDirection = input.normalized;
+                        radian = degree * Mathf.Deg2Rad;
+                        newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
+
+                    }
+                break;
+            case movementType.dash:
+                    
+                    timer = timer + Time.deltaTime;
+                    // apply the dash to player
+                    projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+                    Debug.Log("timer:" + timer);
+
+                if (timer >= dashTime)
+                {
+                    curMovement = movementType.walk;
+                    //enable player movement control
+                    Debug.Log("stop");
+
+                }
+                break;
+            case movementType idle:
+                projectedPosition = rb.position + (velocity) * Time.deltaTime;
+                break;
+        }
+
+
+        //projected position
+        
 
         // ground movement logic
-        if (canMove)//walking
-        {
-            projectedPosition = rb.position + (velocity + input * moveSpeed) * Time.deltaTime;
-            //Movement(projectedPosition);
 
-            if (input.magnitude != 0)
-            {
-                lastDirection = input.normalized;
-                radian = degree * Mathf.Deg2Rad;
-                newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
-
-            }
-
-        }
         // normal velocity
-        else//other/idle
-        {
-            projectedPosition = rb.position + (velocity) * Time.deltaTime;
-        }
+        //else//other/idle
+        // {
+
+        //}
 
 
         //Camera/PlayerRotation

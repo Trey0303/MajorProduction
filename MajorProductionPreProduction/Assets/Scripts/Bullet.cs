@@ -7,12 +7,14 @@ public class Bullet : MonoBehaviour
     public float speed = 10.0f;
     public int damage = 1;
     public float bulletDespawnTimer = 8;
+    private LayerMask mask;
 
     //public bool isFriendly = true;
 
     // Start is called before the first frame update
     private void Start()
     {
+        mask = LayerMask.GetMask("Enemy");
         Destroy(gameObject, bulletDespawnTimer);
     }
 
@@ -26,7 +28,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
 
-        if(collider.tag == "Player")
+        if(collider.gameObject.layer != mask)
         {
             //ShipController ship = collider.GetComponent<ShipController>();
 
@@ -34,9 +36,9 @@ public class Bullet : MonoBehaviour
             //{
                 //ship.TakeDamage(damage);
 
-                Destroy(gameObject);
             //}   
         }
 
+            Destroy(gameObject);
     }
 }
