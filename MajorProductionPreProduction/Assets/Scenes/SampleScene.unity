@@ -348,8 +348,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
   moveSpeed: 10
-  dashTime: 1
-  dashSpeed: 44
+  dashTime: 0.1
+  dashSpeed: 23.6
   rb: {fileID: 447524988}
   gravity: 1
 --- !u!114 &447524994
