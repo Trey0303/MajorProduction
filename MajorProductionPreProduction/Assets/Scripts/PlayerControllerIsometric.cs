@@ -69,7 +69,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                 currentlyDashing = true;
 
                 // while dashing (we haven't dashed long enough)
-                Debug.Log("start");
+                //Debug.Log("start");
 
             }
         }
@@ -118,13 +118,13 @@ public class PlayerControllerIsometric : MonoBehaviour
                     timer = timer + Time.deltaTime;
                     // apply the dash to player
                     projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
-                    Debug.Log("timer:" + timer);
+                    //Debug.Log("timer:" + timer);
 
                 if (timer >= dashTime)
                 {
                     curMovement = movementType.walk;
                     //enable player movement control
-                    Debug.Log("stop");
+                    //Debug.Log("stop");
 
                 }
                 break;
@@ -219,10 +219,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
             thisCollider.size = originalSize;
             //Debug.Log("thiscollider.size: " + thisCollider.size);
-           // if (canMove)
-                rb.MovePosition(projectedPosition);
-            //newDirection = rb.position;
-            //Debug.Log(velocity);
+           rb.MovePosition(projectedPosition);
         }
         
 

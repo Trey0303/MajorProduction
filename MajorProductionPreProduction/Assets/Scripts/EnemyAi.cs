@@ -15,6 +15,12 @@ public class EnemyAi : MonoBehaviour
     public GameObject bulletPrefab;
     public float firingInterval = 1.0f;
     private float firingTimer;
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void LateUpdate()
@@ -27,11 +33,12 @@ public class EnemyAi : MonoBehaviour
         if (target.position.x < transform.position.x + range && target.position.z < transform.position.z + range && target.position.x + range > transform.position.x && target.position.z + range > transform.position.z)
         {
             firingTimer -= Time.deltaTime;
-            agent.UpdateRotation(target.position);
-            //Debug.Log("Distance to other : " + distance);
 
-            //Normalize the difference
-            //(This reduces the length of the offset to 1(aka unit length))
+            ///change player rotation
+            agent.UpdateRotation(target.position);
+            Debug.Log(transform.rotation);
+            //Vector3 direction = (target.position - transform.position).normalized;
+            //rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
 
             //if in shooting range
             if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
@@ -39,7 +46,8 @@ public class EnemyAi : MonoBehaviour
                 //shoot
                 if (firingTimer <= 0.0f /*&& staggered*/)
                 {
-                    GameObject newBullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+                    GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z), transform.rotation);
+                    newBullet.transform.parent = this.gameObject.transform;
                     firingTimer = firingInterval;
                 }
                 //Debug.Log("in shooting range");
