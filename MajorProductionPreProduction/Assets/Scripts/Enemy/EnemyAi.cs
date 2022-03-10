@@ -38,7 +38,7 @@ public class EnemyAi : MonoBehaviour
 
             ///change rotation
             agent.UpdateRotation(target.position);
-            Debug.Log(transform.rotation);
+            //Debug.Log(transform.rotation);
             //Vector3 direction = (target.position - transform.position).normalized;
             //rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
 
