@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -103,31 +104,10 @@ public class PlayerControllerIsometric : MonoBehaviour
         switch (curMovement)
         {
             case movementType.walk:
-                    projectedPosition = rb.position + (velocity + input * moveSpeed) * Time.deltaTime;
-                    //Movement(projectedPosition);
-
-                    if (input.magnitude != 0)
-                    {
-                        lastDirection = input.normalized;
-                        radian = degree * Mathf.Deg2Rad;
-                        newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
-
-                    }
+                Movement(input);   
                 break;
             case movementType.dash:
-                    
-                    timer = timer + Time.deltaTime;
-                    // apply the dash to player
-                    projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
-                    //Debug.Log("timer:" + timer);
-
-                if (timer >= dashTime)
-                {
-                    curMovement = movementType.walk;
-                    //enable player movement control
-                    //Debug.Log("stop");
-
-                }
+                Dash();   
                 break;
             case movementType idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
@@ -225,6 +205,36 @@ public class PlayerControllerIsometric : MonoBehaviour
         
 
         Debug.DrawRay(transform.position, newDirection * 5);
+    }
+
+    private void Dash()
+    {
+        timer = timer + Time.deltaTime;
+        // apply the dash to player
+        projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+        //Debug.Log("timer:" + timer);
+
+        if (timer >= dashTime)
+        {
+            curMovement = movementType.walk;
+            //enable player movement control
+            //Debug.Log("stop");
+
+        }
+    }
+
+    private void Movement(Vector3 input)
+    {
+        projectedPosition = rb.position + (velocity + input * moveSpeed) * Time.deltaTime;
+        //Movement(projectedPosition);
+
+        if (input.magnitude != 0)
+        {
+            lastDirection = input.normalized;
+            radian = degree * Mathf.Deg2Rad;
+            newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
+
+        }
     }
 
     void MouseRotation()

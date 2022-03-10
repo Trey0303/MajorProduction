@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     public float speed = 10.0f;
     public int damage = 1;
     public float bulletDespawnTimer = 8;
+    private Vector3 AngularVel;
+    private Quaternion deltaRotation;
 
     //public bool isFriendly = true;
 
@@ -28,10 +30,18 @@ public class Bullet : MonoBehaviour
 
     void Movement()
     {
-        Debug.Log("rotation: " + transform.rotation);
-        Debug.Log("rb rotation: " + rb.rotation);
+        //Debug.Log("rotation: " + transform.rotation);
+        //Debug.Log("rb rotation: " + rb.rotation);
 
-        rb.MovePosition(rb.position + (Vector3.forward * speed) * Time.deltaTime);
+        //AngularVel = Vector3.forward * speed;
+
+        //deltaRotation = Quaternion.Euler(AngularVel* Time.deltaTime);
+
+        //rb.rotation = deltaRotation * rb.rotation;
+
+
+
+        rb.MovePosition(rb.position + (transform.forward * speed) * Time.deltaTime);
         //transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 

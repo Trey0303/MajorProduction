@@ -34,6 +34,8 @@ public class EnemyAi : MonoBehaviour
         {
             firingTimer -= Time.deltaTime;
 
+
+
             ///change rotation
             agent.UpdateRotation(target.position);
             Debug.Log(transform.rotation);
@@ -71,6 +73,9 @@ public class EnemyAi : MonoBehaviour
     void Attack()
     {
         GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z), transform.rotation);
+        Vector3 playerPositionCopy = target.position;
+        playerPositionCopy.y = newBullet.transform.position.y;
+        newBullet.transform.forward = (playerPositionCopy - newBullet.transform.position).normalized;
         newBullet.transform.parent = this.gameObject.transform;
     }
 
