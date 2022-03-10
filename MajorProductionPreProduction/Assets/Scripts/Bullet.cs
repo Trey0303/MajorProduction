@@ -22,11 +22,17 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        Movement();
+
+    }
+
+    void Movement()
+    {
         Debug.Log("rotation: " + transform.rotation);
         Debug.Log("rb rotation: " + rb.rotation);
+
         rb.MovePosition(rb.position + (Vector3.forward * speed) * Time.deltaTime);
         //transform.Translate(Vector3.forward * speed * Time.deltaTime);
-
     }
 
     private void OnTriggerEnter(Collider collider)

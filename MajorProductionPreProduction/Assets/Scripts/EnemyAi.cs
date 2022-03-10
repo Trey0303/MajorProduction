@@ -34,7 +34,7 @@ public class EnemyAi : MonoBehaviour
         {
             firingTimer -= Time.deltaTime;
 
-            ///change player rotation
+            ///change rotation
             agent.UpdateRotation(target.position);
             Debug.Log(transform.rotation);
             //Vector3 direction = (target.position - transform.position).normalized;
@@ -46,8 +46,8 @@ public class EnemyAi : MonoBehaviour
                 //shoot
                 if (firingTimer <= 0.0f /*&& staggered*/)
                 {
-                    GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z), transform.rotation);
-                    newBullet.transform.parent = this.gameObject.transform;
+                    Attack();
+                    
                     firingTimer = firingInterval;
                 }
                 //Debug.Log("in shooting range");
@@ -55,12 +55,25 @@ public class EnemyAi : MonoBehaviour
             }
             else
             {
-                agent.velocity = distance.normalized * speed;
-                agent.UpdateMovement();
+                Movement(distance);
+               
             }
 
         }
     }
+
+    void Movement(Vector3 distance)
+    {
+        agent.velocity = distance.normalized * speed;
+        agent.UpdateMovement();
+    }
+
+    void Attack()
+    {
+        GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z), transform.rotation);
+        newBullet.transform.parent = this.gameObject.transform;
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
