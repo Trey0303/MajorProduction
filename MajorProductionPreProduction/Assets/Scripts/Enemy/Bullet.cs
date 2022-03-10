@@ -51,12 +51,12 @@ public class Bullet : MonoBehaviour
         if (collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && collider.gameObject.layer != LayerMask.NameToLayer("hitbox"))
         {
             //ShipController ship = collider.GetComponent<ShipController>();
-            Debug.Log(collider.gameObject.name);
-            //if (ship)
-            //{
-                //ship.TakeDamage(damage);
+            //Debug.Log(collider.gameObject.name);
+            if (collider.gameObject.tag == "Player")
+            {
+                PlayerHealth.curHealth = PlayerHealth.curHealth - 1;
 
-            //}   
+            }
             Destroy(gameObject);
         }
 
