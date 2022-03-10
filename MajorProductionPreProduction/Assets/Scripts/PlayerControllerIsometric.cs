@@ -85,7 +85,8 @@ public class PlayerControllerIsometric : MonoBehaviour
         //gravity
         if (gravity)
         {
-            velocity += Physics.gravity * Time.deltaTime;
+            //                        gravity * fall speed * time.deltaTIme
+            velocity += Physics.gravity * 2 * Time.deltaTime;
         }
 
         // switch

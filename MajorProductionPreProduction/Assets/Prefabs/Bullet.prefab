@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 1
-  bulletDespawnTimer: 71.23
+  bulletDespawnTimer: 20.5
 --- !u!54 &2805923286337948326
 Rigidbody:
   m_ObjectHideFlags: 0
