@@ -242,7 +242,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     private void Movement(Vector3 input)
     {
-        projectedPosition = rb.position + (velocity + input * moveSpeed) * Time.deltaTime;
+        projectedPosition = rb.position + (velocity + input.normalized * moveSpeed) * Time.deltaTime;
         //Movement(projectedPosition);
 
         if (input.magnitude != 0)

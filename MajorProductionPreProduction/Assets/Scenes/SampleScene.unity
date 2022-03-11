@@ -328,7 +328,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 52.17}
   m_SizeDelta: {x: 186.4, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &159322378
@@ -362,9 +362,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '*currently showing Item info*'
+  m_Text: '*currently showing Item info -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*'
 --- !u!222 &159322379
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2202,7 +2202,7 @@ GameObject:
   - component: {fileID: 986895125}
   - component: {fileID: 986895124}
   - component: {fileID: 986895128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: text item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2217,7 +2217,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986895123}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -3131,7 +3131,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.5
+  m_Speed: 3.58
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4557,7 +4557,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.5
+  m_Speed: 3.58
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -5292,7 +5292,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.5
+  m_Speed: 3.58
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -5376,6 +5376,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: moveSpeed
+      value: 11.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784733, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_RootOrder
       value: 3
