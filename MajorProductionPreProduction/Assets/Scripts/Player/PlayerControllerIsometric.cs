@@ -26,6 +26,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private BoxCollider thisCollider;
     private Vector3 velocity;
     public Rigidbody rb;
+#pragma warning disable 0414
     private bool isGrounded = false;
     private Vector3 skinWidthSize;
     private float skinWidth = .001f;
@@ -69,26 +70,10 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             rb.rotation = startRotation;
         }
+        yield return new WaitForSeconds(waitTime);
+        Dialogue.canClick = true;
         //Debug.Log(canMove);
     }
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        if (!currentlyDashing)
-    //        {
-    //            //Dash(input);
-    //            canMove = false;
-    //            currentlyDashing = true;
-
-    //            // while dashing (we haven't dashed long enough)
-    //            //Debug.Log("start");
-
-    //        }
-    //    }
-        
-    //}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -103,10 +88,6 @@ public class PlayerControllerIsometric : MonoBehaviour
             velocity += Physics.gravity * 2 * Time.deltaTime;
         }
 
-        // switch
-        // walking => projectedPosition
-        // dashing => projectedPosition
-        // other => projectedPosition
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -114,15 +95,18 @@ public class PlayerControllerIsometric : MonoBehaviour
             timer = 0;
         }
 
+        // switch
+        // walking => projectedPosition
+        // dashing => projectedPosition
+        // other => projectedPosition
+
         switch (curMovement)
         {
             case movementType.walk:
                 if (canMove)
                 {
                     Movement(input);   
-
                 }
-
                 break;
             case movementType.dash:
                 Dash();   

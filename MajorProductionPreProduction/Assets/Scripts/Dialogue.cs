@@ -11,15 +11,19 @@ public class Dialogue : MonoBehaviour
 
     int curText;
 
+    public static bool canClick { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
+        canClick = false;
         curText = 0;
         StartCoroutine(LateStart(.1f));
     }
     IEnumerator LateStart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+#pragma warning disable 0618
         dialogueBox.active = true;
         PlayerControllerIsometric.canMove = false;
     }
@@ -27,37 +31,43 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.E))
+        if (canClick)
         {
-            curText++;
-        }
-        //still text left
-        if (curText < text.Count)
-        {
-            for(int i = 0; i < text.Count; i++)
+            if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.E))
             {
-                if(i == curText)
+                curText++;
+            }
+            //still text left
+            if (curText < text.Count)
+            {
+                for(int i = 0; i < text.Count; i++)
                 {
-                    text[i].active = true;
-                }
-                else
-                {
-                    text[i].active = false;
+                    if(i == curText)
+                    {
+#pragma warning disable 0618
+                        text[i].active = true;
+                    }
+                    else
+                    {
+                        text[i].active = false;
+                    }
                 }
             }
-        }
-        //no text left
-        if (curText >= text.Count)
-        {
-            PlayerControllerIsometric.canMove = true;
-            dialogueBox.active = false;
-            if (PlayerControllerIsometric.canMove && !dialogueBox.active)
+            //no text left
+            if (curText >= text.Count)
             {
-                //Debug.Log(PlayerControllerIsometric.canMove);
-                this.enabled = false;
+                PlayerControllerIsometric.canMove = true;
+                dialogueBox.active = false;
+                if (PlayerControllerIsometric.canMove && !dialogueBox.active)
+                {
+                    //Debug.Log(PlayerControllerIsometric.canMove);
+                    this.enabled = false;
 
+                }
             }
+
         }
+
         
     }
 }
