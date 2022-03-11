@@ -67,7 +67,7 @@ public class SkillObj : ScriptableObject
             }
             else
             {
-                //Debug.Log("target does NOT have health script attached");
+                DebugEx.Log("target does NOT have health script attached");
             }
         }
     }

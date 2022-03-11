@@ -42,18 +42,18 @@ public class EnemyAi : MonoBehaviour
         switch (curMovement)
         {
             case movementType.idle:
-                //Debug.Log("IDLE");
+                //DebugEx.Log("IDLE");
                 navAgent.enabled = false;
 
                 break;
             case movementType.move:
-                //Debug.Log("MOVE");
+                //DebugEx.Log("MOVE");
                 navAgent.enabled = true;
 
                 navAgent.SetDestination(target.position);
                 break;
             case movementType.shoot:
-                //Debug.Log("SHOOT");
+                //DebugEx.Log("SHOOT");
                 //stop navMesh movement and rotation
                 navAgent.enabled = false;
 
@@ -86,7 +86,7 @@ public class EnemyAi : MonoBehaviour
             //if in shooting range
             if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
             {
-                //Debug.Log("target in attack range");
+                //DebugEx.Log("target in attack range");
                 curMovement = movementType.shoot;
 
             }
@@ -94,14 +94,14 @@ public class EnemyAi : MonoBehaviour
             {
                 //Movement(distance);
                 curMovement = movementType.move;
-                //Debug.Log("moving towards target");
+                //DebugEx.Log("moving towards target");
             }
 
         }
         else
         {
             curMovement = movementType.idle;
-            //Debug.Log("target out of sight");
+            //DebugEx.Log("target out of sight");
         }
     }
 

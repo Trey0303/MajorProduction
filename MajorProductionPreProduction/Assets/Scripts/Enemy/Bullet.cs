@@ -36,12 +36,17 @@ public class Bullet : MonoBehaviour
         {
             //ShipController ship = collider.GetComponent<ShipController>();
             //Debug.Log(collider.gameObject.name);
-            if (collider.gameObject.tag == "Player")
+            if (collider.gameObject.tag == "Player" && !PlayerControllerIsometric.invincibility)
             {
                 PlayerHealth.curHealth = PlayerHealth.curHealth - 1;
+                Destroy(gameObject);
 
             }
-            Destroy(gameObject);
+            if(collider.gameObject.tag != "Player")
+            {
+                Destroy(gameObject);
+
+            }
         }
 
     }

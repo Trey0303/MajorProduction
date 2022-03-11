@@ -13,6 +13,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     public float dashTime = 1.45f;//how long evade takes
     //public float dashDistance = 10;//how far player with evade
     public static bool canMove { get; set; }
+    public static bool invincibility { get; set;}
     private Vector3 lastDirection;
     private Vector3 newDirection;
     private float degree = 20;
@@ -65,14 +66,14 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     IEnumerator LateStart(float waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(waitTime * 2);
         if (!canMove)
         {
             rb.rotation = startRotation;
         }
         yield return new WaitForSeconds(waitTime);
         Dialogue.canClick = true;
-        //Debug.Log(canMove);
+        //DebugEx.Log(canMove);
     }
 
     // Update is called once per frame
@@ -84,8 +85,12 @@ public class PlayerControllerIsometric : MonoBehaviour
         //gravity
         if (gravity)
         {
-            //                        gravity * fall speed * time.deltaTIme
-            velocity += Physics.gravity * 2 * Time.deltaTime;
+            if (canMove)
+            {
+                //                        gravity * fall speed * time.deltaTIme
+                velocity += Physics.gravity * 2 * Time.deltaTime;
+
+            }
         }
 
 
@@ -109,7 +114,11 @@ public class PlayerControllerIsometric : MonoBehaviour
                 }
                 break;
             case movementType.dash:
-                Dash();   
+                if (canMove)
+                {
+                    Dash();   
+
+                }
                 break;
             case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
@@ -139,7 +148,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         //Collider Logic
 
         thisCollider.size = skinWidthSize;
-        //Debug.Log("thiscollider.size: " + thisCollider.size);
+        //DebugEx.Log("thiscollider.size: " + thisCollider.size);
 
         if (thisCollider != null)
         {
@@ -158,7 +167,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                 }
 
                 //Output all of the collider names
-                //Debug.Log("Hit : " + hitColliders[i].name + i);
+                //DebugEx.Log("Hit : " + hitColliders[i].name + i);
 
                 Vector3 otherPosition = hitColliders[i].transform.position;//gets objects position
                 Quaternion otherRotation = hitColliders[i].transform.rotation;//gets objects rotation
@@ -178,14 +187,14 @@ public class PlayerControllerIsometric : MonoBehaviour
                     velocity = Vector3.ProjectOnPlane(velocity, direction * 2);
 
                     float angle = Vector3.Angle(direction, Vector3.up);
-                    //Debug.Log("angle: " + angle);
+                    //DebugEx.Log("angle: " + angle);
 
                     if (angle < maxGroundAngle)
                     {
                         projectedPosition.y += direction.y * distance;
                         velocity = new Vector3(0f, velocity.y, 0f);
 
-                        //Debug.Log("walkable slope");
+                        //DebugEx.Log("walkable slope");
                         isGrounded = true;
 
 
@@ -194,7 +203,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     else//if slope too steep
                     {
                         projectedPosition += direction * distance;//pushes back player by direction times distance and adding to players current position
-                                                                  //Debug.Log("too steep a slope");
+                                                                  //DebugEx.Log("too steep a slope");
                         isGrounded = false;
                     }
 
@@ -205,7 +214,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             }
 
             thisCollider.size = originalSize;
-            //Debug.Log("thiscollider.size: " + thisCollider.size);
+            //DebugEx.Log("thiscollider.size: " + thisCollider.size);
            rb.MovePosition(projectedPosition);
         }
         
@@ -215,16 +224,18 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     private void Dash()
     {
+        invincibility = true;
         timer = timer + Time.deltaTime;
         // apply the dash to player
         projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
-        //Debug.Log("timer:" + timer);
+        //DebugEx.Log("timer:" + timer);
 
         if (timer >= dashTime)
         {
+            invincibility = false;
             curMovement = movementType.walk;
             //enable player movement control
-            //Debug.Log("stop");
+            //DebugEx.Log("stop");
 
         }
     }
@@ -247,19 +258,27 @@ public class PlayerControllerIsometric : MonoBehaviour
     {
         ////Get the Screen positions of the object
         RaycastHit hit;
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        ////Get the Screen position of the mouse
-        if (Physics.Raycast(ray, out hit))
+        if(cam != null)
         {
-            Vector3 targetPoint = hit.point;
-            targetPoint.y = transform.position.y;
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            ////Get the Screen position of the mouse
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 targetPoint = hit.point;
+                targetPoint.y = transform.position.y;
 
             
-            ///Get the angle between the points
-            Vector3 direction = (targetPoint - transform.position).normalized;
-            ///change player rotation
-            rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+                ///Get the angle between the points
+                Vector3 direction = (targetPoint - transform.position).normalized;
+                ///change player rotation
+                rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
 
+            }
+
+        }
+        else
+        {
+            DebugEx.Log("player is missing reference to camera");
         }
     }
 }
