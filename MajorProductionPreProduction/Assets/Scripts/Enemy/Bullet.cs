@@ -31,7 +31,8 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
 
-        if (collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && collider.gameObject.layer != LayerMask.NameToLayer("hitbox") && collider.gameObject.layer != LayerMask.NameToLayer("item"))
+        if (collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && collider.gameObject.layer != LayerMask.NameToLayer("hitbox") 
+            && collider.gameObject.layer != LayerMask.NameToLayer("item") && collider.gameObject.layer != LayerMask.NameToLayer("bullet"))
         {
             //ShipController ship = collider.GetComponent<ShipController>();
             //Debug.Log(collider.gameObject.name);

@@ -31,6 +31,7 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+        curMovement = movementType.idle;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -42,7 +43,7 @@ public class EnemyAi : MonoBehaviour
         {
             case movementType.idle:
                 //Debug.Log("IDLE");
-                navAgent.enabled = true;
+                navAgent.enabled = false;
 
                 break;
             case movementType.move:
@@ -118,13 +119,13 @@ public class EnemyAi : MonoBehaviour
         newBullet.transform.forward = (playerPositionCopy - newBullet.transform.position).normalized;
     }
 
-    //    void OnDrawGizmosSelected()
-    //    {
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawSphere(transform.position, range);
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, range);
 
-    //        Gizmos.color = Color.blue;
-    //        Gizmos.DrawSphere(transform.position, shootRange);
-    //    }
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(transform.position, shootRange);
+    }
 }
 
