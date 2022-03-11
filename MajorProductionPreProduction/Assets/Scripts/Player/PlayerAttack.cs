@@ -18,9 +18,14 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))//left click
+        if (PlayerControllerIsometric.canMove)
         {
-            skill.Use();
+            if (Input.GetMouseButtonUp(0))//left click
+            {
+                skill.Use();
+            }
+
         }
+
     }
 }
