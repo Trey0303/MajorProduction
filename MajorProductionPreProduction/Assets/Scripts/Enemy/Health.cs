@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     //public Enemy enemySpawner;
 
     public int health;
+    public float dropRate = .25f;
 
     private void Start()
     {
@@ -19,6 +20,13 @@ public class Health : MonoBehaviour
     {
         if(health <= 0)
         {
+            float dropChance = Random.Range(0, 1);
+
+            if(dropChance <= dropRate)
+            {
+
+            }
+
             //PlayerVariableData.money += 1 + enemySpawner.moneyEarnIncrease;
             //Debug.Log(enemySpawner.moneyEarnIncrease);
             //enemySpawner.dead = true;
