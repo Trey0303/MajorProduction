@@ -24,31 +24,14 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Movement();
-
-    }
-
-    void Movement()
-    {
-        //Debug.Log("rotation: " + transform.rotation);
-        //Debug.Log("rb rotation: " + rb.rotation);
-
-        //AngularVel = Vector3.forward * speed;
-
-        //deltaRotation = Quaternion.Euler(AngularVel* Time.deltaTime);
-
-        //rb.rotation = deltaRotation * rb.rotation;
-
-
-
         rb.MovePosition(rb.position + (transform.forward * speed) * Time.deltaTime);
-        //transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
     }
 
     private void OnTriggerEnter(Collider collider)
     {
 
-        if (collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && collider.gameObject.layer != LayerMask.NameToLayer("hitbox"))
+        if (collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && collider.gameObject.layer != LayerMask.NameToLayer("hitbox") && collider.gameObject.layer != LayerMask.NameToLayer("item"))
         {
             //ShipController ship = collider.GetComponent<ShipController>();
             //Debug.Log(collider.gameObject.name);

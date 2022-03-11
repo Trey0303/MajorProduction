@@ -12,12 +12,13 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     public float dashTime = 1.45f;//how long evade takes
     //public float dashDistance = 10;//how far player with evade
-    private bool canMove;
+    public static bool canMove { get; set; }
     private Vector3 lastDirection;
     private Vector3 newDirection;
     private float degree = 20;
     private float radian;
     private bool currentlyDashing;
+    private Quaternion startRotation;
     private float timer = 0;
     public float dashSpeed = 44f;
 
@@ -46,6 +47,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     private void Start()
     {
+        startRotation = rb.rotation;
         timer = 0;
         canMove = true;
 
@@ -57,25 +59,36 @@ public class PlayerControllerIsometric : MonoBehaviour
         originalSize = thisCollider.size;
         skinWidthSize = new Vector3(thisCollider.size.x + skinWidth, thisCollider.size.y + skinWidth, thisCollider.size.z + skinWidth);
         isGrounded = false;
+        StartCoroutine(LateStart(.1f));
     }
 
-    private void Update()
+    IEnumerator LateStart(float waitTime)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        yield return new WaitForSeconds(waitTime);
+        if (!canMove)
         {
-            if (!currentlyDashing)
-            {
-                //Dash(input);
-                canMove = false;
-                currentlyDashing = true;
-
-                // while dashing (we haven't dashed long enough)
-                //Debug.Log("start");
-
-            }
+            rb.rotation = startRotation;
         }
-        
+        //Debug.Log(canMove);
     }
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        if (!currentlyDashing)
+    //        {
+    //            //Dash(input);
+    //            canMove = false;
+    //            currentlyDashing = true;
+
+    //            // while dashing (we haven't dashed long enough)
+    //            //Debug.Log("start");
+
+    //        }
+    //    }
+        
+    //}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -104,19 +117,24 @@ public class PlayerControllerIsometric : MonoBehaviour
         switch (curMovement)
         {
             case movementType.walk:
-                Movement(input);   
+                if (canMove)
+                {
+                    Movement(input);   
+
+                }
+
                 break;
             case movementType.dash:
                 Dash();   
                 break;
-            case movementType idle:
+            case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
                 break;
         }
 
 
         //projected position
-        
+
 
         // ground movement logic
 
@@ -128,7 +146,11 @@ public class PlayerControllerIsometric : MonoBehaviour
 
 
         //Camera/PlayerRotation
-        MouseRotation();
+        if (canMove)
+        {
+            MouseRotation();
+
+        }
 
         //Collider Logic
 

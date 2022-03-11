@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
@@ -17,6 +18,17 @@ public class EnemyAi : MonoBehaviour
     private float firingTimer;
     private Rigidbody rb;
 
+    public NavMeshAgent navAgent;
+
+    private enum movementType
+    {
+        move,
+        shoot,
+        idle
+    }
+
+    private movementType curMovement;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,42 +37,70 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+
+        switch (curMovement)
+        {
+            case movementType.idle:
+                //Debug.Log("IDLE");
+                navAgent.enabled = true;
+
+                break;
+            case movementType.move:
+                //Debug.Log("MOVE");
+                navAgent.enabled = true;
+
+                navAgent.SetDestination(target.position);
+                break;
+            case movementType.shoot:
+                //Debug.Log("SHOOT");
+                //stop navMesh movement and rotation
+                navAgent.enabled = false;
+
+
+
+                //update rotation
+                Vector3 direction = (target.position - transform.position).normalized;
+                rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+
+                //shoot
+                if (firingTimer <= 0.0f)
+                {
+                    Attack();
+
+                    firingTimer = firingInterval;
+                }
+                break;
+        }
+
         //calculate the difference between your target location and current location
         //(this give you an offset from your position to your target)
-        Vector3 distance = target.position - transform.position;
-        distance.y = 0.0f;
+        //Vector3 distance = target.position - transform.position;
+        //distance.y = 0.0f;
 
         if (target.position.x < transform.position.x + range && target.position.z < transform.position.z + range && target.position.x + range > transform.position.x && target.position.z + range > transform.position.z)
         {
+            //shoot timer
             firingTimer -= Time.deltaTime;
-
-
-
-            ///change rotation
-            agent.UpdateRotation(target.position);
-            //Debug.Log(transform.rotation);
-            //Vector3 direction = (target.position - transform.position).normalized;
-            //rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
 
             //if in shooting range
             if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
             {
-                //shoot
-                if (firingTimer <= 0.0f /*&& staggered*/)
-                {
-                    Attack();
-                    
-                    firingTimer = firingInterval;
-                }
-                //Debug.Log("in shooting range");
+                //Debug.Log("target in attack range");
+                curMovement = movementType.shoot;
 
             }
             else
             {
-                Movement(distance);
-               
+                //Movement(distance);
+                curMovement = movementType.move;
+                //Debug.Log("moving towards target");
             }
 
+        }
+        else
+        {
+            curMovement = movementType.idle;
+            //Debug.Log("target out of sight");
         }
     }
 
@@ -76,16 +116,15 @@ public class EnemyAi : MonoBehaviour
         Vector3 playerPositionCopy = target.position;
         playerPositionCopy.y = newBullet.transform.position.y;
         newBullet.transform.forward = (playerPositionCopy - newBullet.transform.position).normalized;
-        newBullet.transform.parent = this.gameObject.transform;
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, range);
+    //    void OnDrawGizmosSelected()
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawSphere(transform.position, range);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, shootRange);
-    }
+    //        Gizmos.color = Color.blue;
+    //        Gizmos.DrawSphere(transform.position, shootRange);
+    //    }
 }
 

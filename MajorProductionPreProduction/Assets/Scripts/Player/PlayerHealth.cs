@@ -27,10 +27,18 @@ public class PlayerHealth : MonoBehaviour
         {
             if(healthbar.value != curHealth)//if player loss or gained health
             {
-                healthbar.value = curHealth;//update health ui
+                if(curHealth <= healthbar.maxValue)//limits healing to no more than max health
+                {
+                    healthbar.value = curHealth;//update health ui
+
+                }
+                else
+                {
+                    curHealth = healthbar.value;
+                }
             }
 
-            if(healthbar.value <= 0)
+            if(healthbar.value <= 0)//if player dies
             {
                 //play death animation
 
