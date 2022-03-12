@@ -108,7 +108,7 @@ public class EnemyAi : MonoBehaviour
                 staggerTimer = setStaggerTime;
                 staggered = false;
             }
-            DebugEx.Log(staggerTimer);
+            //DebugEx.Log(staggerTimer);
 
             //if in shooting range
             if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
