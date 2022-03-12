@@ -17,8 +17,13 @@ public class EnemyAi : MonoBehaviour
     public float firingInterval = 1.0f;
     private float firingTimer;
     private Rigidbody rb;
+    
+    public float staggerTimer;
+    public float setStaggerTime = 1;
 
     public NavMeshAgent navAgent;
+
+    public bool staggered = false;
 
     private enum movementType
     {
@@ -31,8 +36,10 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+        staggered = false;
         curMovement = movementType.idle;
         rb = GetComponent<Rigidbody>();
+        staggerTimer = setStaggerTime;
     }
 
     // Update is called once per frame
@@ -49,8 +56,11 @@ public class EnemyAi : MonoBehaviour
             case movementType.move:
                 //DebugEx.Log("MOVE");
                 navAgent.enabled = true;
+                if (!staggered)
+                {
+                    navAgent.SetDestination(target.position);
 
-                navAgent.SetDestination(target.position);
+                }
                 break;
             case movementType.shoot:
                 //DebugEx.Log("SHOOT");
@@ -66,9 +76,14 @@ public class EnemyAi : MonoBehaviour
                 //shoot
                 if (firingTimer <= 0.0f)
                 {
-                    Attack();
+                    
+                    if(!staggered)
+                    {
+                        Attack();
 
-                    firingTimer = firingInterval;
+                        firingTimer = firingInterval;
+
+                    }
                 }
                 break;
         }
@@ -82,6 +97,18 @@ public class EnemyAi : MonoBehaviour
         {
             //shoot timer
             firingTimer -= Time.deltaTime;
+
+            //stagger logic
+            if (staggered)
+            {
+                staggerTimer -= Time.deltaTime;
+            }
+            if (staggered && staggerTimer <= 0)
+            {
+                staggerTimer = setStaggerTime;
+                staggered = false;
+            }
+            DebugEx.Log(staggerTimer);
 
             //if in shooting range
             if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)

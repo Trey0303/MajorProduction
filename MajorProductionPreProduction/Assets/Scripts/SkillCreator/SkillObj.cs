@@ -63,6 +63,8 @@ public class SkillObj : ScriptableObject
 
                 targetHealth.health = targetHealth.health - (int)skillProgDamage;
                 //Debug.Log("Enemy Health: " + targetHealth.health);
+                targetCollider.gameObject.GetComponent<EnemyAi>().staggered = true;
+                targetCollider.gameObject.GetComponent<EnemyAi>().staggerTimer = targetCollider.gameObject.GetComponent<EnemyAi>().setStaggerTime;
 
             }
             else
