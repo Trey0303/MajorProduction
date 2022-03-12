@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         if(health <= 0)
         {
             float dropChance = Random.Range(0.0f, 1.0f);
-            DebugEx.Log(dropChance);
+            //DebugEx.Log(dropChance);
             if(dropChance <= dropRate)
             {
                 GameObject healthDrop = Instantiate(healthItemPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);

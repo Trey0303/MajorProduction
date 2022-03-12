@@ -140,19 +140,24 @@ public class EnemyAi : MonoBehaviour
 
     void Attack()
     {
-        GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z), transform.rotation);
-        Vector3 playerPositionCopy = target.position;
-        playerPositionCopy.y = newBullet.transform.position.y;
-        newBullet.transform.forward = (playerPositionCopy - newBullet.transform.position).normalized;
+        if (!staggered)
+        {
+            GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z), transform.rotation);
+            Vector3 playerPositionCopy = target.position;
+            playerPositionCopy.y = newBullet.transform.position.y;
+            newBullet.transform.forward = (playerPositionCopy - newBullet.transform.position).normalized;
+
+        }
+
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, range);
+    //void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(transform.position, range);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, shootRange);
-    }
+    //    Gizmos.color = Color.blue;
+    //    Gizmos.DrawSphere(transform.position, shootRange);
+    //}
 }
 
