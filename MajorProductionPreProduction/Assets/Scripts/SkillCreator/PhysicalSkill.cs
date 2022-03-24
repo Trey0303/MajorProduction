@@ -19,6 +19,16 @@ public class PhysicalSkill : SkillObj
         DisplayHitBox(skillProgDamage);
     }
 
+    //enemy use() for knockback
+    public override void Use(float skillProgDamage, GameObject curWielder, float knockbackAmount)
+    {
+        wielder = curWielder;
+
+        knockbackStrength = knockbackAmount;
+
+        DisplayHitBox(skillProgDamage);
+    }
+
     void DisplayHitBox(float skillProgDamage)
     {
         var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward * range, wielder.transform.rotation);

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 520465574469190497}
   - component: {fileID: 8983986677984049509}
   m_Layer: 7
-  m_Name: HurtboxTest
+  m_Name: HitboxTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,4 +110,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill: {fileID: 0}
   targets: []
-  targetLayer: 6

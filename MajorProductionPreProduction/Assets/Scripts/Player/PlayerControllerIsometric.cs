@@ -284,6 +284,14 @@ public class PlayerControllerIsometric : MonoBehaviour
         }
     }
 
+    public void KnockBack(float strength, Vector3 direction)
+    {
+
+        projectedPosition = rb.position + (velocity + direction * strength) * Time.deltaTime;
+
+        Debug.DrawRay(transform.position, direction * 5);
+    }
+
     private void Dash()
     {
         invincibility = true;

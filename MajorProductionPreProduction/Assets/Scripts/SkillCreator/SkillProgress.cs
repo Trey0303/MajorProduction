@@ -71,4 +71,12 @@ public class SkillProgress
         // tell it to be used, and how much damage it would deal if it hits
         skillData.Use(damage , wielder);
     }
+
+    public void Use(GameObject wielder, float knockbackAmount)
+    {
+        // take the skill that I represent
+
+        // tell it to be used, and how much damage it would deal if it hits
+        skillData.Use(damage, wielder, knockbackAmount);
+    }
 }

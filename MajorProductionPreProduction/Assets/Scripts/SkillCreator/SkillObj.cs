@@ -13,6 +13,8 @@ public class SkillObj : ScriptableObject
     //use skill
     //public string characterName;
     protected GameObject wielder;
+    private Rigidbody playerRb;
+    protected float knockbackStrength;
     //protected bool hitboxSpawned = false;
 
     public GameObject hurtboxPrefab;
@@ -20,6 +22,17 @@ public class SkillObj : ScriptableObject
 
     public virtual void Use(float skillProgDamage, GameObject curWielder) {
         wielder = curWielder;
+
+        //create hitbox
+        DisplayHitBox(skillProgDamage);
+
+    }
+
+    public virtual void Use(float skillProgDamage, GameObject curWielder, float knockbackAmount)
+    {
+        wielder = curWielder;
+
+        knockbackStrength = knockbackAmount;
 
         //create hitbox
         DisplayHitBox(skillProgDamage);
@@ -71,6 +84,15 @@ public class SkillObj : ScriptableObject
             {
                 PlayerHealth.curHealth = PlayerHealth.curHealth - skillProgDamage;//apply damage to player
                 PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime;//add hit stun to player
+                //apply knockback
+                playerRb = targetCollider.gameObject.GetComponent<Rigidbody>();
+                //targetCollider.transform.position = targetCollider.transform.position + new Vector3(wielder.gameObject.GetComponent<EnemyAi>().meleeKnockback, 0, wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime);
+
+                //playerRb.AddForce(knockbackDirection.normalized * 500);
+                Vector3 knockbackDirection = playerRb.position - wielder.transform.position;
+
+                playerRb.gameObject.GetComponent<PlayerControllerIsometric>().KnockBack(knockbackStrength, knockbackDirection.normalized);
+
             }
             else
             {

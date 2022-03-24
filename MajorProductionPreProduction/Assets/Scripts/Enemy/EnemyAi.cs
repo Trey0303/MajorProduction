@@ -28,6 +28,7 @@ public class EnemyAi : MonoBehaviour
     public float setStaggerTime = 1;
 
     public float meleeStaggerTime = .7f;
+    public float meleeKnockback = 50;
 
     public NavMeshAgent navAgent;
 
@@ -82,6 +83,8 @@ public class EnemyAi : MonoBehaviour
             case movementType.hit:
                 if (canHit)
                 {
+                    navAgent.enabled = false;
+
                     //update rotation
                     Vector3 direction = (target.position - transform.position).normalized;
                     direction.y = 0;//prevents enemy from looking up
@@ -90,7 +93,7 @@ public class EnemyAi : MonoBehaviour
                     if (!staggered)
                     {
                         hitTimer -= Time.deltaTime;
-                        DebugEx.Log("hitTimer: " + hitTimer);
+                        //DebugEx.Log("hitTimer: " + hitTimer);
                         if(hitTimer <= 0.0f)
                         {
                             Attack();
@@ -197,7 +200,7 @@ public class EnemyAi : MonoBehaviour
     {
         if (attack.skillData != null)
         {
-            attack.Use(this.gameObject);
+            attack.Use(this.gameObject, meleeKnockback);
 
         }
     }
