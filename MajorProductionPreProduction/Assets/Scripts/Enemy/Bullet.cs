@@ -38,6 +38,8 @@ public class Bullet : MonoBehaviour
             //Debug.Log(collider.gameObject.name);
             if (collider.gameObject.tag == "Player" && !PlayerControllerIsometric.invincibility)
             {
+                PlayerControllerIsometric.canMove = false;
+                PlayerControllerIsometric.staggerTimer = .3f;
                 PlayerHealth.curHealth = PlayerHealth.curHealth - 1;
                 Destroy(gameObject);
 

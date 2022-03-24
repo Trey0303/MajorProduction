@@ -11,15 +11,15 @@ public class SkillObj : ScriptableObject
     public int cost;
 
     //use skill
-    public string characterTag;
+    //public string characterName;
     protected GameObject wielder;
     //protected bool hitboxSpawned = false;
 
     public GameObject hurtboxPrefab;
 
 
-    public virtual void Use(float skillProgDamage) {
-        wielder = GameObject.FindWithTag(characterTag);
+    public virtual void Use(float skillProgDamage, GameObject curWielder) {
+        wielder = curWielder;
 
         //create hitbox
         DisplayHitBox(skillProgDamage);

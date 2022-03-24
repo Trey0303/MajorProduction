@@ -12,9 +12,9 @@ public class PhysicalSkill : SkillObj
 
     //public AnimationClip physAnimation;
 
-    public override void Use(float skillProgDamage)
+    public override void Use(float skillProgDamage, GameObject curWielder)
     {
-        wielder = GameObject.FindWithTag(characterTag);
+        wielder = curWielder;
 
         DisplayHitBox(skillProgDamage);
     }

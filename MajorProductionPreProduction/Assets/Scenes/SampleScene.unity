@@ -196,6 +196,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 20494130}
   target: {fileID: 447524992}
   speed: 19.14
@@ -207,6 +215,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 20494128}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &20494130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +582,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 107018278}
   target: {fileID: 447524992}
   speed: 19.14
@@ -583,6 +601,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 107018276}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &107018278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +797,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 112717144}
   target: {fileID: 447524992}
   speed: 19.14
@@ -788,6 +816,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 112717142}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &112717144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,6 +1012,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 149801493}
   target: {fileID: 447524992}
   speed: 19.14
@@ -993,6 +1031,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 149801491}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &149801493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1227,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 151402634}
   target: {fileID: 447524992}
   speed: 19.14
@@ -1198,6 +1246,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 151402632}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &151402634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,6 +1616,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 197965961}
   target: {fileID: 447524992}
   speed: 19.14
@@ -1577,6 +1635,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 197965959}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &197965961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2973,6 +3033,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 821292207}
   target: {fileID: 447524992}
   speed: 19.14
@@ -2984,6 +3052,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 821292205}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &821292207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3536,6 +3606,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 939940560}
   target: {fileID: 447524992}
   speed: 19.14
@@ -3547,6 +3625,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 939940558}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &939940560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4523,6 +4603,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 1176525973}
   target: {fileID: 447524992}
   speed: 19.14
@@ -4534,6 +4622,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 1176525971}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &1176525973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5252,6 +5342,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 1338855071}
   target: {fileID: 447524992}
   speed: 19.14
@@ -5263,6 +5361,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 1338855069}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &1338855071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5457,6 +5557,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 1356364242}
   target: {fileID: 447524992}
   speed: 19.14
@@ -5468,6 +5576,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 1356364240}
   staggered: 0
+  canShoot: 1
+  canHit: 1
 --- !u!114 &1356364242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5857,6 +5967,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 1451715600}
   target: {fileID: 447524992}
   speed: 19.14
@@ -5868,6 +5986,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 1451715598}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &1451715600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6869,6 +6989,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 1833586718}
   target: {fileID: 447524992}
   speed: 19.14
@@ -6880,6 +7008,8 @@ MonoBehaviour:
   setStaggerTime: 5
   navAgent: {fileID: 1833586716}
   staggered: 0
+  canShoot: 0
+  canHit: 0
 --- !u!114 &1833586718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7213,6 +7343,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
   agent: {fileID: 2005976436}
   target: {fileID: 447524992}
   speed: 19.14
@@ -7223,7 +7361,9 @@ MonoBehaviour:
   staggerTimer: 0
   setStaggerTime: 5
   navAgent: {fileID: 2005976434}
-  staggered: 0
+  staggered: 1
+  canShoot: 0
+  canHit: 0
 --- !u!114 &2005976436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7576,9 +7716,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 447524992}
     - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
+      propertyPath: canShoot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: firingInterval
       value: 1.14
       objectReference: {fileID: 0}
+    - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
+      propertyPath: attack.skillData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6febe42faad972e43a1a47aed5a604ac, type: 2}
     - target: {fileID: 70030304500151494, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -7723,8 +7871,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194227}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: gravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: moveSpeed
       value: 11.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: targetFlyPosY
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: setStaggerTime
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784733, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_RootOrder
@@ -7736,7 +7896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784733, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.61
+      value: 7.6
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784733, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_LocalPosition.z

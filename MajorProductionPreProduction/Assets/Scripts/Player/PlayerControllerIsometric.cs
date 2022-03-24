@@ -34,23 +34,37 @@ public class PlayerControllerIsometric : MonoBehaviour
     LayerMask mask;
     private float maxGroundAngle = 60f;
     Vector3 originalSize;
-    public bool gravity = true;
+    public bool gravity;
 
     Vector3 projectedPosition;
+    public bool staggered;
+    public static float staggerTimer { get; set; }
 
     private enum movementType
     {
         walk,
         dash,
+        fly,
         idle
     }
 
     private movementType curMovement;
+    public float targetFlyPosY;
+    //private bool flying;
 
     private void Start()
     {
+        
+        //gravity
+        gravity = true;
+        
+        //initial rotation
         startRotation = rb.rotation;
+        
+        //dash timer
         timer = 0;
+
+        //control over player
         canMove = true;
 
         //Collider defaults
@@ -76,9 +90,25 @@ public class PlayerControllerIsometric : MonoBehaviour
         //DebugEx.Log(canMove);
     }
 
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        //stagger logic
+        if (staggerTimer > 0)
+        {
+            staggered = true;
+            staggerTimer -= Time.deltaTime;
+            DebugEx.Log(staggerTimer);
+        }
+        if (staggered && staggerTimer <= 0)
+        {
+            //staggerTimer = setStaggerTime;
+            staggered = false;
+            canMove = true;
+        }
+
+
         //player input
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
 
@@ -93,6 +123,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             }
         }
 
+        
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -120,22 +151,28 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 }
                 break;
+            case movementType.fly:
+
+
+                if(rb.position.y < targetFlyPosY)
+                {
+                    Vector3 targetPos = rb.position;
+                    targetPos.y = targetFlyPosY;
+                    Vector3 direction = (targetPos - rb.position).normalized;
+                    projectedPosition.y = rb.position.y + (velocity.y + direction.y * moveSpeed) * Time.deltaTime;
+                    Debug.DrawRay(transform.position, direction * 5);
+                    //rb.position = targetPos;
+
+                }
+                else
+                {
+                    curMovement = movementType.walk;
+                }
+                break;
             case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
                 break;
         }
-
-
-        //projected position
-
-
-        // ground movement logic
-
-        // normal velocity
-        //else//other/idle
-        // {
-
-        //}
 
 
         //Camera/PlayerRotation
@@ -220,6 +257,30 @@ public class PlayerControllerIsometric : MonoBehaviour
         
 
         Debug.DrawRay(transform.position, newDirection * 5);
+        
+    }
+    private void LateUpdate()
+    {
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            gravity = !gravity;
+
+            if (!gravity)
+            {
+                curMovement = movementType.fly;
+            }
+
+            //if (gravity)
+            //{
+            //    DebugEx.Log("walk");
+            //    curMovement = movementType.walk;
+            //}
+            //else
+            //{
+            //    DebugEx.Log("fly");
+            //    curMovement = movementType.fly;
+            //}
+        }
     }
 
     private void Dash()

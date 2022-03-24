@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
+    public SkillProgress attack;
+
     public Agent agent;
     public Transform target;
 
@@ -28,11 +31,14 @@ public class EnemyAi : MonoBehaviour
     private enum movementType
     {
         move,
+        hit,
         shoot,
         idle
     }
 
     private movementType curMovement;
+    public bool canShoot;
+    public bool canHit;
 
     private void Start()
     {
@@ -58,26 +64,19 @@ public class EnemyAi : MonoBehaviour
                 navAgent.enabled = true;
                 if (!staggered)
                 {
-                    navAgent.SetDestination(target.position);
+                    navAgent.SetDestination(new Vector3(target.position.x, 0/*prevents enemy from looking up*/, target.position.z));
 
                 }
                 break;
-            case movementType.shoot:
-                //DebugEx.Log("SHOOT");
-                //stop navMesh movement and rotation
-                navAgent.enabled = false;
-
-
-
-                //update rotation
-                Vector3 direction = (target.position - transform.position).normalized;
-                rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
-
-                //shoot
-                if (firingTimer <= 0.0f)
+            case movementType.hit:
+                if (canHit)
                 {
-                    
-                    if(!staggered)
+                    //update rotation
+                    Vector3 direction = (target.position - transform.position).normalized;
+                    direction.y = 0;//prevents enemy from looking up
+                    rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+
+                    if (!staggered)
                     {
                         Attack();
 
@@ -85,6 +84,34 @@ public class EnemyAi : MonoBehaviour
 
                     }
                 }
+                break;
+            case movementType.shoot:
+                //DebugEx.Log("SHOOT");
+                //stop navMesh movement and rotation
+                if (canShoot)
+                {
+                    navAgent.enabled = false;
+
+                    //update rotation
+                    Vector3 direction = (target.position - transform.position).normalized;
+                    direction.y = 0;//prevents enemy from looking up
+                    rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+
+                    //shoot
+                    if (firingTimer <= 0.0f)
+                    {
+                    
+                        if(!staggered)
+                        {
+                            Fire();
+
+                            firingTimer = firingInterval;
+
+                        }
+                    }
+
+                }
+
                 break;
         }
 
@@ -110,19 +137,16 @@ public class EnemyAi : MonoBehaviour
             }
             //DebugEx.Log(staggerTimer);
 
-            //if in shooting range
-            if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
+            if (canHit)//TODO: add switch for melee attacks 
             {
-                //DebugEx.Log("target in attack range");
-                curMovement = movementType.shoot;
+                MeleeLogic();
+            }
+            if (canShoot)
+            {
+                ShootLogic();
+            }
 
-            }
-            else
-            {
-                //Movement(distance);
-                curMovement = movementType.move;
-                //DebugEx.Log("moving towards target");
-            }
+            
 
         }
         else
@@ -132,13 +156,30 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    void Movement(Vector3 distance)
+    private void Attack()
     {
-        agent.velocity = distance.normalized * speed;
-        agent.UpdateMovement();
+        attack.Use(this.gameObject);
     }
 
-    void Attack()
+    void ShootLogic()
+    {
+        //if in shooting range
+        if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
+        {
+            //DebugEx.Log("target in attack range");
+            curMovement = movementType.shoot;
+
+        }
+        else
+        {
+            //Movement(distance);
+            curMovement = movementType.move;
+            //DebugEx.Log("moving towards target");
+        }
+    }
+
+
+    void Fire()
     {
         if (!staggered)
         {
@@ -151,6 +192,11 @@ public class EnemyAi : MonoBehaviour
 
     }
 
+    //void Movement(Vector3 distance)
+    //{
+    //    agent.velocity = distance.normalized * speed;
+    //    agent.UpdateMovement();
+    //}
     //void OnDrawGizmosSelected()
     //{
     //    Gizmos.color = Color.red;

@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))//left click
             {
-                skill.Use();
+                skill.Use(this.gameObject);
             }
 
         }
