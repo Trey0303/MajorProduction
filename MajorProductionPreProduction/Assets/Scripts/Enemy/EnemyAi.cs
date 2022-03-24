@@ -8,21 +8,26 @@ public class EnemyAi : MonoBehaviour
 {
     public SkillProgress attack;
 
-    public Agent agent;
+    //public Agent agent;
     public Transform target;
 
     public float speed = 3.0f;
 
     public float range = 5;
-    public float shootRange = 3.5f;
+    public float shootRange = 11.12f;
+    public float meleeRange = 3.15f;
 
     public GameObject bulletPrefab;
-    public float firingInterval = 1.0f;
+    public float firingInterval = 1f;
     private float firingTimer;
+    public float meleeStartup = 1.5f;
+    private float hitTimer;
     private Rigidbody rb;
     
     public float staggerTimer;
     public float setStaggerTime = 1;
+
+    public float meleeStaggerTime = .7f;
 
     public NavMeshAgent navAgent;
 
@@ -42,6 +47,12 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+        //get information for all attached skills
+        if (attack.skillData != null)
+        {
+            attack.AddSkill();
+        }
+        hitTimer = meleeStartup;
         staggered = false;
         curMovement = movementType.idle;
         rb = GetComponent<Rigidbody>();
@@ -78,9 +89,14 @@ public class EnemyAi : MonoBehaviour
 
                     if (!staggered)
                     {
-                        Attack();
+                        hitTimer -= Time.deltaTime;
+                        DebugEx.Log("hitTimer: " + hitTimer);
+                        if(hitTimer <= 0.0f)
+                        {
+                            Attack();
+                            hitTimer = meleeStartup;
 
-                        firingTimer = firingInterval;
+                        }
 
                     }
                 }
@@ -137,16 +153,10 @@ public class EnemyAi : MonoBehaviour
             }
             //DebugEx.Log(staggerTimer);
 
-            if (canHit)//TODO: add switch for melee attacks 
+            if (canHit || canShoot)
             {
-                MeleeLogic();
+                MeleeShootLogic();
             }
-            if (canShoot)
-            {
-                ShootLogic();
-            }
-
-            
 
         }
         else
@@ -156,19 +166,24 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    private void Attack()
-    {
-        attack.Use(this.gameObject);
-    }
-
-    void ShootLogic()
+    void MeleeShootLogic()
     {
         //if in shooting range
-        if (target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
+        if (canHit && target.position.x < transform.position.x + meleeRange && target.position.z < transform.position.z + meleeRange && target.position.x + meleeRange > transform.position.x && target.position.z + meleeRange > transform.position.z)
         {
             //DebugEx.Log("target in attack range");
-            curMovement = movementType.shoot;
+            curMovement = movementType.hit;
 
+        }
+        else if(canShoot && target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
+        {
+            //if (canShoot)
+            //{
+                //Movement(distance);
+                curMovement = movementType.shoot;
+                //DebugEx.Log("moving towards target");
+
+           // }
         }
         else
         {
@@ -178,6 +193,14 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
+    private void Attack()
+    {
+        if (attack.skillData != null)
+        {
+            attack.Use(this.gameObject);
+
+        }
+    }
 
     void Fire()
     {
@@ -192,18 +215,16 @@ public class EnemyAi : MonoBehaviour
 
     }
 
-    //void Movement(Vector3 distance)
-    //{
-    //    agent.velocity = distance.normalized * speed;
-    //    agent.UpdateMovement();
-    //}
     //void OnDrawGizmosSelected()
     //{
-    //    Gizmos.color = Color.red;
+    //    Gizmos.color = Color.blue;
     //    Gizmos.DrawSphere(transform.position, range);
 
-    //    Gizmos.color = Color.blue;
+    //    Gizmos.color = Color.yellow;
     //    Gizmos.DrawSphere(transform.position, shootRange);
+
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(transform.position, meleeRange);
     //}
 }
 

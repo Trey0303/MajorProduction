@@ -98,8 +98,9 @@ public class PlayerControllerIsometric : MonoBehaviour
         if (staggerTimer > 0)
         {
             staggered = true;
+            canMove = false;
             staggerTimer -= Time.deltaTime;
-            DebugEx.Log(staggerTimer);
+            //DebugEx.Log(staggerTimer);
         }
         if (staggered && staggerTimer <= 0)
         {

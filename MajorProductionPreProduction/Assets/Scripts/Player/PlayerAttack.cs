@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(skill != null)
+        if(skill.skillData != null)
         {
             skill.AddSkill();
         }
@@ -22,7 +22,11 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))//left click
             {
-                skill.Use(this.gameObject);
+                if(skill.skillData != null)
+                {
+                    skill.Use(this.gameObject);
+
+                }
             }
 
         }

@@ -9,7 +9,7 @@ public class FindTarget : MonoBehaviour
 
     public List<GameObject> targets;
 
-    public int targetLayer = 6;
+    //public int targetLayer = 6;
     internal int damage;
 
     private void Update()
@@ -24,13 +24,19 @@ public class FindTarget : MonoBehaviour
         }
     }
 
+
+    //enemy and player will be unable to hurt themselves because of how their attack hitbox is parented to them???
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("triggered");
-        if (other.gameObject.layer == targetLayer)//enemy
+        if (other.gameObject.tag == "Enemy")//enemy
         {
             //Debug.Log("enemy in range");
-
+            //Debug.Log(other.gameObject.name);
+            targets.Add(other.gameObject);
+        }
+        if (other.gameObject.tag == "Player")
+        {
             targets.Add(other.gameObject);
         }
 

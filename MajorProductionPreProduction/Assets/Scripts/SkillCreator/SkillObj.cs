@@ -67,6 +67,11 @@ public class SkillObj : ScriptableObject
                 targetCollider.gameObject.GetComponent<EnemyAi>().staggerTimer = targetCollider.gameObject.GetComponent<EnemyAi>().setStaggerTime;
 
             }
+            else if (targetCollider.gameObject.tag == "Player")//if target is the player
+            {
+                PlayerHealth.curHealth = PlayerHealth.curHealth - skillProgDamage;//apply damage to player
+                PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime;//add hit stun to player
+            }
             else
             {
                 DebugEx.Log("target does NOT have health script attached");
