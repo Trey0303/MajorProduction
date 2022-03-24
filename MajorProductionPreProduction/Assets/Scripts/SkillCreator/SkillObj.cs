@@ -91,7 +91,9 @@ public class SkillObj : ScriptableObject
                 //playerRb.AddForce(knockbackDirection.normalized * 500);
                 Vector3 knockbackDirection = playerRb.position - wielder.transform.position;
 
-                playerRb.gameObject.GetComponent<PlayerControllerIsometric>().KnockBack(knockbackStrength, knockbackDirection.normalized);
+                knockbackDirection.y = 0;
+
+                playerRb.gameObject.GetComponent<PlayerControllerIsometric>().KnockBack(knockbackStrength, knockbackDirection);
 
             }
             else

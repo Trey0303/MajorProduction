@@ -218,16 +218,16 @@ public class EnemyAi : MonoBehaviour
 
     }
 
-    //void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawSphere(transform.position, range);
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(transform.position, range);
 
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawSphere(transform.position, shootRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, shootRange);
 
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawSphere(transform.position, meleeRange);
-    //}
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, meleeRange);
+    }
 }
 
