@@ -82,18 +82,22 @@ public class SkillObj : ScriptableObject
             }
             else if (targetCollider.gameObject.tag == "Player")//if target is the player
             {
-                PlayerHealth.curHealth = PlayerHealth.curHealth - skillProgDamage;//apply damage to player
-                PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime;//add hit stun to player
-                //apply knockback
-                playerRb = targetCollider.gameObject.GetComponent<Rigidbody>();
-                //targetCollider.transform.position = targetCollider.transform.position + new Vector3(wielder.gameObject.GetComponent<EnemyAi>().meleeKnockback, 0, wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime);
+                if (!PlayerControllerIsometric.invincibility)
+                {
+                    PlayerHealth.curHealth = PlayerHealth.curHealth - skillProgDamage;//apply damage to player
+                    PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime;//add hit stun to player
+                    //apply knockback
+                    playerRb = targetCollider.gameObject.GetComponent<Rigidbody>();
+                    //targetCollider.transform.position = targetCollider.transform.position + new Vector3(wielder.gameObject.GetComponent<EnemyAi>().meleeKnockback, 0, wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime);
 
-                //playerRb.AddForce(knockbackDirection.normalized * 500);
-                Vector3 knockbackDirection = playerRb.position - wielder.transform.position;
+                    //playerRb.AddForce(knockbackDirection.normalized * 500);
+                    Vector3 knockbackDirection = playerRb.position - wielder.transform.position;
 
-                knockbackDirection.y = 0;
+                    knockbackDirection.y = 0;
 
-                playerRb.gameObject.GetComponent<PlayerControllerIsometric>().KnockBack(knockbackStrength, knockbackDirection);
+                    playerRb.gameObject.GetComponent<PlayerControllerIsometric>().KnockBack(knockbackStrength, knockbackDirection);
+
+                }
 
             }
             else

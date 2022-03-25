@@ -45,6 +45,8 @@ public class EnemyAi : MonoBehaviour
     private movementType curMovement;
     public bool canShoot;
     public bool canHit;
+    public float playerKnockedbackTimeSet = 1;
+    public static float playerKnockedBackTime;
 
     private void Start()
     {
@@ -63,7 +65,7 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
+        playerKnockedBackTime = playerKnockedbackTimeSet;
         switch (curMovement)
         {
             case movementType.idle:

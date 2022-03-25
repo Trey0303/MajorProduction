@@ -39,6 +39,10 @@ public class FindTarget : MonoBehaviour
         {
             targets.Add(other.gameObject);
         }
+        if(other.gameObject.tag == "Boss")
+        {
+            targets.Add(other.gameObject);
+        }
 
 
     }

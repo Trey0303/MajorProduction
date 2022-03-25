@@ -35,7 +35,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private float maxGroundAngle = 60f;
     Vector3 originalSize;
     public bool gravity;
-
+    private float knockbackTimer;
     Vector3 projectedPosition;
     public bool staggered;
     public static float staggerTimer { get; set; }
@@ -45,9 +45,13 @@ public class PlayerControllerIsometric : MonoBehaviour
         walk,
         dash,
         fly,
+        knockback,
         idle
     }
 
+    private movementType lastmovementType;
+    private float knockedbackAmount;
+    private Vector3 directionKnockedback;
     private movementType curMovement;
     public float targetFlyPosY;
     //private bool flying;
@@ -170,6 +174,9 @@ public class PlayerControllerIsometric : MonoBehaviour
                     curMovement = movementType.walk;
                 }
                 break;
+            case movementType.knockback:
+                knockbackLogic(knockedbackAmount, directionKnockedback);
+                break;
             case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
                 break;
@@ -258,8 +265,24 @@ public class PlayerControllerIsometric : MonoBehaviour
         
 
         Debug.DrawRay(transform.position, newDirection * 5);
-        
+        Debug.DrawRay(transform.position, directionKnockedback * 5);
     }
+
+    private void knockbackLogic(float strength, Vector3 direction)
+    {
+        knockbackTimer = knockbackTimer + Time.deltaTime;
+        DebugEx.Log(knockbackTimer);
+        projectedPosition = rb.position + (velocity + direction * strength) * Time.deltaTime;
+
+        if (knockbackTimer >= EnemyAi.playerKnockedBackTime)
+        {
+            
+            knockbackTimer = 0;
+            curMovement = lastmovementType;
+
+        }
+    }
+
     private void LateUpdate()
     {
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -286,10 +309,17 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     public void KnockBack(float strength, Vector3 direction)
     {
+        lastmovementType = curMovement;
 
-        projectedPosition = rb.position + (velocity + direction * strength) * Time.deltaTime;
+        knockedbackAmount = strength;
+        directionKnockedback = direction;
 
-        Debug.DrawRay(transform.position, direction * 5);
+        directionKnockedback.y = 0;
+
+        curMovement = movementType.knockback;
+
+        
+
     }
 
     private void Dash()
