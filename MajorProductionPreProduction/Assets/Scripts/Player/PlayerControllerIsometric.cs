@@ -362,7 +362,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             ////Get the Screen position of the mouse
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 2 | 7))
             {
                 Vector3 targetPoint = hit.point;
                 targetPoint.y = transform.position.y;

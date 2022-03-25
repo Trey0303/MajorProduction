@@ -8930,6 +8930,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5242706520201260770, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: cam
       value: 
@@ -8997,6 +9001,10 @@ PrefabInstance:
     - target: {fileID: 5242706521248784806, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784806, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f813819be60527488a78263154e243c, type: 3}
