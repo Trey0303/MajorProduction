@@ -3165,12 +3165,12 @@ MonoBehaviour:
   staggerTimer: 0
   setStaggerTime: 5
   meleeStaggerTime: 0.7
-  meleeKnockback: 48.74
+  meleeKnockback: 20.59
   navAgent: {fileID: 809509443}
   staggered: 0
   canShoot: 0
   canHit: 1
-  playerKnockedbackTimeSet: 1
+  playerKnockedbackTimeSet: 20.11
 --- !u!114 &809509445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5197,7 +5197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152275774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
+  m_LocalPosition: {x: 0, y: -30.4, z: 0}
   m_LocalScale: {x: 360.41595, y: 0.20086257, z: 284.89053}
   m_Children: []
   m_Father: {fileID: 0}

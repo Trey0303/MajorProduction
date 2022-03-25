@@ -17,4 +17,4 @@ MonoBehaviour:
   maxLevel: 1
   cost: 0
   hurtboxPrefab: {fileID: 863276530170334723, guid: 70c710a149c92f64194f991ee901e668, type: 3}
-  range: 2.16
+  range: 1.87

@@ -94,6 +94,19 @@ public class PlayerControllerIsometric : MonoBehaviour
         //DebugEx.Log(canMove);
     }
 
+    private void Update()
+    {
+        switch (curMovement)
+        {
+            case movementType.knockback:
+                
+                knockbackLogic(knockedbackAmount, directionKnockedback);
+            break;
+
+        }
+
+
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -174,9 +187,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     curMovement = movementType.walk;
                 }
                 break;
-            case movementType.knockback:
-                knockbackLogic(knockedbackAmount, directionKnockedback);
-                break;
+            
             case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
                 break;
@@ -271,9 +282,9 @@ public class PlayerControllerIsometric : MonoBehaviour
     private void knockbackLogic(float strength, Vector3 direction)
     {
         knockbackTimer = knockbackTimer + Time.deltaTime;
-        DebugEx.Log(knockbackTimer);
         projectedPosition = rb.position + (velocity + direction * strength) * Time.deltaTime;
-
+        DebugEx.Log(knockbackTimer);
+        DebugEx.Log("Target Time: " + EnemyAi.playerKnockedBackTime);
         if (knockbackTimer >= EnemyAi.playerKnockedBackTime)
         {
             
@@ -281,6 +292,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             curMovement = lastmovementType;
 
         }
+        
     }
 
     private void LateUpdate()
@@ -356,29 +368,40 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     void MouseRotation()
     {
-        ////Get the Screen positions of the object
-        RaycastHit hit;
-        if(cam != null)
+        if (cam != null)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            ////Get the Screen position of the mouse
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 2 | 7))
-            {
-                Vector3 targetPoint = hit.point;
-                targetPoint.y = transform.position.y;
+            //get player elevation
+            float height = transform.position.y;
 
-            
-                ///Get the angle between the points
-                Vector3 direction = (targetPoint - transform.position).normalized;
-                ///change player rotation
-                rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+            //create a plane at the players height on the XZ plane
+            Plane playerPlane = new Plane(Vector3.up,// normal vector
+                                            -height);//disatance from origin
 
-            }
+            //create a ray from the players cursor shooting out from the camera
+            Ray mouseRay = cam.ScreenPointToRay(Input.mousePosition);
 
+            //raycast against that plane formed by the player
+            playerPlane.Raycast(mouseRay, out float distance);
+
+            //get intersection point between RAY and PLANE
+            Vector3 hitPoint = mouseRay.origin + mouseRay.direction * distance;
+            Debug.DrawRay(hitPoint, Vector3.up);
+
+            //allign the hitpoint with the players height
+            hitPoint.y = height;
+
+            //look at it
+            Vector3 direction = (hitPoint - transform.position).normalized;
+            rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
         }
         else
         {
             DebugEx.Log("player is missing reference to camera");
         }
+
+        
+
     }
 }
+
+//
