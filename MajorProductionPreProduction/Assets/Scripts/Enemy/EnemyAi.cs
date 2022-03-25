@@ -50,6 +50,7 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+        
         //get information for all attached skills
         if (attack.skillData != null)
         {
@@ -65,7 +66,7 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        playerKnockedBackTime = playerKnockedbackTimeSet;
+        
         switch (curMovement)
         {
             case movementType.idle:
@@ -202,6 +203,7 @@ public class EnemyAi : MonoBehaviour
     {
         if (attack.skillData != null)
         {
+            playerKnockedBackTime = playerKnockedbackTimeSet;
             attack.Use(this.gameObject, meleeKnockback);
 
         }

@@ -276,13 +276,13 @@ public class PlayerControllerIsometric : MonoBehaviour
         
 
         Debug.DrawRay(transform.position, newDirection * 5);
-        Debug.DrawRay(transform.position, directionKnockedback * 5);
+        Debug.DrawRay(transform.position, directionKnockedback.normalized * 5);
     }
 
     private void knockbackLogic(float strength, Vector3 direction)
     {
         knockbackTimer = knockbackTimer + Time.deltaTime;
-        projectedPosition = rb.position + (velocity + direction * strength) * Time.deltaTime;
+        projectedPosition = rb.position + (velocity + direction.normalized * strength) * Time.deltaTime;
         DebugEx.Log(knockbackTimer);
         DebugEx.Log("Target Time: " + EnemyAi.playerKnockedBackTime);
         if (knockbackTimer >= EnemyAi.playerKnockedBackTime)

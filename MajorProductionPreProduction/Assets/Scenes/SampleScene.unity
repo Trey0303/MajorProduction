@@ -3165,12 +3165,12 @@ MonoBehaviour:
   staggerTimer: 0
   setStaggerTime: 5
   meleeStaggerTime: 0.7
-  meleeKnockback: 20.59
+  meleeKnockback: 8.79
   navAgent: {fileID: 809509443}
   staggered: 0
   canShoot: 0
   canHit: 1
-  playerKnockedbackTimeSet: 20.11
+  playerKnockedbackTimeSet: 0.44
 --- !u!114 &809509445
 MonoBehaviour:
   m_ObjectHideFlags: 0
