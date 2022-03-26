@@ -283,8 +283,8 @@ public class PlayerControllerIsometric : MonoBehaviour
     {
         knockbackTimer = knockbackTimer + Time.deltaTime;
         projectedPosition = rb.position + (velocity + direction.normalized * strength) * Time.deltaTime;
-        DebugEx.Log(knockbackTimer);
-        DebugEx.Log("Target Time: " + EnemyAi.playerKnockedBackTime);
+        //DebugEx.Log(knockbackTimer);
+        //DebugEx.Log("Target Time: " + EnemyAi.playerKnockedBackTime);
         if (knockbackTimer >= EnemyAi.playerKnockedBackTime)
         {
             
