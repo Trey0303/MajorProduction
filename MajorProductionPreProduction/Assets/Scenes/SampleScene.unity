@@ -2191,6 +2191,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5242706521248784806, guid: 3f813819be60527488a78263154e243c, type: 3}
   m_PrefabInstance: {fileID: 5242706521137402333}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &447524988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447524987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945c79f8d987280458df46f8963b598b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &447524992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5242706521248784733, guid: 3f813819be60527488a78263154e243c, type: 3}
@@ -3158,14 +3170,14 @@ MonoBehaviour:
   speed: 19.14
   range: 49.8
   shootRange: 35.85
-  meleeRange: 10.4
+  meleeRange: 9.98
   bulletPrefab: {fileID: 6653186488722813522, guid: 1459d157bf3e46f4aa682985007f3a9a, type: 3}
   firingInterval: 1.07
   meleeStartup: 1.3
   staggerTimer: 0
   setStaggerTime: 5
   meleeStaggerTime: 0.7
-  meleeKnockback: 8.79
+  meleeKnockback: 25
   navAgent: {fileID: 809509443}
   staggered: 0
   canShoot: 0

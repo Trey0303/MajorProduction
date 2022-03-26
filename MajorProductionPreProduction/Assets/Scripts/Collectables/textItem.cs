@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class textItem : MonoBehaviour
 {
+
+
     [SerializeField]
     Text item;
     [SerializeField]
@@ -125,10 +127,10 @@ public class textItem : MonoBehaviour
     //    }
     //}
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, radius);
-    }
+    //void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawSphere(transform.position, radius);
+    //}
 }
 
