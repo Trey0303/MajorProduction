@@ -6,34 +6,57 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
-    public SkillProgress attack;
 
     //public Agent agent;
-    public Transform target;
 
-    public float speed = 3.0f;
+    //public float speed = 3.0f;
 
+    //enemy aggro/move towards player
+    [Header("Aggro Range")]
     public float range = 5;
-    public float shootRange = 11.12f;
-    public float meleeRange = 3.15f;
-
-    public GameObject bulletPrefab;
+    
+    [Header("Shoot Settings")]
+    //shoot
+    public GameObject bulletPrefab;//projectile prefab
+    public float shootRange = 11.12f;//max shoot state range
     public float firingInterval = 1f;
-    private float firingTimer;
-    public float meleeStartup = 1.5f;
-    private float hitTimer;
+    public bool canShoot;
+
+    [Header("Melee Settings")]
+    //melee
+    public SkillProgress attack;//enemy attack
+    public float meleeRange = 3.15f;//melee state range
+    public float meleeStartup = 1.5f;//melee interval
+    public float meleeStaggerTime = .7f;//give stagger time to player on hit
+    public float meleeKnockback = 4.5f;//amount of knockback player will receive
+    public float playerKnockedbackTimeSet = 1;//length of time that player will receive 'meleeKnockback'
+    public bool canHit;
+
+    [Header("Staggered timer")]
+    //staggered/hurt state
+    public float setStaggerTime = 1;//set stagger time
+
+    //Programmer Only
+    [Header("other/ programmer variables")]
+    //navMesh
+    public NavMeshAgent navAgent;
+    public Transform target;
+    
+    //rigidbody
     private Rigidbody rb;
     
+    
+    //hurt state
     public float staggerTimer;
-    public float setStaggerTime = 1;
-
-    public float meleeStaggerTime = .7f;
-    public float meleeKnockback = 50;
-
-    public NavMeshAgent navAgent;
-
     public bool staggered = false;
-
+    
+    //shoot
+    private float firingTimer;//fire interval
+    
+    //melee
+    private float hitTimer;//hit interval
+    
+    
     private enum movementType
     {
         move,
@@ -43,9 +66,6 @@ public class EnemyAi : MonoBehaviour
     }
 
     private movementType curMovement;
-    public bool canShoot;
-    public bool canHit;
-    public float playerKnockedbackTimeSet = 1;
     public static float playerKnockedBackTime;
 
     private void Start()
@@ -225,13 +245,13 @@ public class EnemyAi : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, range);
+        Gizmos.DrawWireSphere(transform.position, range);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, shootRange);
+        Gizmos.DrawWireSphere(transform.position, shootRange);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, meleeRange);
+        Gizmos.DrawWireSphere(transform.position, meleeRange);
     }
 }
 

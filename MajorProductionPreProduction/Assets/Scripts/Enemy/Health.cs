@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
             //DebugEx.Log(dropChance);
             if(dropChance <= dropRate)
             {
-                GameObject healthDrop = Instantiate(healthItemPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+                GameObject healthDrop = Instantiate(healthItemPrefab, new Vector3(transform.position.x, GameObject.Find("Player").transform.position.y, transform.position.z), transform.rotation);
             }
 
             //PlayerVariableData.money += 1 + enemySpawner.moneyEarnIncrease;

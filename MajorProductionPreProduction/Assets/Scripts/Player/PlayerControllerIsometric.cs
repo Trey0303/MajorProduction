@@ -5,13 +5,35 @@ using UnityEngine;
 
 public class PlayerControllerIsometric : MonoBehaviour
 {
-    public Camera cam;
-
+    [Header("Movement")]
     //player movement Speed
     public float moveSpeed = 10;
 
     public float dashTime = 1.45f;//how long evade takes
     //public float dashDistance = 10;//how far player with evade
+    public float dashSpeed = 44f;
+
+    [Header("height in flight mode")]
+    public float targetFlyPosY;//target y position in flight mode
+    
+
+    //programmer variables
+    [Header("other/programmmer variables")]
+    public Rigidbody rb;
+    public Camera cam;
+    private BoxCollider thisCollider;
+    private Vector3 velocity;
+    //collider variables
+#pragma warning disable 0414
+    private bool isGrounded = false;
+    public bool gravity;
+    Vector3 projectedPosition;
+    private Vector3 skinWidthSize;
+    private float skinWidth = .001f;
+    LayerMask mask;
+    private float maxGroundAngle = 60f;
+    Vector3 originalSize;
+    //other
     public static bool canMove { get; set; }
     public static bool invincibility { get; set;}
     private Vector3 lastDirection;
@@ -21,24 +43,12 @@ public class PlayerControllerIsometric : MonoBehaviour
     private bool currentlyDashing;
     private Quaternion startRotation;
     private float timer = 0;
-    public float dashSpeed = 44f;
-
-    //collider variables
-    private BoxCollider thisCollider;
-    private Vector3 velocity;
-    public Rigidbody rb;
-#pragma warning disable 0414
-    private bool isGrounded = false;
-    private Vector3 skinWidthSize;
-    private float skinWidth = .001f;
-    LayerMask mask;
-    private float maxGroundAngle = 60f;
-    Vector3 originalSize;
-    public bool gravity;
+    
     private float knockbackTimer;
-    Vector3 projectedPosition;
-    public bool staggered;
+    
+    public bool staggered;//staggered state
     public static float staggerTimer { get; set; }
+    
 
     private enum movementType
     {
@@ -53,7 +63,6 @@ public class PlayerControllerIsometric : MonoBehaviour
     private float knockedbackAmount;
     private Vector3 directionKnockedback;
     private movementType curMovement;
-    public float targetFlyPosY;
     //private bool flying;
 
     private void Start()
