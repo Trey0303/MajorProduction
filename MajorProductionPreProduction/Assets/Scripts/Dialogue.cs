@@ -16,6 +16,7 @@ public class Dialogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerControllerIsometric.canMove = false;
         canClick = false;
         curText = 0;
         StartCoroutine(LateStart(.1f));
