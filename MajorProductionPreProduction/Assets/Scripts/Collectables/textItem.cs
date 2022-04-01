@@ -54,6 +54,11 @@ public class textItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (Input.GetKeyUp(KeyCode.F))
+        //{
+        //    DebugEx.Log("Dead");
+        //    PlayerHealth.curHealth = 0;
+        //}
 
         if (player != null)
         {
