@@ -9,7 +9,7 @@ public class textItem : MonoBehaviour
 
 
     [SerializeField]
-    Text item;
+    Text pressInteractButtonText;
     [SerializeField]
     GameObject itemInfoBox;
     Transform itemTransform;
@@ -33,11 +33,11 @@ public class textItem : MonoBehaviour
     void Start()
     {
         itemTransform = transform;
-        textTransform = item.transform;
+        textTransform = pressInteractButtonText.transform;
 
         player = GameObject.Find("Player");
 
-        item.enabled = false;
+        pressInteractButtonText.enabled = false;
 
         itemRadius = new Vector3(transform.position.x + radius, transform.position.y + radius, transform.position.z + radius);
         playerRadius = new Vector3(player.transform.position.x + radius, player.transform.position.y + radius, player.transform.position.z + radius);
@@ -58,11 +58,11 @@ public class textItem : MonoBehaviour
         if (player != null)
         {
 
-            if (Input.GetKeyUp(KeyCode.E) && item.enabled)
+            if (Input.GetKeyUp(KeyCode.E) && pressInteractButtonText.enabled)
             {
-                item.enabled = false;
+                pressInteractButtonText.enabled = false;
                 //itemInfoBox.SetActive(true);//get a direct refernce to child object instead
-                                        //itemInfoActive = true;
+                //itemInfoActive = true;
                 PlayerControllerIsometric.canMove = false;
                 itemInfoBox.gameObject.SetActive(true);
                 itemInfoActive = true;
@@ -100,6 +100,7 @@ public class textItem : MonoBehaviour
                         Time.timeScale = 1;
                         //Debug.Log(PlayerControllerIsometric.canMove);
                         Destroy(itemInfoBox.gameObject);
+                        Destroy(this.gameObject);
 
                     }
                 }
@@ -109,7 +110,7 @@ public class textItem : MonoBehaviour
                 //Destroy(itemInfoBox.gameObject);
             }
 
-            
+
 
             RangeCheck();
         }
@@ -130,7 +131,7 @@ public class textItem : MonoBehaviour
                 if (!itemInfoActive)
                 {
                     //DebugEx.Log("IN RANGE");
-                    item.enabled = true;
+                    pressInteractButtonText.enabled = true;
 
                     Vector3 screenPos = Camera.main.WorldToScreenPoint(itemTransform.position);
                     screenPos.y += 30;
@@ -141,9 +142,9 @@ public class textItem : MonoBehaviour
                 }
 
             }
-            else if (item.enabled)
+            else if (pressInteractButtonText.enabled)
             {
-                item.enabled = false;
+                pressInteractButtonText.enabled = false;
             }
         }
     }
