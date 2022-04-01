@@ -12,6 +12,8 @@ public class PlayerControllerIsometric : MonoBehaviour
     public float dashTime = 1.45f;//how long evade takes
     //public float dashDistance = 10;//how far player with evade
     public float dashSpeed = 44f;
+    public float dashCost = 10;
+    
 
     [Header("height in flight mode")]
     public float targetFlyPosY;//target y position in flight mode
@@ -26,6 +28,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     //collider variables
 #pragma warning disable 0414
     private bool isGrounded = false;
+    private bool dashing = false;
     public bool gravity;
     Vector3 projectedPosition;
     private Vector3 skinWidthSize;
@@ -53,6 +56,8 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     public static int killcount { get; set; }
 
+    public static float stamina { get; set; }
+
     private enum movementType
     {
         walk,
@@ -69,11 +74,14 @@ public class PlayerControllerIsometric : MonoBehaviour
     public bool canToggleFlight;
     private float lastwalkableTerrainPosY;
     public bool descending;
+    public bool canDash;
 
     //private bool flying;
 
     private void Start()
     {
+        canDash = true;
+
         killcount = 0;
 
         startingDialogueActive = false;
@@ -135,28 +143,58 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            curMovement = movementType.dash;
-            timer = 0;
+            if (canMove && canToggleFlight)
+            {
+                canDash = false;
+                canToggleFlight = false;
+                gravity = !gravity;
+
+                if (!gravity)
+                {
+
+                    curMovement = movementType.fly;
+                }
+                else
+                {
+                    curMovement = movementType.walk;
+                }
+
+            }
         }
+
+        if (Input.GetKeyUp(KeyCode.Space) && stamina >= dashCost)
+        {
+            if (canDash)
+            {
+                curMovement = movementType.dash;
+                timer = 0;
+                stamina = stamina - dashCost;
+
+            }
+        }
+        
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
         //flight mode toggle conditions
         if (rb.position.y == lastwalkableTerrainPosY && !canToggleFlight)//ascending
         {
             descending = false;
             canToggleFlight = true;
+            canDash = true;
         }
         if (rb.position.y == targetFlyPosY && !canToggleFlight && !descending)//descending
         {
             //DebugEx.Log(isGrounded);
             descending = true;
             canToggleFlight = true;
+            canDash = true;
         }
 
         //starting dialogue check
@@ -210,7 +248,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                 }
                 break;
             case movementType.dash:
-                if (canMove)
+                if (canMove && canDash)
                 {
                     Dash();   
 
@@ -297,28 +335,64 @@ public class PlayerControllerIsometric : MonoBehaviour
                 if (overlapped)
                 {
 
-                    //                               (vector, planeNormal)
-                    velocity = Vector3.ProjectOnPlane(velocity, direction * 2);
-
-                    float angle = Vector3.Angle(direction, Vector3.up);
-                    //DebugEx.Log("angle: " + angle);
-
-                    if (angle < maxGroundAngle)
+                    if (!dashing)
                     {
-                        projectedPosition.y += direction.y * distance;
-                        velocity = new Vector3(0f, velocity.y, 0f);
+                        //                               (vector, planeNormal)
+                        velocity = Vector3.ProjectOnPlane(velocity, direction * 2);
 
-                        //DebugEx.Log("walkable slope");
-                        isGrounded = true;
-                        lastwalkableTerrainPosY = rb.position.y;
-                        //DebugEx.Log(lastwalkableTerrainPosY);
+                        float angle = Vector3.Angle(direction, Vector3.up);
+                        //DebugEx.Log("angle: " + angle);
+
+                        if (angle < maxGroundAngle)
+                        {
+                            projectedPosition.y += direction.y * distance;
+                            velocity = new Vector3(0f, velocity.y, 0f);
+
+                            //DebugEx.Log("walkable slope");
+                            isGrounded = true;
+                            lastwalkableTerrainPosY = rb.position.y;
+                            //DebugEx.Log(lastwalkableTerrainPosY);
+
+                        }
+                        else//if slope too steep
+                        {
+                            projectedPosition += direction * distance;//pushes back player by direction times distance and adding to players current position
+                                                                      //DebugEx.Log("too steep a slope");
+                            isGrounded = false;
+                        }
 
                     }
-                    else//if slope too steep
+                    else if (dashing && hitColliders[i].gameObject.tag != "Enemy")
                     {
-                        projectedPosition += direction * distance;//pushes back player by direction times distance and adding to players current position
-                                                                  //DebugEx.Log("too steep a slope");
-                        isGrounded = false;
+                        //DebugEx.Log("dashing");
+                        //                               (vector, planeNormal)
+                        velocity = Vector3.ProjectOnPlane(velocity, direction * 2);
+
+                        float angle = Vector3.Angle(direction, Vector3.up);
+                        //DebugEx.Log("angle: " + angle);
+
+                        if (angle < maxGroundAngle)
+                        {
+                            projectedPosition.y += direction.y * distance;
+                            velocity = new Vector3(0f, velocity.y, 0f);
+
+                            //DebugEx.Log("walkable slope");
+                            isGrounded = true;
+                            lastwalkableTerrainPosY = rb.position.y;
+                            //DebugEx.Log(lastwalkableTerrainPosY);
+
+                        }
+                        else//if slope too steep
+                        {
+                            projectedPosition += direction * distance;//pushes back player by direction times distance and adding to players current position
+                                                                      //DebugEx.Log("too steep a slope");
+                            isGrounded = false;
+                        }
+                    }
+                    else
+                    {
+                        DebugEx.Log("dashed through enemy");
+
                     }
 
                 }
@@ -353,32 +427,6 @@ public class PlayerControllerIsometric : MonoBehaviour
         
     }
 
-    private void LateUpdate()
-    {
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            if (canMove && canToggleFlight)
-            {
-                canToggleFlight = false;
-                gravity = !gravity;
-
-                if (!gravity)
-                {
-                    
-                    curMovement = movementType.fly;
-                }
-                else
-                {
-                    curMovement = movementType.walk;
-                }
-
-            }
-        }
-
-        
-
-    }
-
     public void KnockBack(float strength, Vector3 direction)
     {
         lastmovementType = curMovement;
@@ -397,6 +445,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private void Dash()
     {
         invincibility = true;
+        dashing = true;
         timer = timer + Time.deltaTime;
         // apply the dash to player
         projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
@@ -406,6 +455,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             invincibility = false;
             curMovement = movementType.walk;
+            dashing = false;
             //enable player movement control
             //DebugEx.Log("stop");
 

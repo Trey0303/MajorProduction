@@ -8,16 +8,27 @@ public class PlayerHealth : MonoBehaviour
 {
     private GameObject player;
 
+    //health
     public Slider healthbar;
     public int gameoverScene;
 
+    //stamina
+    public Slider staminabar;
+
     public static float curHealth { get; set; }
+
+    public float maxStamina = 100;
+    public static float RegenWaitTimer { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-       player = GameObject.FindGameObjectWithTag("Player");
-       curHealth = healthbar.value;
+        player = GameObject.FindGameObjectWithTag("Player");
+        curHealth = healthbar.value;
+
+        PlayerControllerIsometric.stamina = maxStamina;
+        staminabar.maxValue = PlayerControllerIsometric.stamina;
+        staminabar.value = PlayerControllerIsometric.stamina;
     }
 
     // Update is called once per frame
@@ -44,6 +55,23 @@ public class PlayerHealth : MonoBehaviour
 
                 //move to gameover scene
                 SceneManager.LoadScene(gameoverScene);
+            }
+        }
+
+        if (staminabar != null)
+        {
+            if (staminabar.value != PlayerControllerIsometric.stamina)//if there was a change in value for stamina
+            {
+                staminabar.value = PlayerControllerIsometric.stamina;
+            }
+        }
+
+        if(PlayerControllerIsometric.stamina < maxStamina)
+        {
+            if (RegenWaitTimer <= 0)
+            {
+                PlayerControllerIsometric.stamina = PlayerControllerIsometric.stamina + 1;
+
             }
         }
     }

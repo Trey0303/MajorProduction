@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
             {
                 //PlayerControllerIsometric.canMove = false;
                 PlayerControllerIsometric.staggerTimer = .3f;
-                PlayerHealth.curHealth = PlayerHealth.curHealth - 1;
+                PlayerHealth.curHealth = PlayerHealth.curHealth - damage;
                 Destroy(gameObject);
 
             }

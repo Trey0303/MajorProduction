@@ -61,6 +61,7 @@ public class textItem : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.E) && pressInteractButtonText.enabled)
             {
                 pressInteractButtonText.enabled = false;
+                Time.timeScale = 0;
                 //itemInfoBox.SetActive(true);//get a direct refernce to child object instead
                 //itemInfoActive = true;
                 PlayerControllerIsometric.canMove = false;
