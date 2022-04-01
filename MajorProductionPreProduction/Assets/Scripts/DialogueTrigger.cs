@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Dialogue : MonoBehaviour
+public class DialogueTrigger : MonoBehaviour
 {
     public GameObject dialogueBox;
 
@@ -11,35 +10,19 @@ public class Dialogue : MonoBehaviour
 
     int curText;
 
-    public static bool canClick { get; set; }
+    private bool textDisplayed;
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayerControllerIsometric.startingDialogueActive = true;
-        PlayerControllerIsometric.canMove = false;
-        canClick = false;
-        curText = 0;
-        //DebugEx.Log("Start Dialogue Coroutine");
-        StartCoroutine(LateStart(.1f));
-    }
-    IEnumerator LateStart(float waitTime)
-    {
-        PlayerControllerIsometric.startingDialogueActive = true;
-        //DebugEx.Log("yield dialogue: " + waitTime * 2);
-        yield return new WaitForSeconds(waitTime);
-        PlayerControllerIsometric.startingDialogueActive = true;
-#pragma warning disable 0618
-        dialogueBox.active = true;
-        //DebugEx.Log("dialogue active:" + dialogueBox.active);
-        PlayerControllerIsometric.canMove = false;
-        //DebugEx.Log("player movement: " + PlayerControllerIsometric.canMove);
+        dialogueBox.SetActive(false);
+        textDisplayed = false;
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
-        if (canClick)
+        if (textDisplayed)
         {
             if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.E))
             {
@@ -48,9 +31,9 @@ public class Dialogue : MonoBehaviour
             //still text left
             if (curText < text.Count)
             {
-                for(int i = 0; i < text.Count; i++)
+                for (int i = 0; i < text.Count; i++)
                 {
-                    if(i == curText)
+                    if (i == curText)
                     {
 #pragma warning disable 0618
                         text[i].active = true;
@@ -68,15 +51,25 @@ public class Dialogue : MonoBehaviour
                 dialogueBox.active = false;
                 if (PlayerControllerIsometric.canMove && !dialogueBox.active)
                 {
-                    PlayerControllerIsometric.startingDialogueActive = false;
+                    Time.timeScale = 1;
                     //Debug.Log(PlayerControllerIsometric.canMove);
-                    this.enabled = false;
+                    Destroy(this.gameObject);
 
                 }
             }
 
         }
+    }
 
-        
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            //DebugEx.Log("trigger");
+            dialogueBox.SetActive(true);
+            PlayerControllerIsometric.canMove = false;
+            textDisplayed = true;
+            Time.timeScale = 0;
+        }
     }
 }

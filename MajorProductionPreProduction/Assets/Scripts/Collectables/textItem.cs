@@ -26,6 +26,9 @@ public class textItem : MonoBehaviour
     bool itemInfoActive;
     private Vector3 lastRecordedPosition;
 
+    private int curText;
+    public List<GameObject> text;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +61,7 @@ public class textItem : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.E) && item.enabled)
             {
                 item.enabled = false;
-                itemInfoBox.SetActive(true);//get a direct refernce to child object instead
+                //itemInfoBox.SetActive(true);//get a direct refernce to child object instead
                                         //itemInfoActive = true;
                 PlayerControllerIsometric.canMove = false;
                 itemInfoBox.gameObject.SetActive(true);
@@ -68,10 +71,45 @@ public class textItem : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0) && itemInfoActive || Input.GetKeyUp(KeyCode.E) && itemInfoActive)
             {
-                PlayerControllerIsometric.canMove = true;
-                Destroy(this.gameObject);
-                Destroy(itemInfoBox.gameObject);
+                curText++;
+
+                //still text left
+                if (curText < text.Count)
+                {
+                    for (int i = 0; i < text.Count; i++)
+                    {
+                        if (i == curText)
+                        {
+#pragma warning disable 0618
+                            text[i].active = true;
+                        }
+                        else
+                        {
+                            text[i].active = false;
+                        }
+                    }
+                }
+                //no text left
+                if (curText >= text.Count)
+                {
+                    PlayerControllerIsometric.canMove = true;
+                    itemInfoBox.gameObject.SetActive(true);
+                    itemInfoActive = false;
+                    if (PlayerControllerIsometric.canMove && !itemInfoActive)
+                    {
+                        Time.timeScale = 1;
+                        //Debug.Log(PlayerControllerIsometric.canMove);
+                        Destroy(itemInfoBox.gameObject);
+
+                    }
+                }
+
+                //PlayerControllerIsometric.canMove = true;
+                //Destroy(this.gameObject);
+                //Destroy(itemInfoBox.gameObject);
             }
+
+            
 
             RangeCheck();
         }
@@ -115,7 +153,7 @@ public class textItem : MonoBehaviour
     //    if (player != null)
     //    {
 
-            
+
 
     //    }
     //}
@@ -127,10 +165,10 @@ public class textItem : MonoBehaviour
     //    }
     //}
 
-    //void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawSphere(transform.position, radius);
-    //}
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
 }
 

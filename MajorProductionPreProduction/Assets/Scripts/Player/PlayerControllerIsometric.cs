@@ -48,7 +48,10 @@ public class PlayerControllerIsometric : MonoBehaviour
     
     public bool staggered;//staggered state
     public static float staggerTimer { get; set; }
-    
+
+    public static bool startingDialogueActive { get; set; }
+
+    public static int killcount { get; set; }
 
     private enum movementType
     {
@@ -63,10 +66,17 @@ public class PlayerControllerIsometric : MonoBehaviour
     private float knockedbackAmount;
     private Vector3 directionKnockedback;
     private movementType curMovement;
+    public bool canToggleFlight;
+    private float lastwalkableTerrainPosY;
+    public bool descending;
+
     //private bool flying;
 
     private void Start()
     {
+        killcount = 0;
+
+        startingDialogueActive = false;
         
         //gravity
         gravity = true;
@@ -80,6 +90,9 @@ public class PlayerControllerIsometric : MonoBehaviour
         //control over player
         canMove = true;
 
+        //stagger state
+        staggered = false;
+
         //Collider defaults
         rb = GetComponent<Rigidbody>();
         velocity = rb.velocity;
@@ -88,18 +101,26 @@ public class PlayerControllerIsometric : MonoBehaviour
         originalSize = thisCollider.size;
         skinWidthSize = new Vector3(thisCollider.size.x + skinWidth, thisCollider.size.y + skinWidth, thisCollider.size.z + skinWidth);
         isGrounded = false;
+        projectedPosition = rb.position;//prevents player from teleporting to position 0,0,0
+        //DebugEx.Log("Start player Coroutine");
         StartCoroutine(LateStart(.1f));
     }
 
     IEnumerator LateStart(float waitTime)
     {
+        //DebugEx.Log("yield player: " + waitTime * 2);
         yield return new WaitForSeconds(waitTime * 2);
-        if (!canMove)
+        //DebugEx.Log("adjust rotation");
+        if (!canMove || startingDialogueActive)
         {
             rb.rotation = startRotation;
         }
+        //DebugEx.Log("yield player: " + waitTime);
         yield return new WaitForSeconds(waitTime);
+        //DebugEx.Log("can click");
         Dialogue.canClick = true;
+        canMove = false;
+        
         //DebugEx.Log(canMove);
     }
 
@@ -114,12 +135,37 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
 
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            curMovement = movementType.dash;
+            timer = 0;
+        }
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        //flight mode toggle conditions
+        if (rb.position.y == lastwalkableTerrainPosY && !canToggleFlight)//ascending
+        {
+            descending = false;
+            canToggleFlight = true;
+        }
+        if (rb.position.y == targetFlyPosY && !canToggleFlight && !descending)//descending
+        {
+            //DebugEx.Log(isGrounded);
+            descending = true;
+            canToggleFlight = true;
+        }
+
+        //starting dialogue check
+        if (startingDialogueActive && canMove)
+        {
+            canMove = false;
+            rb.rotation = startRotation;
+
+        }
         //stagger logic
         if (staggerTimer > 0)
         {
@@ -150,14 +196,6 @@ public class PlayerControllerIsometric : MonoBehaviour
             }
         }
 
-        
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            curMovement = movementType.dash;
-            timer = 0;
-        }
-
         // switch
         // walking => projectedPosition
         // dashing => projectedPosition
@@ -180,20 +218,31 @@ public class PlayerControllerIsometric : MonoBehaviour
                 break;
             case movementType.fly:
 
-
-                if(rb.position.y < targetFlyPosY)
+                if (canMove)
                 {
-                    Vector3 targetPos = rb.position;
-                    targetPos.y = targetFlyPosY;
-                    Vector3 direction = (targetPos - rb.position).normalized;
-                    projectedPosition.y = rb.position.y + (velocity.y + direction.y * moveSpeed) * Time.deltaTime;
-                    Debug.DrawRay(transform.position, direction * 5);
-                    //rb.position = targetPos;
+                    canToggleFlight = false;
+                    if(rb.position.y > targetFlyPosY)
+                    {
+                        projectedPosition.y = targetFlyPosY;
+                    }
+                    if (rb.position.y < targetFlyPosY)
+                    {
+                        Vector3 targetPos = rb.position;
+                        targetPos.y = targetFlyPosY;
+                        Vector3 direction = (targetPos - rb.position).normalized;
+                        projectedPosition.y = rb.position.y + (velocity.y + direction.y * moveSpeed) * Time.deltaTime;
+                        Debug.DrawRay(transform.position, direction * 5);
+                        //rb.position = targetPos;
 
-                }
-                else
-                {
-                    curMovement = movementType.walk;
+                    }
+                    else
+                    {
+                        if (canMove)
+                        {
+                            curMovement = movementType.walk;
+
+                        }
+                    }
                 }
                 break;
             
@@ -261,8 +310,8 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                         //DebugEx.Log("walkable slope");
                         isGrounded = true;
-
-
+                        lastwalkableTerrainPosY = rb.position.y;
+                        //DebugEx.Log(lastwalkableTerrainPosY);
 
                     }
                     else//if slope too steep
@@ -308,24 +357,26 @@ public class PlayerControllerIsometric : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            gravity = !gravity;
-
-            if (!gravity)
+            if (canMove && canToggleFlight)
             {
-                curMovement = movementType.fly;
-            }
+                canToggleFlight = false;
+                gravity = !gravity;
 
-            //if (gravity)
-            //{
-            //    DebugEx.Log("walk");
-            //    curMovement = movementType.walk;
-            //}
-            //else
-            //{
-            //    DebugEx.Log("fly");
-            //    curMovement = movementType.fly;
-            //}
+                if (!gravity)
+                {
+                    
+                    curMovement = movementType.fly;
+                }
+                else
+                {
+                    curMovement = movementType.walk;
+                }
+
+            }
         }
+
+        
+
     }
 
     public void KnockBack(float strength, Vector3 direction)

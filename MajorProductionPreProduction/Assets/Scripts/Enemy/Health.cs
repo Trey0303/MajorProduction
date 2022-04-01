@@ -10,13 +10,6 @@ public class Health : MonoBehaviour
     public float dropRate = .50f;
     public GameObject healthItemPrefab;
 
-    private void Start()
-    {
-        //enemySpawner = GameObject.Find("EnemySpawner").GetComponent<Enemy>();   
-        //health += enemySpawner.healthIncrease;
-
-    }
-
     private void Update()
     {
         if(health <= 0)
@@ -27,10 +20,7 @@ public class Health : MonoBehaviour
             {
                 GameObject healthDrop = Instantiate(healthItemPrefab, new Vector3(transform.position.x, GameObject.Find("Player").transform.position.y, transform.position.z), transform.rotation);
             }
-
-            //PlayerVariableData.money += 1 + enemySpawner.moneyEarnIncrease;
-            //Debug.Log(enemySpawner.moneyEarnIncrease);
-            //enemySpawner.dead = true;
+            PlayerControllerIsometric.killcount = PlayerControllerIsometric.killcount + 1;//increase kill count by 1
             Destroy(this.gameObject);
         }
     }
