@@ -49,12 +49,14 @@ public class EnemyAi : MonoBehaviour
     //hurt state
     public float staggerTimer;
     public bool staggered = false;
+
     
     //shoot
     private float firingTimer;//fire interval
     
     //melee
     private float hitTimer;//hit interval
+    public bool midAttack = false;
     
     
     private enum movementType
@@ -96,12 +98,17 @@ public class EnemyAi : MonoBehaviour
                 break;
             case movementType.move:
                 //DebugEx.Log("MOVE");
-                navAgent.enabled = true;
-                if (!staggered)
+                if (!midAttack)
                 {
-                    navAgent.SetDestination(new Vector3(target.position.x, 0/*prevents enemy from looking up*/, target.position.z));
+                    navAgent.enabled = true;
+                    if (!staggered)
+                    {
+                        navAgent.SetDestination(new Vector3(target.position.x, 0/*prevents enemy from looking up*/, target.position.z));
+
+                    }
 
                 }
+
                 break;
             case movementType.hit:
                 if (canHit)
@@ -109,19 +116,24 @@ public class EnemyAi : MonoBehaviour
                     navAgent.enabled = false;
 
                     //update rotation
-                    Vector3 direction = (target.position - transform.position).normalized;
-                    direction.y = 0;//prevents enemy from looking up
-                    rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+
 
                     if (!staggered)
                     {
-                        hitTimer -= Time.deltaTime;
-                        //DebugEx.Log("hitTimer: " + hitTimer);
-                        if(hitTimer <= 0.0f)
+                        if (!midAttack)
                         {
-                            Attack();
-                            hitTimer = meleeStartup;
+                            Vector3 direction = (target.position - transform.position).normalized;
+                            direction.y = 0;//prevents enemy from looking up
+                            rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
 
+                            hitTimer -= Time.deltaTime;
+                            //DebugEx.Log("hitTimer: " + hitTimer);
+                            if(hitTimer <= 0.0f)
+                            {
+                                Attack();
+                                hitTimer = meleeStartup;
+
+                            }
                         }
 
                     }
@@ -134,23 +146,29 @@ public class EnemyAi : MonoBehaviour
                 {
                     navAgent.enabled = false;
 
-                    //update rotation
-                    Vector3 direction = (target.position - transform.position).normalized;
-                    direction.y = 0;//prevents enemy from looking up
-                    rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
-
-                    //shoot
-                    if (firingTimer <= 0.0f)
+                    if (!midAttack)
                     {
-                    
-                        if(!staggered)
+                        //update rotation
+                        Vector3 direction = (target.position - transform.position).normalized;
+                        direction.y = 0;//prevents enemy from looking up
+                        rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+                        
+                        //shoot
+                        if (firingTimer <= 0.0f)
                         {
-                            Fire();
+                    
+                            if(!staggered)
+                            {
+                                Fire();
 
-                            firingTimer = firingInterval;
+                                firingTimer = firingInterval;
 
+                            }
                         }
                     }
+
+                        
+
 
                 }
 
@@ -223,9 +241,10 @@ public class EnemyAi : MonoBehaviour
     {
         if (attack.skillData != null)
         {
+            midAttack = true;
             playerKnockedBackTime = playerKnockedbackTimeSet;
             attack.Use(this.gameObject, meleeKnockback);
-
+            //midAttack = false;
         }
     }
 

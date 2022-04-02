@@ -16,5 +16,6 @@ MonoBehaviour:
   damage: 0
   maxLevel: 0
   cost: 0
+  activeHitBox: 0.5
   hurtboxPrefab: {fileID: 1862325864672306309, guid: 46a65f658b4267745a32ff80fdae5f8c, type: 3}
   range: 4
