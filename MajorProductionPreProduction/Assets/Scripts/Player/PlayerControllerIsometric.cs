@@ -73,8 +73,9 @@ public class PlayerControllerIsometric : MonoBehaviour
     private movementType curMovement;
     public bool canToggleFlight;
     private float lastwalkableTerrainPosY;
-    public bool descending;
+    public bool FlightMode;
     public bool canDash;
+    public bool isAtFlightHeight;
 
     //private bool flying;
 
@@ -147,6 +148,8 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             if (canMove && canToggleFlight)
             {
+                FlightMode = !FlightMode;
+                isAtFlightHeight = false;
                 canDash = false;
                 canToggleFlight = false;
                 gravity = !gravity;
@@ -174,8 +177,6 @@ public class PlayerControllerIsometric : MonoBehaviour
 
             }
         }
-        
-
     }
 
     // Update is called once per frame
@@ -183,19 +184,25 @@ public class PlayerControllerIsometric : MonoBehaviour
     {
 
         //flight mode toggle conditions
-        if (rb.position.y == lastwalkableTerrainPosY && !canToggleFlight)//ascending
+        if (isGrounded && !canToggleFlight && !FlightMode)//Currently in ground mode
         {
-            descending = false;
+            //FlightMode = false;
             canToggleFlight = true;
             canDash = true;
         }
-        if (rb.position.y == targetFlyPosY && !canToggleFlight && !descending)//descending
+        else if (rb.position.y == targetFlyPosY && !canToggleFlight && FlightMode)//currently in Flight mode
         {
             //DebugEx.Log(isGrounded);
-            descending = true;
+            isGrounded = false;
+            //FlightMode = true;
             canToggleFlight = true;
             canDash = true;
         }
+        //else if(!isGrounded || !isAtFlightHeight)
+        //{
+        //    //DebugEx.Log("player currently switching mode");
+        //    //canToggleFlight = false;
+        //}
 
         //starting dialogue check
         if (startingDialogueActive && canMove)
@@ -258,7 +265,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 if (canMove)
                 {
-                    canToggleFlight = false;
+                    //canToggleFlight = false;
                     if(rb.position.y > targetFlyPosY)
                     {
                         projectedPosition.y = targetFlyPosY;
@@ -270,6 +277,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                         Vector3 direction = (targetPos - rb.position).normalized;
                         projectedPosition.y = rb.position.y + (velocity.y + direction.y * moveSpeed) * Time.deltaTime;
                         Debug.DrawRay(transform.position, direction * 5);
+                        
                         //rb.position = targetPos;
 
                     }
@@ -277,6 +285,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     {
                         if (canMove)
                         {
+                            isAtFlightHeight = true;
                             curMovement = movementType.walk;
 
                         }
@@ -307,8 +316,6 @@ public class PlayerControllerIsometric : MonoBehaviour
 
             //collide/overlap Detection                                              Skin Width: Add this skin width when performing your collision tests. For example, if my KinematicCharacter has a BoxCollider that has a size of 1,1,1, then I should be testing with a box whose full-extents are 1.001, 1.001, 1.001 when calling Physics.OverlapBox.
             Collider[] hitColliders = Physics.OverlapBox(projectedPosition, skinWidthSize / 2, Quaternion.identity, mask);//Remember that Physics.OverlapBox asks for the half-extents so you'll need to divide the box's size by two before passing it along.
-
-
 
             //Check when there is a new collider coming into contact with the box
             for (int i = 0; i < hitColliders.Length; i++)
@@ -350,7 +357,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                             //DebugEx.Log("walkable slope");
                             isGrounded = true;
-                            lastwalkableTerrainPosY = rb.position.y;
+                            //lastwalkableTerrainPosY = rb.position.y;
                             //DebugEx.Log(lastwalkableTerrainPosY);
 
                         }
@@ -378,7 +385,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                             //DebugEx.Log("walkable slope");
                             isGrounded = true;
-                            lastwalkableTerrainPosY = rb.position.y;
+                            //lastwalkableTerrainPosY = rb.position.y;
                             //DebugEx.Log(lastwalkableTerrainPosY);
 
                         }
@@ -396,14 +403,12 @@ public class PlayerControllerIsometric : MonoBehaviour
                     }
 
                 }
-
-
-
             }
 
             thisCollider.size = originalSize;
             //DebugEx.Log("thiscollider.size: " + thisCollider.size);
-           rb.MovePosition(projectedPosition);
+            rb.MovePosition(projectedPosition);
+            //DebugEx.Log(isGrounded);
         }
         
 
