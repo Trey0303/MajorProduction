@@ -66,12 +66,20 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        if(PlayerControllerIsometric.stamina < maxStamina)
+        if (PlayerControllerIsometric.stamina < maxStamina)
         {
             if (RegenWaitTimer <= 0)
             {
-                PlayerControllerIsometric.stamina = PlayerControllerIsometric.stamina + 1;
+                if(PlayerControllerIsometric.stamina  < staminabar.maxValue)
+                {
+                    PlayerControllerIsometric.stamina = PlayerControllerIsometric.stamina + 1;
 
+                }
+
+            }
+            else
+            {
+                RegenWaitTimer = RegenWaitTimer - Time.deltaTime;
             }
         }
     }

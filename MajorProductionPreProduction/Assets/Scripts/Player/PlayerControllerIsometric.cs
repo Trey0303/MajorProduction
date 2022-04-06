@@ -13,7 +13,9 @@ public class PlayerControllerIsometric : MonoBehaviour
     //public float dashDistance = 10;//how far player with evade
     public float dashSpeed = 44f;
     public float dashCost = 10;
+    public float flightCost;
     
+    public float timeToWaitBeforeStaminaRegen = 1f;
 
     [Header("height in flight mode")]
     public float targetFlyPosY;//target y position in flight mode
@@ -144,7 +146,11 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.K)){
+            PlayerHealth.curHealth = 0;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) && stamina >= flightCost)
         {
             if (canMove && canToggleFlight)
             {
@@ -251,12 +257,26 @@ public class PlayerControllerIsometric : MonoBehaviour
             case movementType.walk:
                 if (canMove)
                 {
+                    if (isAtFlightHeight)
+                    {
+                        PlayerHealth.RegenWaitTimer = timeToWaitBeforeStaminaRegen;
+                        stamina = stamina - flightCost;
+                    }
+                    if(flightCost > stamina)
+                    {
+                        isAtFlightHeight = false;
+                        FlightMode = false;
+                        gravity = true;
+                    }
+
                     Movement(input);   
                 }
                 break;
             case movementType.dash:
                 if (canMove && canDash)
                 {
+                    PlayerHealth.RegenWaitTimer = timeToWaitBeforeStaminaRegen;
+                    stamina = stamina - dashCost;
                     Dash();   
 
                 }
@@ -265,6 +285,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 if (canMove)
                 {
+                    
                     //canToggleFlight = false;
                     if(rb.position.y > targetFlyPosY)
                     {
