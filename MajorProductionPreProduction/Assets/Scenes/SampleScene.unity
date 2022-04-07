@@ -177,7 +177,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -202,6 +202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -220,7 +222,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 20494128}
   target: {fileID: 447524992}
@@ -596,7 +598,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -621,6 +623,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -639,7 +643,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 107018276}
   target: {fileID: 447524992}
@@ -930,7 +934,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -955,6 +959,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -973,7 +979,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 112717142}
   target: {fileID: 447524992}
@@ -1291,7 +1297,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1316,6 +1322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -1334,7 +1342,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 149801491}
   target: {fileID: 447524992}
@@ -1510,7 +1518,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1535,6 +1543,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -1553,7 +1563,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 151402632}
   target: {fileID: 447524992}
@@ -1824,7 +1834,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1849,6 +1859,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -1867,7 +1879,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 197965959}
   target: {fileID: 447524992}
@@ -2795,6 +2807,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 1.5
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -2813,7 +2827,7 @@ MonoBehaviour:
   meleeKnockback: 22.37
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1.5
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 677442627}
   target: {fileID: 447524992}
@@ -3460,6 +3474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 49.8
+  moveSpeed: 1.5
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 1459d157bf3e46f4aa682985007f3a9a, type: 3}
   shootRange: 35.85
   firingInterval: 1.07
@@ -3478,7 +3494,7 @@ MonoBehaviour:
   meleeKnockback: 25
   playerKnockedbackTimeSet: 0.44
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 809509443}
   target: {fileID: 447524992}
@@ -3701,7 +3717,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -3726,6 +3742,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -3744,7 +3762,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 821292205}
   target: {fileID: 447524992}
@@ -4333,7 +4351,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4358,6 +4376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -4376,7 +4396,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 939940558}
   target: {fileID: 447524992}
@@ -4795,6 +4815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 1.5
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -4813,7 +4835,7 @@ MonoBehaviour:
   meleeKnockback: 22.37
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 1042425495}
   target: {fileID: 447524992}
@@ -5410,7 +5432,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -5435,6 +5457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -5453,7 +5477,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 1176525971}
   target: {fileID: 447524992}
@@ -5861,6 +5885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 1.5
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -5879,7 +5905,7 @@ MonoBehaviour:
   meleeKnockback: 22.37
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 1288725852}
   target: {fileID: 447524992}
@@ -6197,7 +6223,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -6222,6 +6248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -6240,7 +6268,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 1338855069}
   target: {fileID: 447524992}
@@ -6416,7 +6444,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -6441,6 +6469,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -6459,7 +6489,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 1
   setStaggerTime: 5
   navAgent: {fileID: 1356364240}
   target: {fileID: 447524992}
@@ -6794,7 +6824,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -6819,6 +6849,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -6837,7 +6869,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 1451715598}
   target: {fileID: 447524992}
@@ -7962,7 +7994,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -7987,6 +8019,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -8005,7 +8039,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 1833586716}
   target: {fileID: 447524992}
@@ -8340,7 +8374,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -8365,6 +8399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -8383,7 +8419,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 0
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 1929734278}
   target: {fileID: 447524992}
@@ -8602,7 +8638,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -8627,6 +8663,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
+  moveSpeed: 2
+  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -8645,7 +8683,7 @@ MonoBehaviour:
   meleeKnockback: 22.37
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndTimer: 1
+  attackEndLag: 0.7
   setStaggerTime: 5
   navAgent: {fileID: 2005976434}
   target: {fileID: 447524992}
@@ -9166,12 +9204,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: meleeRange
       value: 4.99
       objectReference: {fileID: 0}
     - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: shootRange
       value: 12.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
+      propertyPath: rotateSpeed
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 70030304500151493, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: meleeStartup
@@ -9204,6 +9250,10 @@ PrefabInstance:
     - target: {fileID: 70030304500151494, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 70030304500151548, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
+      propertyPath: m_Speed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 70030304500151549, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: target
@@ -9530,7 +9580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1527980685284026579, guid: 38a974355d867c04980c2d4f83c2b787, type: 3}
       propertyPath: RegenBy
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1527980685284026579, guid: 38a974355d867c04980c2d4f83c2b787, type: 3}
       propertyPath: staminabar
@@ -9658,8 +9708,12 @@ PrefabInstance:
       value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 4845652960988003184, guid: 6ef24f9d35f9f4545bfc036dd720776c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 18.752916
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845652960988003184, guid: 6ef24f9d35f9f4545bfc036dd720776c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.9
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 4845652960988003184, guid: 6ef24f9d35f9f4545bfc036dd720776c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9667,7 +9721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845652960988003184, guid: 6ef24f9d35f9f4545bfc036dd720776c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11
+      value: 32.6
       objectReference: {fileID: 0}
     - target: {fileID: 4845652960988003184, guid: 6ef24f9d35f9f4545bfc036dd720776c, type: 3}
       propertyPath: m_LocalRotation.w

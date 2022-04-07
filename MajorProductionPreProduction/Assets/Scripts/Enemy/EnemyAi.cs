@@ -14,6 +14,9 @@ public class EnemyAi : MonoBehaviour
     //enemy aggro/move towards player
     [Header("Aggro Range")]
     public float range = 5;
+    public float moveSpeed = 2f;
+    public float angleSpeed = 2f;
+
     
     [Header("Shoot Settings")]
     //shoot
@@ -96,17 +99,26 @@ public class EnemyAi : MonoBehaviour
         {
             case movementType.idle:
                 //DebugEx.Log("IDLE");
-                navAgent.enabled = false;
+                //navAgent.enabled = false;
+                //navAgent.isStopped = true;
+                //navAgent.updateRotation = false;
+                navAgent.speed = 0;
+                navAgent.angularSpeed = 0;
 
                 break;
             case movementType.move:
                 //DebugEx.Log("MOVE");
                 if (!midAttack)
                 {
-                    navAgent.enabled = true;
+                    //navAgent.enabled = true;
+                    //navAgent.isStopped = false;
+                    //navAgent.updateRotation = true;
+                    navAgent.speed = moveSpeed;
+                    navAgent.angularSpeed = angleSpeed;
+
                     if (!staggered)
                     {
-                        navAgent.SetDestination(new Vector3(target.position.x, 0/*prevents enemy from looking up*/, target.position.z));
+                        navAgent.SetDestination(new Vector3(target.position.x, 0, target.position.z));
 
                     }
 
@@ -116,11 +128,13 @@ public class EnemyAi : MonoBehaviour
             case movementType.hit:
                 if (canHit)
                 {
-                    navAgent.enabled = false;
+                    //navAgent.enabled = false;
+                    //navAgent.isStopped = true;
+                    //navAgent.updateRotation = false;
+                    navAgent.speed = 0;
+                    navAgent.angularSpeed = 0;
 
                     //update rotation
-
-
                     if (!staggered)
                     {
                         if (!midAttack)
@@ -147,7 +161,11 @@ public class EnemyAi : MonoBehaviour
                 //stop navMesh movement and rotation
                 if (canShoot)
                 {
-                    navAgent.enabled = false;
+                    //navAgent.enabled = false;
+                    //navAgent.isStopped = true;
+                    //navAgent.updateRotation = false;
+                    navAgent.speed = 0;
+                    navAgent.angularSpeed = 0;
 
                     if (!midAttack)
                     {
