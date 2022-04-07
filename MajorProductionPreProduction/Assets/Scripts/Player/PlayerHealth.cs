@@ -11,11 +11,11 @@ public class PlayerHealth : MonoBehaviour
     //health
     public Slider healthbar;
     public int gameoverScene;
+    public static float curHealth { get; set; }
 
     //stamina
     public Slider staminabar;
 
-    public static float curHealth { get; set; }
 
     public float maxStamina = 100;
     public float RegenBy;

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: EnemyAttack
   m_EditorClassIdentifier: 
   skillName: Punch
-  damage: 0
+  damage: 1
   maxLevel: 0
   cost: 0
-  activeHitBox: 2
+  activeHitBoxTimer: 1
   hurtboxPrefab: {fileID: 1862325864672306309, guid: fe8cd2218dcec4c478a39efd8711a4ef, type: 3}
   range: 1.47

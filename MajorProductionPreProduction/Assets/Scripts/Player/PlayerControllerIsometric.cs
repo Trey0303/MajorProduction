@@ -75,7 +75,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private movementType curMovement;
     public bool canToggleFlight;
     private float lastwalkableTerrainPosY;
-    public bool FlightMode;
+    public bool flightMode;
     public bool canDash;
     public bool isAtFlightHeight;
 
@@ -154,7 +154,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             if (canMove && canToggleFlight)
             {
-                FlightMode = !FlightMode;
+                flightMode = !flightMode;
                 isAtFlightHeight = false;
                 canDash = false;
                 canToggleFlight = false;
@@ -179,7 +179,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             {
                 curMovement = movementType.dash;
                 timer = 0;
-                stamina = stamina - dashCost;
+                //stamina = stamina - dashCost;
 
             }
         }
@@ -190,13 +190,13 @@ public class PlayerControllerIsometric : MonoBehaviour
     {
 
         //flight mode toggle conditions
-        if (isGrounded && !canToggleFlight && !FlightMode)//Currently in ground mode
+        if (isGrounded && !canToggleFlight && !flightMode)//Currently in ground mode
         {
             //FlightMode = false;
             canToggleFlight = true;
             canDash = true;
         }
-        else if (rb.position.y == targetFlyPosY && !canToggleFlight && FlightMode)//currently in Flight mode
+        else if (rb.position.y == targetFlyPosY && !canToggleFlight && flightMode)//currently in Flight mode
         {
             //DebugEx.Log(isGrounded);
             isGrounded = false;
@@ -265,7 +265,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     if(flightCost > stamina)
                     {
                         isAtFlightHeight = false;
-                        FlightMode = false;
+                        flightMode = false;
                         gravity = true;
                     }
 

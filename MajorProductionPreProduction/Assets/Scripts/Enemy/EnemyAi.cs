@@ -31,6 +31,7 @@ public class EnemyAi : MonoBehaviour
     public float meleeKnockback = 4.5f;//amount of knockback player will receive
     public float playerKnockedbackTimeSet = 1;//length of time that player will receive 'meleeKnockback'
     public bool canHit;
+    public float attackEndLag = .7f;
 
     [Header("Staggered timer")]
     //staggered/hurt state
@@ -57,7 +58,8 @@ public class EnemyAi : MonoBehaviour
     //melee
     private float hitTimer;//hit interval
     public bool midAttack = false;
-    
+
+    private float attackEndLagTimer;
     
     private enum movementType
     {
@@ -77,6 +79,7 @@ public class EnemyAi : MonoBehaviour
         if (attack.skillData != null)
         {
             attack.AddSkill();
+            attackEndLagTimer = attackEndLag + attack.skillData.activeHitBoxTimer;
         }
         hitTimer = meleeStartup;
         staggered = false;
@@ -166,10 +169,6 @@ public class EnemyAi : MonoBehaviour
                             }
                         }
                     }
-
-                        
-
-
                 }
 
                 break;
@@ -184,6 +183,19 @@ public class EnemyAi : MonoBehaviour
         {
             //shoot timer
             firingTimer -= Time.deltaTime;
+
+            //if enemy is in the middle of its attack
+            if (midAttack)
+            {
+                attackEndLagTimer = attackEndLagTimer - Time.deltaTime;
+                //attack.skillData.activeHitBoxTimer = attack.skillData.activeHitBoxTimer - Time.deltaTime;
+            }
+            if (attackEndLagTimer <= 0)
+            {
+                midAttack = false;
+                attackEndLagTimer = attack.skillData.activeHitBoxTimer + attackEndLagTimer;
+
+            }
 
             //stagger logic
             if (staggered)

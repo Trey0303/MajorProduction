@@ -9,7 +9,7 @@ public class SkillObj : ScriptableObject
     public int damage;
     public int maxLevel;
     public int cost;
-    public float activeHitBox;
+    public float activeHitBoxTimer;
 
     //use skill
     //public string characterName;

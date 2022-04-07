@@ -45,10 +45,15 @@ public class PhysicalSkill : SkillObj
 
         box.transform.parent = wielder.transform;
         
-        Destroy(box, activeHitBox);
-        //if(wielder.tag == "Enemy" )
+        Destroy(box, activeHitBoxTimer);
+        //if (wielder.tag == "Enemy")
         //{
-        //    wielder.GetComponent<EnemyAi>().midAttack = false;
+        //    if(wielder.GetComponent<EnemyAi>().attackDelay <= 0)
+        //    {
+        //        wielder.GetComponent<EnemyAi>().midAttack = false;
+
+        //    }
+
 
         //}
     }
