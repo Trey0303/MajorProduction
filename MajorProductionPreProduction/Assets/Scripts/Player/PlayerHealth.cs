@@ -18,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
     public static float curHealth { get; set; }
 
     public float maxStamina = 100;
+    public float RegenBy;
+
     public static float RegenWaitTimer { get; set; }
 
     // Start is called before the first frame update
@@ -72,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
             {
                 if(PlayerControllerIsometric.stamina  < staminabar.maxValue)
                 {
-                    PlayerControllerIsometric.stamina = PlayerControllerIsometric.stamina + 1;
+                    PlayerControllerIsometric.stamina = PlayerControllerIsometric.stamina + RegenBy * Time.deltaTime;
 
                 }
 

@@ -7,9 +7,12 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
 
+    private bool paused;
+
     private void Start()
     {
         pauseMenu.SetActive(false);
+        paused = false;
     }
 #pragma warning disable 0618
     private void Update()
@@ -17,6 +20,7 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             pauseMenu.SetActive(!pauseMenu.active);
+            paused = !paused;
 
             //pauseMenu.active = !pauseMenu.active;
         }
@@ -25,7 +29,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0;
             PlayerControllerIsometric.canMove = false;
         }
-        else if(Time.timeScale == 0 && !pauseMenu.active)
+        if (Time.timeScale == 0 && !pauseMenu.active && paused)
         {
             Time.timeScale = 1;
             PlayerControllerIsometric.canMove = true;

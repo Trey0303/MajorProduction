@@ -24,6 +24,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (textDisplayed)
         {
+            Time.timeScale = 0;
             if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.E))
             {
                 curText++;
