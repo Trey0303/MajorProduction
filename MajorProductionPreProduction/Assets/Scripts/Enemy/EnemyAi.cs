@@ -30,7 +30,7 @@ public class EnemyAi : MonoBehaviour
     public SkillProgress attack;//enemy attack
     public float meleeRange = 3.15f;//melee state range
     public float meleeStartup = 1.5f;//melee interval
-    public float meleeStaggerTime = .7f;//give stagger time to player on hit
+    public float playerMeleeStaggerTime = .7f;//give stagger time to player on hit
     public float meleeKnockback = 4.5f;//amount of knockback player will receive
     public float playerKnockedbackTimeSet = 1;//length of time that player will receive 'meleeKnockback'
     public bool canHit;
@@ -74,7 +74,7 @@ public class EnemyAi : MonoBehaviour
     }
 
     private movementType curMovement;
-    public static float playerKnockedBackTime;
+    public static float playerKnockedBackTime { get; set; }
 
     private void Start()
     {
@@ -287,7 +287,7 @@ public class EnemyAi : MonoBehaviour
         {
             midAttack = true;
             playerKnockedBackTime = playerKnockedbackTimeSet;
-            attack.Use(this.gameObject, meleeKnockback);
+            attack.Use(this.gameObject, meleeKnockback, playerKnockedBackTime);
             //midAttack = false;
         }
     }

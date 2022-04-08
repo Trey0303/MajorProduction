@@ -439,21 +439,31 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     private void knockbackLogic(float strength, Vector3 direction)
     {
+        //Old
         knockbackTimer = knockbackTimer + Time.deltaTime;
         projectedPosition = rb.position + (velocity + direction.normalized * strength) * Time.deltaTime;
         //DebugEx.Log(knockbackTimer);
         //DebugEx.Log("Target Time: " + EnemyAi.playerKnockedBackTime);
-        if (knockbackTimer >= EnemyAi.playerKnockedBackTime)
+        if (knockbackTimer >= EnemyAi.playerKnockedBackTime || knockbackTimer >= BossAI.playerKnockedBackTime/*PROBLEM HERE!!!!!*/)
         {
             
             knockbackTimer = 0;
             curMovement = lastmovementType;
 
         }
+
+        //New
+        knockbackTimer = knockbackTimer - Time.deltaTime;
+        projectedPosition = rb.position + (velocity + direction.normalized * strength) * Time.deltaTime;
+
+        if (knockbackTimer <= 0)
+        {
+            curMovement = lastmovementType;
+        }
         
     }
 
-    public void KnockBack(float strength, Vector3 direction)
+    public void Knockback(float strength, float time, Vector3 direction)
     {
         lastmovementType = curMovement;
 
@@ -463,6 +473,8 @@ public class PlayerControllerIsometric : MonoBehaviour
         directionKnockedback.y = 0;
 
         curMovement = movementType.knockback;
+
+        knockbackTimer = time;
 
         
 

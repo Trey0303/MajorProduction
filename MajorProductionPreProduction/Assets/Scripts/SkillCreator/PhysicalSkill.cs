@@ -19,15 +19,19 @@ public class PhysicalSkill : SkillObj
         DisplayHitBox(skillProgDamage);
     }
 
-    //enemy use() for knockback
-    public override void Use(float skillProgDamage, GameObject curWielder, float knockbackAmount)
+
+    public override void Use(float skillProgDamage, GameObject curWielder, float knockbackAmount, float knockbackTimeSet)
     {
         wielder = curWielder;
 
         knockbackStrength = knockbackAmount;
 
+        knockbackTime = knockbackTimeSet;
+
         DisplayHitBox(skillProgDamage);
     }
+
+    //enemy use() for knockback
 
     void DisplayHitBox(float skillProgDamage)
     {

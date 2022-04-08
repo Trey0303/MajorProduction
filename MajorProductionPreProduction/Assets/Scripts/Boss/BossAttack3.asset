@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b753137da5b4ca34fa01522821d6c5ea, type: 3}
-  m_Name: BossMeleeAttack
+  m_Name: BossAttack3
   m_EditorClassIdentifier: 
-  skillName: Attack
-  damage: 0
+  skillName: CriticalAttack
+  damage: 3
   maxLevel: 0
   cost: 0
-  activeHitBox: 0.5
-  hurtboxPrefab: {fileID: 1862325864672306309, guid: 46a65f658b4267745a32ff80fdae5f8c, type: 3}
-  range: 4
+  activeHitBoxTimer: 0.1
+  hurtboxPrefab: {fileID: 0}
+  range: 0

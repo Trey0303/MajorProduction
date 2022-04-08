@@ -3313,6 +3313,7 @@ GameObject:
   - component: {fileID: 809509446}
   - component: {fileID: 809509445}
   - component: {fileID: 809509444}
+  - component: {fileID: 809509452}
   - component: {fileID: 809509443}
   - component: {fileID: 809509442}
   m_Layer: 6
@@ -3346,7 +3347,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 10.58
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -3365,7 +3366,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809509441}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
   m_Name: 
@@ -3519,6 +3520,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &809509452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809509441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c826c88712580154b813616ed5dc4cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 39.43
+  attacks:
+  - skillData: {fileID: 11400000, guid: f56de4ac43f65c848b893640a0d334f0, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 11400000, guid: abf521f39d70db3428176657d397a7e0, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 11400000, guid: 46c948cefa9369749885ca92c99463c4, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  meleeRange: 17.16
+  lightAttackStartup: 1.2
+  lightKnockback: 10.65
+  heavyAttackStartup: 3
+  heavyKnockback: 3
+  criticalAttackStartup: 5
+  criticalKnockback: 5
+  meleeStaggerTime: 0.7
+  playerKnockedbackTimeSet: 2
+  canHit: 1
+  attackEndLag: 5
+  navAgent: {fileID: 809509443}
+  target: {fileID: 447524992}
+  midAttack: 0
 --- !u!1 &815180055
 GameObject:
   m_ObjectHideFlags: 0
@@ -6390,8 +6440,8 @@ MonoBehaviour:
   meleeRange: 4.99
   meleeStartup: 1.3
   meleeStaggerTime: 0.7
-  meleeKnockback: 4.54
-  playerKnockedbackTimeSet: 0.06
+  meleeKnockback: 7.03
+  playerKnockedbackTimeSet: 4.39
   canHit: 1
   attackEndLag: 1
   setStaggerTime: 5

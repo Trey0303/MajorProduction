@@ -16,6 +16,7 @@ public class FindTarget : MonoBehaviour
     {
         if (targets != null)
         {
+            DebugEx.Log("target found");
             for(int i = 0; i < targets.Count; i++)
             {
                 skill.HitTarget(targets[i], damage);
