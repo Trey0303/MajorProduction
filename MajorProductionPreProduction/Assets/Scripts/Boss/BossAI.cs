@@ -5,10 +5,6 @@ using UnityEngine.AI;
 
 public class BossAI : MonoBehaviour
 {
-    //public Agent agent;
-
-    //public float speed = 3.0f;
-
     //enemy aggro/move towards player
     [Header("Aggro Range")]
     public float range = 30;
@@ -20,19 +16,26 @@ public class BossAI : MonoBehaviour
     public float meleeRange = 3.15f;//melee state range
     //public float meleeStartup = 1.5f;//melee interval
 
+    [Header("Light Attack")]
     public float lightAttackStartup = 1.2f;
-    public float lightKnockback = 4.5f;//amount of knockback player will receive
-
-    public float heavyAttackStartup = 3f;
-    public float heavyKnockback = 3f;
-
-    public float criticalAttackStartup = 5f;
-    public float criticalKnockback = 5f;
-
-    public float meleeStaggerTime = .7f;//give stagger time to player on hit
-    public float playerKnockedbackTimeSet = 1;//length of time that player will receive 'meleeKnockback'
-    public bool canHit;
+    public float lightKnockbackStrength = 4.5f;//amount of knockback player will receive
+    public float lightKnockbackTime = 4.5f;
+    public float lightKnockbackStagger = .7f;
     public float attackEndLag = .7f;
+    //public float lightStaggerTime = .7f;//give stagger time to player on hit
+
+    [Header("Heavy Attack")]
+    public float heavyAttackStartup = 3f;
+    public float heavyKnockbackStrength = 5f;
+    public float heavyKnockbackTime = 5f;
+
+    [Header("Critical Attack")]
+    public float criticalAttackStartup = 5f;
+    public float criticalKnockbackStrength = 10f;
+    public float criticalKnockbackTime = 10f;
+
+    //public float playerKnockedbackTimeSet = 1;//length of time that player will receive 'meleeKnockback'
+    public bool canHit;
 
     //Programmer Only
     [Header("other/ programmer variables")]
@@ -49,10 +52,11 @@ public class BossAI : MonoBehaviour
 
     private float attackEndLagTimer;
 
-    private int attackLastUsed = 0;
+    internal int attackLastUsed = 0;
 
     //private movementType curMovement;
-    private int curAction;
+    internal int curAction;
+
     public static float playerKnockedBackTime { get; set; }
 
     private void Start()
@@ -69,7 +73,6 @@ public class BossAI : MonoBehaviour
         hitTimer = lightAttackStartup;
         curAction = 0;
         rb = GetComponent<Rigidbody>();
-        //staggerTimer = setStaggerTime;
     }
 
     // Update is called once per frame
@@ -103,7 +106,9 @@ public class BossAI : MonoBehaviour
                     if (!midAttack)
                     {
                         //TODO: randomly select an attack
-                        curAction = 3;
+                        int randomAttack = Random.Range(3, 6);
+                        curAction = randomAttack;
+                        //DebugEx.Log(randomAttack);
                     }
                 }
                 break;
@@ -122,7 +127,6 @@ public class BossAI : MonoBehaviour
                         direction.y = 0;//prevents enemy from looking up
 
                         var targetRot = Quaternion.LookRotation(direction, Vector3.up);
-                        //rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
                         rb.rotation = targetRot;
                         transform.rotation = targetRot;
 
@@ -150,7 +154,7 @@ public class BossAI : MonoBehaviour
                 break;
                 //HEAVY ATTACK
             case 4:
-                DebugEx.Log("Heavy Attack");
+                //DebugEx.Log("Heavy Attack");
                 if (canHit)
                 {
                     navAgent.updateRotation = false;
@@ -178,7 +182,7 @@ public class BossAI : MonoBehaviour
                                 if (i == attackLastUsed)
                                 {
                                     attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + attackEndLag;
-                                    DebugEx.Log("Reset Timer to: " + attackEndLagTimer);
+                                    //DebugEx.Log("Reset Timer to: " + attackEndLagTimer);
                                 }
                             }
                             HeavyAttack();
@@ -190,7 +194,7 @@ public class BossAI : MonoBehaviour
                 break;
             //CRITICAL ATTACK
             case 5:
-                DebugEx.Log("Critical Attack");
+                //DebugEx.Log("Critical Attack");
                 if (canHit)
                 {
                     navAgent.updateRotation = false;
@@ -218,7 +222,7 @@ public class BossAI : MonoBehaviour
                                 if (i == attackLastUsed)
                                 {
                                     attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + attackEndLag;
-                                    DebugEx.Log("Reset Timer to: " + attackEndLagTimer);
+                                    //ddDebugEx.Log("Reset Timer to: " + attackEndLagTimer);
                                 }
                             }
                             CriticalAttack();
@@ -239,10 +243,8 @@ public class BossAI : MonoBehaviour
         if (target.position.x < transform.position.x + range && target.position.z < transform.position.z + range && target.position.x + range > transform.position.x && target.position.z + range > transform.position.z)
         {
             //DebugEx.Log("Player in range");
-            //shoot timer
-            //firingTimer -= Time.deltaTime;
 
-            //End lag logic
+            //EndLag logic
             //if enemy is in the middle of its attack
              if (attackEndLagTimer > 0 && midAttack)
             {
@@ -252,6 +254,7 @@ public class BossAI : MonoBehaviour
              {
                 //DebugEx.Log("midAttack set back to FALSE");
                 midAttack = false;
+                curAction = 2;
 
              }
 
@@ -287,7 +290,6 @@ public class BossAI : MonoBehaviour
         }
         else//switch back to movement state
         {
-            //Movement(distance);
             curAction = 1;
             //DebugEx.Log("moving towards target");
         }
@@ -300,9 +302,9 @@ public class BossAI : MonoBehaviour
             if (attacks[0].skillData != null)
             {
                 midAttack = true;
-                playerKnockedBackTime = playerKnockedbackTimeSet;
+                //playerKnockedBackTime = lightKnockbackTime;
                 attackLastUsed = 0;
-                attacks[0].Use(this.gameObject, lightKnockback, playerKnockedBackTime);
+                attacks[0].Use(this.gameObject, lightKnockbackStrength, lightKnockbackTime);
 
             }
 
@@ -320,9 +322,9 @@ public class BossAI : MonoBehaviour
             if (attacks[1].skillData != null)
             {
                 midAttack = true;
-                playerKnockedBackTime = playerKnockedbackTimeSet;
+                //playerKnockedBackTime = lightKnockbackTime;
                 attackLastUsed = 1;
-                attacks[1].Use(this.gameObject, heavyKnockback, playerKnockedBackTime);
+                attacks[1].Use(this.gameObject, heavyKnockbackStrength, heavyKnockbackTime);
 
             }
 
@@ -340,9 +342,9 @@ public class BossAI : MonoBehaviour
             if (attacks[2].skillData != null)
             {
                 midAttack = true;
-                playerKnockedBackTime = playerKnockedbackTimeSet;
+                //playerKnockedBackTime = lightKnockbackTime;
                 attackLastUsed = 2;
-                attacks[2].Use(this.gameObject, criticalKnockback);
+                attacks[2].Use(this.gameObject, criticalKnockbackStrength, criticalKnockbackTime);
 
             }
 
@@ -352,19 +354,6 @@ public class BossAI : MonoBehaviour
             DebugEx.Log("Boss attack not attached");
         }
     }
-
-    //void Fire()
-    //{
-    //    if (!staggered)
-    //    {
-    //        GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + bulletSpawnY, transform.position.z), transform.rotation);
-    //        Vector3 playerPositionCopy = target.position;
-    //        playerPositionCopy.y = newBullet.transform.position.y;
-    //        newBullet.transform.forward = (playerPositionCopy - newBullet.transform.position).normalized;
-
-    //    }
-
-    //}
 
     void OnDrawGizmosSelected()
     {

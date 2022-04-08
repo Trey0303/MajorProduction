@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyAttack
   m_EditorClassIdentifier: 
   skillName: Punch
-  damage: 1
+  damage: 0
   maxLevel: 0
   cost: 0
   activeHitBoxTimer: 1

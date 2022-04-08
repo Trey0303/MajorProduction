@@ -146,6 +146,14 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
 
+
+        //if (Input.GetKeyUp(KeyCode.R))
+        //{
+        //    int randomNum = UnityEngine.Random.Range(3, 6);
+        //    DebugEx.Log(randomNum);
+        //}
+
+
         if (Input.GetKeyUp(KeyCode.K)){
             PlayerHealth.curHealth = 0;
         }
@@ -224,12 +232,14 @@ public class PlayerControllerIsometric : MonoBehaviour
             canMove = false;
             staggerTimer -= Time.deltaTime;
             //DebugEx.Log(staggerTimer);
+            //DebugEx.Log(staggered);
         }
         if (staggered && staggerTimer <= 0)
         {
             //staggerTimer = setStaggerTime;
             staggered = false;
             canMove = true;
+            //DebugEx.Log(staggered);
         }
 
 
@@ -440,17 +450,17 @@ public class PlayerControllerIsometric : MonoBehaviour
     private void knockbackLogic(float strength, Vector3 direction)
     {
         //Old
-        knockbackTimer = knockbackTimer + Time.deltaTime;
-        projectedPosition = rb.position + (velocity + direction.normalized * strength) * Time.deltaTime;
-        //DebugEx.Log(knockbackTimer);
-        //DebugEx.Log("Target Time: " + EnemyAi.playerKnockedBackTime);
-        if (knockbackTimer >= EnemyAi.playerKnockedBackTime || knockbackTimer >= BossAI.playerKnockedBackTime/*PROBLEM HERE!!!!!*/)
-        {
+        //knockbackTimer = knockbackTimer + Time.deltaTime;
+        //projectedPosition = rb.position + (velocity + direction.normalized * strength) * Time.deltaTime;
+        ////DebugEx.Log(knockbackTimer);
+        ////DebugEx.Log("Target Time: " + EnemyAi.playerKnockedBackTime);
+        //if (knockbackTimer >= EnemyAi.playerKnockedBackTime || knockbackTimer >= BossAI.playerKnockedBackTime/*PROBLEM HERE!!!!!*/)
+        //{
             
-            knockbackTimer = 0;
-            curMovement = lastmovementType;
+        //    knockbackTimer = 0;
+        //    curMovement = lastmovementType;
 
-        }
+        //}
 
         //New
         knockbackTimer = knockbackTimer - Time.deltaTime;

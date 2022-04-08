@@ -86,21 +86,38 @@ public class SkillObj : ScriptableObject
             }
             else if (targetCollider.gameObject.tag == "Player")//if target is the player
             {
-                DebugEx.Log("player hit");
+                //DebugEx.Log("player hit");
                 if (!PlayerControllerIsometric.invincibility)
                 {
                     PlayerHealth.curHealth = PlayerHealth.curHealth - skillProgDamage;//apply damage to player
-                    PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<EnemyAi>().playerMeleeStaggerTime;//add hit stun to player
-                    //apply knockback
-                    playerRb = targetCollider.gameObject.GetComponent<Rigidbody>();
-                    //targetCollider.transform.position = targetCollider.transform.position + new Vector3(wielder.gameObject.GetComponent<EnemyAi>().meleeKnockback, 0, wielder.gameObject.GetComponent<EnemyAi>().meleeStaggerTime);
 
+                    //apply HITSTUN to the player
+                    if (wielder.tag == "Enemy")
+                    {
+                        PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<EnemyAi>().playerMeleeStaggerTime;//add hit stun to player
+
+                    }
+                    else if(wielder.tag == "Boss") { 
+                        if(wielder.gameObject.GetComponent<BossAI>().curAction == 3)
+                        {
+                            PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<BossAI>().lightKnockbackStagger;//add hit stun to player
+                        }
+                        if (wielder.gameObject.GetComponent<BossAI>().curAction == 4)
+                        {
+                            PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<BossAI>().heavyKnockbackTime;
+                        }
+                        if (wielder.gameObject.GetComponent<BossAI>().curAction == 5)
+                        {
+                            PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<BossAI>().criticalKnockbackTime;
+                        }
+                    }
+                    playerRb = targetCollider.gameObject.GetComponent<Rigidbody>();
                     //playerRb.AddForce(knockbackDirection.normalized * 500);
                     Vector3 knockbackDirection = playerRb.position - wielder.transform.position;
 
                     knockbackDirection.y = 0;
 
-                    playerRb.gameObject.GetComponent<PlayerControllerIsometric>().Knockback(knockbackStrength, knockbackTime,knockbackDirection);
+                    playerRb.gameObject.GetComponent<PlayerControllerIsometric>().Knockback(knockbackStrength, knockbackTime, knockbackDirection);
 
                 }
 
