@@ -61,7 +61,7 @@ public class SkillObj : ScriptableObject
         //hitbox follows player while active
         box.transform.parent = wielder.transform;
 
-        Destroy(box, 0.1f);
+        Destroy(box, activeHitBoxTimer);
     }
 
     //apply damage

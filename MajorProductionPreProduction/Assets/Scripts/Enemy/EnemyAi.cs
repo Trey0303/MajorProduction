@@ -57,6 +57,7 @@ public class EnemyAi : MonoBehaviour
     
     //shoot
     private float firingTimer;//fire interval
+    public float bulletSpawnY = 3;
     
     //melee
     private float hitTimer;//hit interval
@@ -100,10 +101,10 @@ public class EnemyAi : MonoBehaviour
             case movementType.idle:
                 //DebugEx.Log("IDLE");
                 //navAgent.enabled = false;
-                //navAgent.isStopped = true;
-                //navAgent.updateRotation = false;
-                navAgent.speed = 0;
-                navAgent.angularSpeed = 0;
+                navAgent.updateRotation = false;
+                navAgent.isStopped = true;
+                //navAgent.speed = 0;
+                //navAgent.angularSpeed = 0;
 
                 break;
             case movementType.move:
@@ -111,10 +112,10 @@ public class EnemyAi : MonoBehaviour
                 if (!midAttack)
                 {
                     //navAgent.enabled = true;
-                    //navAgent.isStopped = false;
-                    //navAgent.updateRotation = true;
-                    navAgent.speed = moveSpeed;
-                    navAgent.angularSpeed = angleSpeed;
+                    navAgent.updateRotation = true;
+                    navAgent.isStopped = false;
+                    //navAgent.speed = moveSpeed;
+                    //navAgent.angularSpeed = angleSpeed;
 
                     if (!staggered)
                     {
@@ -129,10 +130,10 @@ public class EnemyAi : MonoBehaviour
                 if (canHit)
                 {
                     //navAgent.enabled = false;
-                    //navAgent.isStopped = true;
-                    //navAgent.updateRotation = false;
-                    navAgent.speed = 0;
-                    navAgent.angularSpeed = 0;
+                    navAgent.updateRotation = false;
+                    navAgent.isStopped = true;
+                    //navAgent.speed = 0;
+                    //navAgent.angularSpeed = 0;
 
                     //update rotation
                     if (!staggered)
@@ -141,7 +142,14 @@ public class EnemyAi : MonoBehaviour
                         {
                             Vector3 direction = (target.position - transform.position).normalized;
                             direction.y = 0;//prevents enemy from looking up
-                            rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+
+                            var targetRot = Quaternion.LookRotation(direction, Vector3.up);
+                            //rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+                            rb.rotation = targetRot;
+                            transform.rotation = targetRot;
+
+                            Debug.DrawRay(transform.position, direction * 5.0f, Color.red);
+                            Debug.Assert(!navAgent.updateRotation, "Agent is updating its rotation when it should be aiming!", this);
 
                             hitTimer -= Time.deltaTime;
                             //DebugEx.Log("hitTimer: " + hitTimer);
@@ -162,18 +170,24 @@ public class EnemyAi : MonoBehaviour
                 if (canShoot)
                 {
                     //navAgent.enabled = false;
-                    //navAgent.isStopped = true;
-                    //navAgent.updateRotation = false;
-                    navAgent.speed = 0;
-                    navAgent.angularSpeed = 0;
+                    navAgent.updateRotation = false;
+                    navAgent.isStopped = true;
+                    //navAgent.speed = 0;
+                    //navAgent.angularSpeed = 0;
 
                     if (!midAttack)
                     {
                         //update rotation
                         Vector3 direction = (target.position - transform.position).normalized;
                         direction.y = 0;//prevents enemy from looking up
-                        rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
-                        
+
+                        var targetRot = Quaternion.LookRotation(direction, Vector3.up);
+                        //rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
+                        rb.rotation = targetRot;
+                        transform.rotation = targetRot;
+
+                        Debug.Assert(!navAgent.updateRotation, "Agent is updating its rotation when it should be aiming!", this);
+                        Debug.DrawRay(transform.position, direction * 5.0f, Color.red);
                         //shoot
                         if (firingTimer <= 0.0f)
                         {
@@ -282,7 +296,7 @@ public class EnemyAi : MonoBehaviour
     {
         if (!staggered)
         {
-            GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z), transform.rotation);
+            GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + bulletSpawnY, transform.position.z), transform.rotation);
             Vector3 playerPositionCopy = target.position;
             playerPositionCopy.y = newBullet.transform.position.y;
             newBullet.transform.forward = (playerPositionCopy - newBullet.transform.position).normalized;
