@@ -225,7 +225,7 @@ public class EnemyAi : MonoBehaviour
             if (attackEndLagTimer <= 0)
             {
                 midAttack = false;
-                attackEndLagTimer = attack.skillData.activeHitBoxTimer + attackEndLagTimer;
+                attackEndLagTimer = attack.skillData.activeHitBoxTimer + attackEndLag;
 
             }
 
