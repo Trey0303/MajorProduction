@@ -6393,7 +6393,7 @@ MonoBehaviour:
   meleeKnockback: 4.54
   playerKnockedbackTimeSet: 0.06
   canHit: 1
-  attackEndLag: 1
+  attackEndLag: 2
   setStaggerTime: 5
   navAgent: {fileID: 1356364240}
   target: {fileID: 447524992}
