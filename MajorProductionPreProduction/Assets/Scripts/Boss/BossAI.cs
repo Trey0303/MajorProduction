@@ -21,18 +21,20 @@ public class BossAI : MonoBehaviour
     public float lightKnockbackStrength = 4.5f;//amount of knockback player will receive
     public float lightKnockbackTime = 4.5f;
     public float lightKnockbackStagger = .7f;
-    public float attackEndLag = .7f;
+    public float lightAttackEndLag = 2f;
     //public float lightStaggerTime = .7f;//give stagger time to player on hit
 
     [Header("Heavy Attack")]
     public float heavyAttackStartup = 3f;
     public float heavyKnockbackStrength = 5f;
     public float heavyKnockbackTime = 5f;
+    public float heavyAttackEndLag = 3f;
 
     [Header("Critical Attack")]
     public float criticalAttackStartup = 5f;
     public float criticalKnockbackStrength = 10f;
     public float criticalKnockbackTime = 10f;
+    public float criticalAttackEndLag = 5f;
 
     //public float playerKnockedbackTimeSet = 1;//length of time that player will receive 'meleeKnockback'
     public bool canHit;
@@ -141,7 +143,7 @@ public class BossAI : MonoBehaviour
                             {
                                 if (i == attackLastUsed)
                                 {
-                                    attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + attackEndLag;
+                                    attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + lightAttackEndLag;
                                     //DebugEx.Log("Reset Timer to: " + attackEndLagTimer);
                                 }
                             }
@@ -181,7 +183,7 @@ public class BossAI : MonoBehaviour
                             {
                                 if (i == attackLastUsed)
                                 {
-                                    attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + attackEndLag;
+                                    attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + heavyAttackEndLag;
                                     //DebugEx.Log("Reset Timer to: " + attackEndLagTimer);
                                 }
                             }
@@ -221,7 +223,7 @@ public class BossAI : MonoBehaviour
                             {
                                 if (i == attackLastUsed)
                                 {
-                                    attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + attackEndLag;
+                                    attackEndLagTimer = attacks[i].skillData.activeHitBoxTimer + criticalAttackEndLag;
                                     //ddDebugEx.Log("Reset Timer to: " + attackEndLagTimer);
                                 }
                             }
