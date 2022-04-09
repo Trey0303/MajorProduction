@@ -3518,13 +3518,15 @@ MonoBehaviour:
   lightKnockbackStrength: 80
   lightKnockbackTime: 0
   lightKnockbackStagger: 1
-  attackEndLag: 5
+  lightAttackEndLag: 2
   heavyAttackStartup: 3
   heavyKnockbackStrength: 100
   heavyKnockbackTime: 0.5
+  heavyAttackEndLag: 3
   criticalAttackStartup: 5
   criticalKnockbackStrength: 160
   criticalKnockbackTime: 0.7
+  criticalAttackEndLag: 5
   canHit: 1
   navAgent: {fileID: 809509443}
   target: {fileID: 447524992}
@@ -9725,7 +9727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: dashSpeed
-      value: 50.79
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_Enabled
@@ -9737,7 +9739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: flightCost
-      value: 0.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: targetFlyPosY
