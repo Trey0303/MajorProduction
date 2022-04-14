@@ -218,7 +218,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        DebugEx.Log("Grounded: " + isGrounded);
+        //DebugEx.Log("Grounded: " + isGrounded);
         if (isGrounded)
         {
             //DebugEx.Log("target flight pos Updated!");
