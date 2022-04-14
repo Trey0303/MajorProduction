@@ -65,6 +65,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         walk,
         dash,
         fly,
+        boost,
         knockback,
         idle
     }
@@ -181,9 +182,23 @@ public class PlayerControllerIsometric : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && stamina >= dashCost)
+        if (Input.GetKey(KeyCode.Space) && stamina >= flightCost && rb.position.y == targetFlyPosY)
         {
             if (canDash)
+            {
+                curMovement = movementType.boost;
+                timer = 0;
+            }
+        }
+
+        //if(Input.GetKeyUp(KeyCode.LeftShift) && /*is in flight mode*/)
+        //{
+        //    dashing = false;
+        //}
+
+        if (Input.GetKeyUp(KeyCode.Space) && stamina >= dashCost && isGrounded)
+        {
+            if (canDash)//TODO: ADD another condition for checking if grounded
             {
                 curMovement = movementType.dash;
                 timer = 0;
@@ -323,7 +338,13 @@ public class PlayerControllerIsometric : MonoBehaviour
                     }
                 }
                 break;
-            
+            case movementType.boost:
+                if (canMove && canDash)
+                {
+                    Boost();
+
+                }
+                break;
             case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
                 break;
@@ -493,6 +514,28 @@ public class PlayerControllerIsometric : MonoBehaviour
     private void Dash()
     {
         invincibility = true;
+        dashing = true;
+        timer = timer + Time.deltaTime;
+        // apply the dash to player
+        projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+        //DebugEx.Log("timer:" + timer);
+
+        if (timer >= dashTime)
+        {
+            invincibility = false;
+            curMovement = movementType.walk;
+            dashing = false;
+            //enable player movement control
+            //DebugEx.Log("stop");
+
+        }
+    }
+
+    private void Boost()
+    {
+        //TODO: fix rotation issue
+
+        //invincibility = true;
         dashing = true;
         timer = timer + Time.deltaTime;
         // apply the dash to player
