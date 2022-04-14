@@ -119,7 +119,7 @@ public class EnemyAi : MonoBehaviour
 
                     if (!staggered)
                     {
-                        navAgent.SetDestination(new Vector3(target.position.x, 0, target.position.z));
+                        navAgent.SetDestination(new Vector3(target.position.x, 7, target.position.z));
 
                     }
 

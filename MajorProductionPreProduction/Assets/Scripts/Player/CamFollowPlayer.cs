@@ -5,6 +5,7 @@ using UnityEngine;
 public class CamFollowPlayer : MonoBehaviour
 {
     private GameObject cam;
+    private Camera camera;
     public GameObject player;
     public float distanceFromPlayerX;
     public float distanceFromPlayerY;
@@ -13,6 +14,9 @@ public class CamFollowPlayer : MonoBehaviour
     private void Start()
     {
         cam = this.gameObject;
+        camera = cam.GetComponent<Camera>();
+
+        camera.cullingMask &= ~(1 << 11);
     }
 
     // Update is called once per frame

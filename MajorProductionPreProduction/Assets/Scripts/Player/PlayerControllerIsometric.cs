@@ -14,6 +14,9 @@ public class PlayerControllerIsometric : MonoBehaviour
     public float dashSpeed = 44f;
     public float dashCost = 10;
     public float flightCost;
+    public float boostSpeed = 20f;
+    public float boostCost = .3f;
+    public float skyFlightBoarder = 20;
     
     public float timeToWaitBeforeStaminaRegen = 1f;
 
@@ -79,6 +82,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     public bool flightMode;
     public bool canDash;
     public bool isAtFlightHeight;
+    private float flightPosY;
 
     //private bool flying;
 
@@ -104,6 +108,8 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         //stagger state
         staggered = false;
+
+        flightPosY = transform.position.y + targetFlyPosY;
 
         //Collider defaults
         rb = GetComponent<Rigidbody>();
@@ -163,6 +169,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             if (canMove && canToggleFlight)
             {
+                isGrounded = false;
                 flightMode = !flightMode;
                 isAtFlightHeight = false;
                 canDash = false;
@@ -182,7 +189,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space) && stamina >= flightCost && rb.position.y == targetFlyPosY)
+        if (Input.GetKey(KeyCode.Space) && stamina >= flightCost && rb.position.y == flightPosY)
         {
             if (canDash)
             {
@@ -196,7 +203,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         //    dashing = false;
         //}
 
-        if (Input.GetKeyUp(KeyCode.Space) && stamina >= dashCost && isGrounded)
+        if (Input.GetKeyUp(KeyCode.Space) && stamina >= dashCost && rb.position.y != flightPosY)
         {
             if (canDash)//TODO: ADD another condition for checking if grounded
             {
@@ -211,6 +218,14 @@ public class PlayerControllerIsometric : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        DebugEx.Log("Grounded: " + isGrounded);
+        if (isGrounded)
+        {
+            //DebugEx.Log("target flight pos Updated!");
+            //DebugEx.Log("Player Pos: " + transform.position.y);
+            //DebugEx.Log("target flight pos: " + flightPosY);
+            flightPosY = transform.position.y + targetFlyPosY;
+        }
 
         //flight mode toggle conditions
         if (isGrounded && !canToggleFlight && !flightMode)//Currently in ground mode
@@ -219,7 +234,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             canToggleFlight = true;
             canDash = true;
         }
-        else if (rb.position.y == targetFlyPosY && !canToggleFlight && flightMode)//currently in Flight mode
+        else if (rb.position.y == flightPosY && !canToggleFlight && flightMode)//currently in Flight mode
         {
             //DebugEx.Log(isGrounded);
             isGrounded = false;
@@ -312,14 +327,14 @@ public class PlayerControllerIsometric : MonoBehaviour
                 {
                     
                     //canToggleFlight = false;
-                    if(rb.position.y > targetFlyPosY)
+                    if(rb.position.y > flightPosY)
                     {
-                        projectedPosition.y = targetFlyPosY;
+                        projectedPosition.y = flightPosY;
                     }
-                    if (rb.position.y < targetFlyPosY)
+                    if (rb.position.y < flightPosY)
                     {
                         Vector3 targetPos = rb.position;
-                        targetPos.y = targetFlyPosY;
+                        targetPos.y = flightPosY;
                         Vector3 direction = (targetPos - rb.position).normalized;
                         projectedPosition.y = rb.position.y + (velocity.y + direction.y * moveSpeed) * Time.deltaTime;
                         Debug.DrawRay(transform.position, direction * 5);
@@ -341,7 +356,9 @@ public class PlayerControllerIsometric : MonoBehaviour
             case movementType.boost:
                 if (canMove && canDash)
                 {
-                    Boost();
+                    PlayerHealth.RegenWaitTimer = timeToWaitBeforeStaminaRegen;
+                    stamina = stamina - boostCost;
+                    Boost(input);
 
                 }
                 break;
@@ -531,20 +548,22 @@ public class PlayerControllerIsometric : MonoBehaviour
         }
     }
 
-    private void Boost()
+    private void Boost(Vector3 input)
     {
         //TODO: fix rotation issue
 
         //invincibility = true;
         dashing = true;
         timer = timer + Time.deltaTime;
+        
         // apply the dash to player
-        projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+        //projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+        projectedPosition = rb.position + (velocity + input.normalized * boostSpeed) * Time.deltaTime;
         //DebugEx.Log("timer:" + timer);
 
         if (timer >= dashTime)
         {
-            invincibility = false;
+            //invincibility = false;
             curMovement = movementType.walk;
             dashing = false;
             //enable player movement control
