@@ -435,7 +435,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     canDash = false;
                     canToggleFlight = false;
                     gravity = !gravity;
-                    DebugEx.Log(gravity);
+                    //DebugEx.Log(gravity);
                     curMovement = movementType.idle;
                     
 

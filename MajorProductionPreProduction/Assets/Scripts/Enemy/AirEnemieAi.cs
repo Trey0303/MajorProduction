@@ -303,7 +303,7 @@ public class AirEnemieAi : MonoBehaviour
     {
         if (!staggered)
         {
-            DebugEx.Log("Fire!");
+            //DebugEx.Log("Fire!");
             GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + bulletSpawnY, transform.position.z), transform.rotation);
             Vector3 playerPositionCopy = target.position;
             playerPositionCopy.y = newBullet.transform.position.y;

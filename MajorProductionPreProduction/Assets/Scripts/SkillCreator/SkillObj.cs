@@ -80,8 +80,17 @@ public class SkillObj : ScriptableObject
 
                 targetHealth.health = targetHealth.health - (int)skillProgDamage;
                 //Debug.Log("Enemy Health: " + targetHealth.health);
-                targetCollider.gameObject.GetComponent<EnemyAi>().staggered = true;
-                targetCollider.gameObject.GetComponent<EnemyAi>().staggerTimer = targetCollider.gameObject.GetComponent<EnemyAi>().setStaggerTime;
+                if(wielder.tag == "Enemy")
+                {
+                    targetCollider.gameObject.GetComponent<EnemyAi>().staggered = true;
+                    targetCollider.gameObject.GetComponent<EnemyAi>().staggerTimer = targetCollider.gameObject.GetComponent<EnemyAi>().setStaggerTime;
+
+                }
+                if(wielder.tag == "FlyingEnemies")
+                {
+                    targetCollider.gameObject.GetComponent<EnemyAi>().staggered = true;
+                    targetCollider.gameObject.GetComponent<AirEnemieAi>().staggerTimer = targetCollider.gameObject.GetComponent<AirEnemieAi>().setStaggerTime;
+                }
 
             }
             else if (targetCollider.gameObject.tag == "Player" && targetCollider.gameObject.tag != wielder.gameObject.tag)//if target is the player

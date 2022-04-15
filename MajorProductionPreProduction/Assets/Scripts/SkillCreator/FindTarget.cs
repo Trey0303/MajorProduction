@@ -19,8 +19,12 @@ public class FindTarget : MonoBehaviour
             //DebugEx.Log("target found");
             for(int i = 0; i < targets.Count; i++)
             {
-                skill.HitTarget(targets[i], damage);
-                targets[i] = null;
+                if(targets[i] != null)
+                {
+                    skill.HitTarget(targets[i], damage);
+                    targets[i] = null;
+
+                }
             }
         }
     }
@@ -30,10 +34,14 @@ public class FindTarget : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("triggered");
-        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "FlyingEnemies")//enemy
+        if (other.gameObject.tag == "Enemy")//enemy
         {
             //Debug.Log("enemy in range");
             //Debug.Log(other.gameObject.name);
+            targets.Add(other.gameObject);
+        }
+        if(other.gameObject.tag == "FlyingEnemies")
+        {
             targets.Add(other.gameObject);
         }
         if (other.gameObject.tag == "Player")

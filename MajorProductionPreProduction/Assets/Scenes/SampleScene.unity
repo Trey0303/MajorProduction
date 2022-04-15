@@ -4862,9 +4862,9 @@ MonoBehaviour:
     cost: 0
   meleeRange: 5
   meleeStartup: 1.5
-  playerMeleeStaggerTime: 0.7
-  meleeKnockback: 23
-  playerKnockedbackTimeSet: 0.6
+  playerMeleeStaggerTime: 0.6
+  meleeKnockback: 30.69
+  playerKnockedbackTimeSet: 0.1
   canHit: 1
   attackEndLag: 0.7
   setStaggerTime: 1
@@ -5917,9 +5917,9 @@ MonoBehaviour:
     cost: 0
   meleeRange: 5
   meleeStartup: 1.5
-  playerMeleeStaggerTime: 0.7
-  meleeKnockback: 23
-  playerKnockedbackTimeSet: 0.6
+  playerMeleeStaggerTime: 0.6
+  meleeKnockback: 30.69
+  playerKnockedbackTimeSet: 0.1
   canHit: 1
   attackEndLag: 0.7
   setStaggerTime: 1
