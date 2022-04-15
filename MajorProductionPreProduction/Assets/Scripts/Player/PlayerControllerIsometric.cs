@@ -550,11 +550,11 @@ public class PlayerControllerIsometric : MonoBehaviour
                             isGrounded = false;
                         }
                     }
-                    else
-                    {
-                        DebugEx.Log("dashed through enemy");
+                    //else
+                    //{
+                    //    DebugEx.Log("dashed through enemy");
 
-                    }
+                    //}
 
                 }
             }
