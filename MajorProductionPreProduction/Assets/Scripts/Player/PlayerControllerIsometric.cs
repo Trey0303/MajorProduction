@@ -650,8 +650,8 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             lastDirection = input.normalized;
         }
-        //DebugEx.Log("timer:" + timer);
         SmoothRotate();
+        //DebugEx.Log("timer:" + timer);
 
 
         if (timer >= dashTime)
@@ -662,7 +662,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             //enable player movement control
             //DebugEx.Log("stop");
 
-        }
+        } 
     }
 
     private void Movement(Vector3 input)
@@ -678,10 +678,10 @@ public class PlayerControllerIsometric : MonoBehaviour
             //radian = degree * Mathf.Deg2Rad;
             //newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
 
+            SmoothRotate();
         }
         //rb.MoveRotation(Quaternion.LookRotation(lastDirection, Vector3.up));
 
-        SmoothRotate();
         //rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * playerRotationSpeed);
     }
 
