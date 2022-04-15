@@ -35,7 +35,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private bool isGrounded = false;
     private bool dashing = false;
     public bool gravity;
-    Vector3 projectedPosition;
+    public static Vector3 projectedPosition;
     private Vector3 skinWidthSize;
     private float skinWidth = .001f;
     LayerMask mask;
@@ -63,12 +63,13 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     public static float stamina { get; set; }
 
-    private enum movementType
+    internal enum movementType
     {
         walk,
         dash,
         fly,
         boost,
+        attack,
         knockback,
         idle
     }
@@ -362,16 +363,20 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 }
                 break;
+            case movementType.attack:
+                MouseRotation();
+                break;
             case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
                 break;
+               
         }
 
 
         //Camera/PlayerRotation
         if (canMove)
         {
-            MouseRotation();
+            //MouseRotation();
 
         }
 
@@ -575,6 +580,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private void Movement(Vector3 input)
     {
         projectedPosition = rb.position + (velocity + input.normalized * moveSpeed) * Time.deltaTime;
+
         //Movement(projectedPosition);
 
         if (input.magnitude != 0)
@@ -584,9 +590,12 @@ public class PlayerControllerIsometric : MonoBehaviour
             newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
 
         }
+        //rb.MoveRotation(Quaternion.LookRotation(lastDirection, Vector3.up));
+
+        rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * 6);
     }
 
-    void MouseRotation()
+    public void MouseRotation()
     {
         if (cam != null)
         {

@@ -18,11 +18,17 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Attack();
+
+    }
+
+    void Attack()
+    {
         if (PlayerControllerIsometric.canMove)
         {
             if (Input.GetMouseButtonUp(0))//left click
             {
-                if(skill.skillData != null)
+                if (skill.skillData != null)
                 {
                     skill.Use(this.gameObject);
 
@@ -30,6 +36,5 @@ public class PlayerAttack : MonoBehaviour
             }
 
         }
-
     }
 }
