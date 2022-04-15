@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b753137da5b4ca34fa01522821d6c5ea, type: 3}
-  m_Name: PhysicalSkillData
+  m_Name: DiveAttack
   m_EditorClassIdentifier: 
-  skillName: PhysAttack
-  damage: 2
-  maxLevel: 1
-  cost: 0
-  activeHitBoxTimer: 0.1
+  skillName: DiveAttack
+  damage: 3
+  maxLevel: 0
+  cost: 2
+  activeHitBoxTimer: 0.4
   hurtboxPrefab: {fileID: 863276530170334723, guid: 70c710a149c92f64194f991ee901e668, type: 3}
-  rangeX: 1.87
-  rangeY: 0
+  rangeX: 0
+  rangeY: -2

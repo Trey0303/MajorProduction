@@ -8,7 +8,8 @@ public class PhysicalSkill : SkillObj
 {
     protected GameObject activePhysicalHitbox;
 
-    public float range;
+    public float rangeX;
+    public float rangeY;
 
     //public AnimationClip physAnimation;
 
@@ -35,7 +36,7 @@ public class PhysicalSkill : SkillObj
 
     void DisplayHitBox(float skillProgDamage)
     {
-        var box = Instantiate(hurtboxPrefab, wielder.transform.position + wielder.transform.forward * range, wielder.transform.rotation);
+        var box = Instantiate(hurtboxPrefab, new Vector3(wielder.transform.position.x, wielder.transform.position.y + rangeY, wielder.transform.position.z) + wielder.transform.forward * rangeX, wielder.transform.rotation);
 
         //get target from FindTarget
         var targetTemp = box.GetComponent<FindTarget>();

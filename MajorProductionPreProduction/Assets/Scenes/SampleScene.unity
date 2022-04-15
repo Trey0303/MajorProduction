@@ -202,8 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -254,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &20494132
@@ -733,8 +731,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -785,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &107018280
@@ -1070,8 +1066,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -1122,7 +1116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &112717146
@@ -1434,8 +1428,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -1486,7 +1478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &149801495
@@ -1656,8 +1648,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -1708,7 +1698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &151402636
@@ -1973,8 +1963,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -2025,7 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &197965963
@@ -2791,7 +2779,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 3.58
+  m_Speed: 2.98
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2816,8 +2804,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 1.5
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -3161,7 +3147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 721379269}
   - component: {fileID: 721379270}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NavMeshObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3765,8 +3751,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -3817,7 +3801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &821292209
@@ -4319,8 +4303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -4371,7 +4353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &939940562
@@ -4714,12 +4696,11 @@ GameObject:
   - component: {fileID: 1042425500}
   - component: {fileID: 1042425499}
   - component: {fileID: 1042425498}
-  - component: {fileID: 1042425497}
-  - component: {fileID: 1042425496}
+  - component: {fileID: 1042425504}
   - component: {fileID: 1042425495}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Enemy (18)
-  m_TagString: Enemy
+  m_TagString: FlyingEnemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4746,59 +4727,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1042425496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042425494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 117.3
-  moveSpeed: 1.5
-  angleSpeed: 2
-  bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
-  shootRange: 12.26
-  firingInterval: 1.14
-  canShoot: 0
-  attack:
-    skillData: {fileID: 11400000, guid: 6febe42faad972e43a1a47aed5a604ac, type: 2}
-    name: 
-    exp: 0
-    maxExp: 0
-    level: 0
-    damage: 0
-    cost: 0
-  meleeRange: 4.99
-  meleeStartup: 1.3
-  playerMeleeStaggerTime: 0.7
-  meleeKnockback: 22.37
-  playerKnockedbackTimeSet: 0.06
-  canHit: 1
-  attackEndLag: 0.7
-  setStaggerTime: 5
-  navAgent: {fileID: 1042425495}
-  target: {fileID: 447524992}
-  staggerTimer: 0
-  staggered: 1
-  bulletSpawnY: 0
-  midAttack: 0
---- !u!114 &1042425497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042425494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c76545fe13bfb7f419fbde5f9528375c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1042425498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4907,6 +4835,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1042425504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042425494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed8542e2db365240b929af3ac6bc66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 65.83
+  bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
+  shootRange: 11.12
+  firingInterval: 1
+  canShoot: 1
+  attack:
+    skillData: {fileID: 11400000, guid: 6febe42faad972e43a1a47aed5a604ac, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  meleeRange: 5
+  meleeStartup: 1.5
+  playerMeleeStaggerTime: 0.7
+  meleeKnockback: 23
+  playerKnockedbackTimeSet: 0.6
+  canHit: 1
+  attackEndLag: 0.7
+  setStaggerTime: 1
+  navAgent: {fileID: 1042425495}
+  target: {fileID: 447524992}
+  staggerTimer: 0
+  staggered: 0
+  bulletSpawnY: 0
+  midAttack: 0
 --- !u!1 &1061367404
 GameObject:
   m_ObjectHideFlags: 0
@@ -5402,8 +5369,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -5454,7 +5419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &1176525975
@@ -5786,12 +5751,11 @@ GameObject:
   - component: {fileID: 1288725857}
   - component: {fileID: 1288725856}
   - component: {fileID: 1288725855}
-  - component: {fileID: 1288725854}
-  - component: {fileID: 1288725853}
+  - component: {fileID: 1288725861}
   - component: {fileID: 1288725852}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Enemy (19)
-  m_TagString: Enemy
+  m_TagString: FlyingEnemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5818,59 +5782,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1288725853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288725851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 117.3
-  moveSpeed: 1.5
-  angleSpeed: 2
-  bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
-  shootRange: 12.26
-  firingInterval: 1.14
-  canShoot: 1
-  attack:
-    skillData: {fileID: 11400000, guid: 6febe42faad972e43a1a47aed5a604ac, type: 2}
-    name: 
-    exp: 0
-    maxExp: 0
-    level: 0
-    damage: 0
-    cost: 0
-  meleeRange: 4.99
-  meleeStartup: 1.3
-  playerMeleeStaggerTime: 0.7
-  meleeKnockback: 22.37
-  playerKnockedbackTimeSet: 0.06
-  canHit: 0
-  attackEndLag: 0.7
-  setStaggerTime: 5
-  navAgent: {fileID: 1288725852}
-  target: {fileID: 447524992}
-  staggerTimer: 0
-  staggered: 1
-  bulletSpawnY: 0
-  midAttack: 0
---- !u!114 &1288725854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288725851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c76545fe13bfb7f419fbde5f9528375c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1288725855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5979,6 +5890,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1288725861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288725851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed8542e2db365240b929af3ac6bc66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 65.83
+  bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
+  shootRange: 11.12
+  firingInterval: 1
+  canShoot: 1
+  attack:
+    skillData: {fileID: 11400000, guid: 6febe42faad972e43a1a47aed5a604ac, type: 2}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  meleeRange: 5
+  meleeStartup: 1.5
+  playerMeleeStaggerTime: 0.7
+  meleeKnockback: 23
+  playerKnockedbackTimeSet: 0.6
+  canHit: 1
+  attackEndLag: 0.7
+  setStaggerTime: 1
+  navAgent: {fileID: 1288725852}
+  target: {fileID: 447524992}
+  staggerTimer: 0
+  staggered: 0
+  bulletSpawnY: 0
+  midAttack: 0
 --- !u!1 &1291983732
 GameObject:
   m_ObjectHideFlags: 0
@@ -6195,8 +6145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -6247,7 +6195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &1338855073
@@ -6417,8 +6365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -6469,7 +6415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &1356364244
@@ -6798,8 +6744,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -6850,7 +6794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &1451715602
@@ -7858,7 +7802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833461992}
   - component: {fileID: 1833461993}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NavMeshObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7969,8 +7913,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.07
@@ -8021,7 +7963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &1833586720
@@ -8350,8 +8292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -8402,7 +8342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &1929734282
@@ -8532,7 +8472,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.75
-  m_Speed: 1.5
+  m_Speed: 2.98
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -8557,8 +8497,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 21.12
-  moveSpeed: 2
-  angleSpeed: 2
   bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
   shootRange: 12.26
   firingInterval: 1.14
@@ -8609,7 +8547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401d9eb1c44ff2c43814ec101972dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   dropRate: 0.5
   healthItemPrefab: {fileID: 1181549845590719573, guid: 1dde2be49b92e4f44ba2b68ee9fe9e10, type: 3}
 --- !u!54 &2005976438
@@ -9159,6 +9097,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 447524992}
     - target: {fileID: 70030304500151551, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
+      propertyPath: health
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 70030304500151551, guid: 04b5df3d1a1f07e499aa62b0e2819a8a, type: 3}
       propertyPath: dropRate
       value: 0.5
       objectReference: {fileID: 0}
@@ -9614,6 +9556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 3350289994836250739, guid: d8d6a506bfae55f48a5ed20970d1f526, type: 3}
+      propertyPath: orthographic size
+      value: 11.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3350289994836250740, guid: d8d6a506bfae55f48a5ed20970d1f526, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -9801,16 +9747,24 @@ PrefabInstance:
       value: 11.02
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: endLagTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: flightCost
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: targetFlyPosY
-      value: 9.55
+      value: 8.8
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: setStaggerTime
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784732, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: skyFlightBoarder
+      value: 21.24
       objectReference: {fileID: 0}
     - target: {fileID: 5242706521248784733, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_RootOrder
@@ -9856,6 +9810,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784735, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: skill.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5242706521248784735, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: skill.Array.data[0].skillData
+      value: 
+      objectReference: {fileID: 11400000, guid: 07401c8cce937274088be3255ddf9c83, type: 2}
+    - target: {fileID: 5242706521248784735, guid: 3f813819be60527488a78263154e243c, type: 3}
+      propertyPath: skill.Array.data[1].skillData
+      value: 
+      objectReference: {fileID: 11400000, guid: 115898ab5d6596f429ef86043a4ea106, type: 2}
     - target: {fileID: 5242706521248784806, guid: 3f813819be60527488a78263154e243c, type: 3}
       propertyPath: m_Name
       value: Player

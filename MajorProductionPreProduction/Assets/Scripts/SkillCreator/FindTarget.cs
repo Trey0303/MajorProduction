@@ -30,7 +30,7 @@ public class FindTarget : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("triggered");
-        if (other.gameObject.tag == "Enemy")//enemy
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "FlyingEnemies")//enemy
         {
             //Debug.Log("enemy in range");
             //Debug.Log(other.gameObject.name);

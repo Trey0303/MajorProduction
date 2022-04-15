@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
     {
 
         if (collider.gameObject.layer != LayerMask.NameToLayer("Enemy") && collider.gameObject.layer != LayerMask.NameToLayer("hitbox") 
-            && collider.gameObject.layer != LayerMask.NameToLayer("item") && collider.gameObject.layer != LayerMask.NameToLayer("bullet"))
+            && collider.gameObject.layer != LayerMask.NameToLayer("item") && collider.gameObject.layer != LayerMask.NameToLayer("bullet") && collider.gameObject.layer != LayerMask.NameToLayer("FlyingEnemies"))
         {
             //ShipController ship = collider.GetComponent<ShipController>();
             //Debug.Log(collider.gameObject.name);

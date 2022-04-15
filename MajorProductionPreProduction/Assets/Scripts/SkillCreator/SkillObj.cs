@@ -72,7 +72,7 @@ public class SkillObj : ScriptableObject
     {
         if (targetCollider != null)
         {
-            if (targetCollider.gameObject.GetComponent<Health>() != null)
+            if (targetCollider.gameObject.GetComponent<Health>() != null && targetCollider.gameObject.tag != wielder.gameObject.tag)
             {
                 Health targetHealth = targetCollider.gameObject.GetComponent<Health>();
 
@@ -84,7 +84,7 @@ public class SkillObj : ScriptableObject
                 targetCollider.gameObject.GetComponent<EnemyAi>().staggerTimer = targetCollider.gameObject.GetComponent<EnemyAi>().setStaggerTime;
 
             }
-            else if (targetCollider.gameObject.tag == "Player")//if target is the player
+            else if (targetCollider.gameObject.tag == "Player" && targetCollider.gameObject.tag != wielder.gameObject.tag)//if target is the player
             {
                 //DebugEx.Log("player hit");
                 if (!PlayerControllerIsometric.invincibility)
@@ -96,6 +96,10 @@ public class SkillObj : ScriptableObject
                     {
                         PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<EnemyAi>().playerMeleeStaggerTime;//add hit stun to player
 
+                    }
+                    if(wielder.tag == "FlyingEnemies")
+                    {
+                        PlayerControllerIsometric.staggerTimer = wielder.gameObject.GetComponent<AirEnemieAi>().playerMeleeStaggerTime;//add hit stun to player
                     }
                     else if(wielder.tag == "Boss") { 
                         if(wielder.gameObject.GetComponent<BossAI>().curAction == 3)
@@ -121,6 +125,10 @@ public class SkillObj : ScriptableObject
 
                 }
 
+            }
+            else if (targetCollider.gameObject.tag == wielder.gameObject.tag)
+            {
+                DebugEx.Log("cant damage ally");
             }
             else
             {

@@ -8,6 +8,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     [Header("Movement")]
     //player movement Speed
     public float moveSpeed = 10;
+    public float playerRotationSpeed = 7;
 
     public float dashTime = 1.45f;//how long evade takes
     //public float dashDistance = 10;//how far player with evade
@@ -16,13 +17,18 @@ public class PlayerControllerIsometric : MonoBehaviour
     public float flightCost;
     public float boostSpeed = 20f;
     public float boostCost = .3f;
-    public float skyFlightBoarder = 20;
     
     public float timeToWaitBeforeStaminaRegen = 1f;
+    
+    [Header("Normal Attack")]
+    public float endLagTime = .5f;
+    [Header("Dive Attack")]
+    public float diveSpeed = 10f;
 
     [Header("height in flight mode")]
     public float targetFlyPosY;//target y position in flight mode
-    
+    public float skyFlightBoarder = 20;
+
 
     //programmer variables
     [Header("other/programmmer variables")]
@@ -69,7 +75,10 @@ public class PlayerControllerIsometric : MonoBehaviour
         dash,
         fly,
         boost,
+        mouseRotate,
         attack,
+        endLag,
+        diveAttack,
         knockback,
         idle
     }
@@ -84,11 +93,16 @@ public class PlayerControllerIsometric : MonoBehaviour
     public bool canDash;
     public bool isAtFlightHeight;
     private float flightPosY;
+    private PlayerAttack playerAttack;
+    private float endLagTimer;
+    private float fallSpeed;
 
     //private bool flying;
 
     private void Start()
     {
+        fallSpeed = 3;
+
         canDash = true;
 
         killcount = 0;
@@ -111,6 +125,15 @@ public class PlayerControllerIsometric : MonoBehaviour
         staggered = false;
 
         flightPosY = transform.position.y + targetFlyPosY;
+
+        if(playerAttack = this.GetComponent<PlayerAttack>()){
+            playerAttack = this.GetComponent<PlayerAttack>();
+            endLagTimer = endLagTime;
+        }
+        else
+        {
+            DebugEx.Log("Player attack script not found!");
+        }
 
         //Collider defaults
         rb = GetComponent<Rigidbody>();
@@ -154,13 +177,22 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         }
 
+        if (canMove)
+        {
+            if (Input.GetMouseButtonUp(0) && canToggleFlight)//left click
+            {
+                curMovement = movementType.mouseRotate;
+            }
 
-        //if (Input.GetKeyUp(KeyCode.R))
-        //{
-        //    int randomNum = UnityEngine.Random.Range(3, 6);
-        //    DebugEx.Log(randomNum);
-        //}
+        }
 
+        if (Input.GetMouseButtonUp(1))
+        {
+            if(canMove && canToggleFlight && !isGrounded)
+            {
+                curMovement = movementType.diveAttack;
+            }
+        }
 
         if (Input.GetKeyUp(KeyCode.K)){
             PlayerHealth.curHealth = 0;
@@ -168,26 +200,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.LeftShift) && stamina >= flightCost)
         {
-            if (canMove && canToggleFlight)
-            {
-                isGrounded = false;
-                flightMode = !flightMode;
-                isAtFlightHeight = false;
-                canDash = false;
-                canToggleFlight = false;
-                gravity = !gravity;
-
-                if (!gravity)
-                {
-
-                    curMovement = movementType.fly;
-                }
-                else
-                {
-                    curMovement = movementType.walk;
-                }
-
-            }
+            ToggleFlightMode();
         }
 
         if (Input.GetKey(KeyCode.Space) && stamina >= flightCost && rb.position.y == flightPosY)
@@ -204,7 +217,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         //    dashing = false;
         //}
 
-        if (Input.GetKeyUp(KeyCode.Space) && stamina >= dashCost && rb.position.y != flightPosY)
+        if (Input.GetKeyDown(KeyCode.Space) && stamina >= dashCost && rb.position.y != flightPosY)
         {
             if (canDash)//TODO: ADD another condition for checking if grounded
             {
@@ -213,6 +226,30 @@ public class PlayerControllerIsometric : MonoBehaviour
                 //stamina = stamina - dashCost;
 
             }
+        }
+    }
+
+    private void ToggleFlightMode()
+    {
+        if (canMove && canToggleFlight)
+        {
+            isGrounded = false;
+            flightMode = !flightMode;
+            isAtFlightHeight = false;
+            canDash = false;
+            canToggleFlight = false;
+            gravity = !gravity;
+
+            if (!gravity)
+            {
+
+                curMovement = movementType.fly;
+            }
+            else
+            {
+                curMovement = movementType.walk;
+            }
+
         }
     }
 
@@ -234,6 +271,8 @@ public class PlayerControllerIsometric : MonoBehaviour
             //FlightMode = false;
             canToggleFlight = true;
             canDash = true;
+            fallSpeed = 3;
+
         }
         else if (rb.position.y == flightPosY && !canToggleFlight && flightMode)//currently in Flight mode
         {
@@ -283,7 +322,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             if (canMove)
             {
                 //                        gravity * fall speed * time.deltaTIme
-                velocity += Physics.gravity * 2 * Time.deltaTime;
+                velocity += Physics.gravity * fallSpeed * Time.deltaTime;
 
             }
         }
@@ -332,7 +371,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     {
                         projectedPosition.y = flightPosY;
                     }
-                    if (rb.position.y < flightPosY)
+                    if (rb.position.y < flightPosY && rb.position.y < skyFlightBoarder)
                     {
                         Vector3 targetPos = rb.position;
                         targetPos.y = flightPosY;
@@ -342,6 +381,10 @@ public class PlayerControllerIsometric : MonoBehaviour
                         
                         //rb.position = targetPos;
 
+                    }
+                    else if(rb.position.y >= skyFlightBoarder && flightPosY > skyFlightBoarder)
+                    {
+                        flightPosY = skyFlightBoarder;
                     }
                     else
                     {
@@ -363,11 +406,48 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 }
                 break;
-            case movementType.attack:
+            case movementType.mouseRotate:
+                endLagTimer = endLagTime;
                 MouseRotation();
+                break;
+            case movementType.attack:
+                playerAttack.Attack();
+                curMovement = movementType.endLag;
+                break;
+            case movementType.endLag:
+                endLagTimer = endLagTimer - Time.deltaTime;
+                input = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
+                lastDirection = input.normalized;
+                if (endLagTimer <= 0)
+                {
+                    endLagTimer = endLagTime;
+                    curMovement = movementType.walk;
+                }
+                break;
+            case movementType.diveAttack:
+                playerAttack.DiveAttack();
+                if (canMove && canToggleFlight)
+                {
+                    fallSpeed = diveSpeed;
+                    isGrounded = false;
+                    flightMode = !flightMode;
+                    isAtFlightHeight = false;
+                    canDash = false;
+                    canToggleFlight = false;
+                    gravity = !gravity;
+                    DebugEx.Log(gravity);
+                    curMovement = movementType.idle;
+                    
+
+                }
                 break;
             case movementType.idle:
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
+                if (isGrounded)
+                {
+                    curMovement = movementType.walk;
+
+                }
                 break;
                
         }
@@ -539,7 +619,8 @@ public class PlayerControllerIsometric : MonoBehaviour
         dashing = true;
         timer = timer + Time.deltaTime;
         // apply the dash to player
-        projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
+        Rotate(60);
+        projectedPosition = rb.position + (velocity + lastDirection * dashSpeed) * Time.deltaTime;
         //DebugEx.Log("timer:" + timer);
 
         if (timer >= dashTime)
@@ -564,7 +645,14 @@ public class PlayerControllerIsometric : MonoBehaviour
         // apply the dash to player
         //projectedPosition = rb.position + (velocity + newDirection * dashSpeed) * Time.deltaTime;
         projectedPosition = rb.position + (velocity + input.normalized * boostSpeed) * Time.deltaTime;
+
+        if (input.magnitude != 0)//prevents rotation if player is just standing
+        {
+            lastDirection = input.normalized;
+        }
         //DebugEx.Log("timer:" + timer);
+        SmoothRotate();
+
 
         if (timer >= dashTime)
         {
@@ -586,13 +674,26 @@ public class PlayerControllerIsometric : MonoBehaviour
         if (input.magnitude != 0)
         {
             lastDirection = input.normalized;
-            radian = degree * Mathf.Deg2Rad;
-            newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
+            //lastDirection = input.normalized;
+            //radian = degree * Mathf.Deg2Rad;
+            //newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
 
         }
         //rb.MoveRotation(Quaternion.LookRotation(lastDirection, Vector3.up));
 
-        rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * 6);
+        SmoothRotate();
+        //rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * playerRotationSpeed);
+    }
+
+    void Rotate(float rotateSpeed)
+    {
+        //rb.MoveRotation(Quaternion.LookRotation(lastDirection, Vector3.up));
+        rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * rotateSpeed);
+    }
+
+    private void SmoothRotate()
+    {
+        rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * playerRotationSpeed);
     }
 
     public void MouseRotation()
@@ -618,9 +719,11 @@ public class PlayerControllerIsometric : MonoBehaviour
 
             //allign the hitpoint with the players height
             hitPoint.y = height;
+            
 
             //look at it
             Vector3 direction = (hitPoint - transform.position).normalized;
+            //lastDirection = direction;
             rb.MoveRotation(Quaternion.LookRotation(direction, Vector3.up));
         }
         else
@@ -628,7 +731,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             DebugEx.Log("player is missing reference to camera");
         }
 
-        
+        curMovement = movementType.attack;
 
     }
 }

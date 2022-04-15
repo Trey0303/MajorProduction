@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAi : MonoBehaviour
+public class AirEnemieAi : MonoBehaviour
 {
-
     //public Agent agent;
 
     //public float speed = 3.0f;
@@ -17,7 +15,7 @@ public class EnemyAi : MonoBehaviour
     //public float moveSpeed = 2f;
     //public float angleSpeed = 2f;
 
-    
+
     [Header("Shoot Settings")]
     //shoot
     public GameObject bulletPrefab;//projectile prefab
@@ -45,26 +43,26 @@ public class EnemyAi : MonoBehaviour
     //navMesh
     public NavMeshAgent navAgent;
     public Transform target;
-    
+
     //rigidbody
     private Rigidbody rb;
-    
-    
+
+
     //hurt state
     public float staggerTimer;
     public bool staggered = false;
 
-    
+
     //shoot
     private float firingTimer;//fire interval
     public float bulletSpawnY = 3;
-    
+
     //melee
     private float hitTimer;//hit interval
     public bool midAttack = false;
 
     private float attackEndLagTimer;
-    
+
     private enum movementType
     {
         move,
@@ -78,7 +76,7 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
-        
+
         //get information for all attached skills
         if (attack.skillData != null)
         {
@@ -95,7 +93,7 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        
+
         switch (curMovement)
         {
             case movementType.idle:
@@ -119,7 +117,7 @@ public class EnemyAi : MonoBehaviour
 
                     if (!staggered)
                     {
-                        navAgent.SetDestination(new Vector3(target.position.x, 0, target.position.z));
+                        navAgent.SetDestination(new Vector3(target.position.x, 7, target.position.z));
 
                     }
 
@@ -127,7 +125,7 @@ public class EnemyAi : MonoBehaviour
 
                 break;
             case movementType.hit:
-                if (canHit && target.position.y <= transform.position.y + 1)
+                if (canHit && target.position.y >= transform.position.y)
                 {
                     //navAgent.enabled = false;
                     navAgent.updateRotation = false;
@@ -153,7 +151,7 @@ public class EnemyAi : MonoBehaviour
 
                             hitTimer -= Time.deltaTime;
                             //DebugEx.Log("hitTimer: " + hitTimer);
-                            if(hitTimer <= 0.0f)
+                            if (hitTimer <= 0.0f)
                             {
                                 Attack();
                                 hitTimer = meleeStartup;
@@ -167,7 +165,7 @@ public class EnemyAi : MonoBehaviour
             case movementType.shoot:
                 //DebugEx.Log("SHOOT");
                 //stop navMesh movement and rotation
-                if (canShoot && target.position.y <= transform.position.y + 1)
+                if (canShoot && target.position.y >= transform.position.y)
                 {
                     //navAgent.enabled = false;
                     navAgent.updateRotation = false;
@@ -191,8 +189,8 @@ public class EnemyAi : MonoBehaviour
                         //shoot
                         if (firingTimer <= 0.0f)
                         {
-                    
-                            if(!staggered)
+
+                            if (!staggered)
                             {
                                 Fire();
 
@@ -260,18 +258,27 @@ public class EnemyAi : MonoBehaviour
         if (canHit && target.position.x < transform.position.x + meleeRange && target.position.z < transform.position.z + meleeRange && target.position.x + meleeRange > transform.position.x && target.position.z + meleeRange > transform.position.z)
         {
             //DebugEx.Log("target in attack range");
-            curMovement = movementType.hit;
+            if (target.position.y >= transform.position.y)
+            {
+                curMovement = movementType.hit;
+
+            }
 
         }
-        else if(canShoot && target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
+        else if (canShoot && target.position.x < transform.position.x + shootRange && target.position.z < transform.position.z + shootRange && target.position.x + shootRange > transform.position.x && target.position.z + shootRange > transform.position.z)
         {
             //if (canShoot)
             //{
-                //Movement(distance);
-                curMovement = movementType.shoot;
-                //DebugEx.Log("moving towards target");
+            //Movement(distance);
 
-           // }
+            if(target.position.y >= transform.position.y)
+            {
+                curMovement = movementType.shoot;
+
+            }
+            //DebugEx.Log("moving towards target");
+
+            // }
         }
         else
         {
@@ -296,6 +303,7 @@ public class EnemyAi : MonoBehaviour
     {
         if (!staggered)
         {
+            DebugEx.Log("Fire!");
             GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + bulletSpawnY, transform.position.z), transform.rotation);
             Vector3 playerPositionCopy = target.position;
             playerPositionCopy.y = newBullet.transform.position.y;
@@ -317,4 +325,3 @@ public class EnemyAi : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, meleeRange);
     }
 }
-
