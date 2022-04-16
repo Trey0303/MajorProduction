@@ -101,12 +101,10 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     private void Start()
     {
+        //canMove = false;
         fallSpeed = 3;
-
         canDash = true;
-
         killcount = 0;
-
         startingDialogueActive = false;
         
         //gravity
@@ -150,6 +148,8 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     IEnumerator LateStart(float waitTime)
     {
+        rb.rotation = startRotation;
+        canMove = false;
         //DebugEx.Log("yield player: " + waitTime * 2);
         yield return new WaitForSeconds(waitTime * 2);
         //DebugEx.Log("adjust rotation");
@@ -161,7 +161,6 @@ public class PlayerControllerIsometric : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         //DebugEx.Log("can click");
         Dialogue.canClick = true;
-        canMove = false;
         
         //DebugEx.Log(canMove);
     }
@@ -289,12 +288,12 @@ public class PlayerControllerIsometric : MonoBehaviour
         //}
 
         //starting dialogue check
-        if (startingDialogueActive && canMove)
-        {
-            canMove = false;
-            rb.rotation = startRotation;
+        //if (startingDialogueActive && canMove)
+        //{
+        //    canMove = false;
+        //    rb.rotation = startRotation;
 
-        }
+        //}
         //stagger logic
         if (staggerTimer > 0)
         {

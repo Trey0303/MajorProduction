@@ -16,8 +16,8 @@ public class Dialogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //PlayerControllerIsometric.canMove = false;
         PlayerControllerIsometric.startingDialogueActive = true;
-        PlayerControllerIsometric.canMove = false;
         canClick = false;
         curText = 0;
         //DebugEx.Log("Start Dialogue Coroutine");
@@ -25,6 +25,7 @@ public class Dialogue : MonoBehaviour
     }
     IEnumerator LateStart(float waitTime)
     {
+        //PlayerControllerIsometric.canMove = false;
         PlayerControllerIsometric.startingDialogueActive = true;
         //DebugEx.Log("yield dialogue: " + waitTime * 2);
         yield return new WaitForSeconds(waitTime);
@@ -32,7 +33,6 @@ public class Dialogue : MonoBehaviour
 #pragma warning disable 0618
         dialogueBox.active = true;
         //DebugEx.Log("dialogue active:" + dialogueBox.active);
-        PlayerControllerIsometric.canMove = false;
         //DebugEx.Log("player movement: " + PlayerControllerIsometric.canMove);
     }
 
