@@ -107,17 +107,21 @@ public class AirEnemieAi : MonoBehaviour
                 break;
             case movementType.move:
                 //DebugEx.Log("MOVE");
-                if (!midAttack)
+                if(Time.timeScale != 0)
                 {
-                    //navAgent.enabled = true;
-                    navAgent.updateRotation = true;
-                    navAgent.isStopped = false;
-                    //navAgent.speed = moveSpeed;
-                    //navAgent.angularSpeed = angleSpeed;
-
-                    if (!staggered)
+                    if (!midAttack)
                     {
-                        navAgent.SetDestination(new Vector3(target.position.x, 7, target.position.z));
+                        //navAgent.enabled = true;
+                        navAgent.updateRotation = true;
+                        navAgent.isStopped = false;
+                        //navAgent.speed = moveSpeed;
+                        //navAgent.angularSpeed = angleSpeed;
+
+                        if (!staggered)
+                        {
+                            navAgent.SetDestination(new Vector3(target.position.x, 7, target.position.z));
+
+                        }
 
                     }
 

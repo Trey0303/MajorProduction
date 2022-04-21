@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "ItemData", menuName = "CollectableObjects/ScriptableItem", order = 1)]
 public class CollectableObj : ScriptableObject
 {
-    public string name;
+    public string itemName;
     public string description;
 
     public virtual void display()

@@ -13,13 +13,13 @@ public class ItemProgress
 
     public void AddItem()
     {
-        name = itemData.name;
+        name = itemData.itemName;
         description = itemData.description;
     }
 
     public void AddItem(CollectableObj newitem)
     {
-        name = newitem.name;
+        name = newitem.itemName;
         description = newitem.description;
     }
 }

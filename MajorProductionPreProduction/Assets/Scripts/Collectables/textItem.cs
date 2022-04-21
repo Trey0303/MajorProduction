@@ -111,8 +111,10 @@ public class textItem : MonoBehaviour
                     itemInfoActive = false;
                     if (PlayerControllerIsometric.canMove && !itemInfoActive)
                     {
-                        player.GetComponent<Inventory>().itemList.Add(itemScriptableObject);
-                        
+                        //player.GetComponent<Inventory>().itemList.Add(itemScriptableObject);
+
+                        Inventory.itemList.Add(itemScriptableObject);
+
                         Time.timeScale = 1;
                         //Debug.Log(PlayerControllerIsometric.canMove);
                         Destroy(itemInfoBox.gameObject);

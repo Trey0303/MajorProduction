@@ -143,6 +143,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         isGrounded = false;
         projectedPosition = rb.position;//prevents player from teleporting to position 0,0,0
         //DebugEx.Log("Start player Coroutine");
+        Dialogue.canClick = true;
         StartCoroutine(LateStart(.1f));
     }
 
@@ -160,7 +161,6 @@ public class PlayerControllerIsometric : MonoBehaviour
         //DebugEx.Log("yield player: " + waitTime);
         yield return new WaitForSeconds(waitTime);
         //DebugEx.Log("can click");
-        Dialogue.canClick = true;
         
         //DebugEx.Log(canMove);
     }
