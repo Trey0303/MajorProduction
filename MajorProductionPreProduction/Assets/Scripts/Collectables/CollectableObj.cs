@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//[CreateAssetMenu(fileName = "ItemData", menuName = "CollectableObjects/ScriptableObject", order = 1)]
-public class CollectableObj : MonoBehaviour
+[CreateAssetMenu(fileName = "ItemData", menuName = "CollectableObjects/ScriptableItem", order = 1)]
+public class CollectableObj : ScriptableObject
 {
-    public string itemName;
-    public Text itemInfo;
+    public string name;
+    public string description;
 
-    // Start is called before the first frame update
-    void Start()
+    public virtual void display()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

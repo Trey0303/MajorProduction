@@ -2,27 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory
+public class Inventory: MonoBehaviour
 {
-    private List<Item> itemList;
+    public List<ItemProgress> itemList = new List<ItemProgress>();
 
-    public Inventory()
+    void Start()
     {
-        itemList = new List<Item>();
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            //exp[i] = skillData[i].exp; 
+            if (itemList.Count != 0)
+            {
+                itemList[i].AddItem();
 
-        AddItem(new Item { itemType = Item.ItemType.collectable, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.collectable, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.collectable, amount = 1 });
-        DebugEx.Log(itemList.Count);
-    }
-
-    public void AddItem(Item item)
-    {
-        itemList.Add(item);
-    }
-
-    public List<Item> GetItemList()
-    {
-        return itemList;
+            }
+        }
     }
 }

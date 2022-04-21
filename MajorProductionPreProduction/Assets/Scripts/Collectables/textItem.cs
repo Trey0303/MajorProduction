@@ -15,6 +15,7 @@ public class textItem : MonoBehaviour
     Transform itemTransform;
     Transform textTransform;
 
+
     GameObject player;
 
     public float radius = 5;
@@ -29,9 +30,16 @@ public class textItem : MonoBehaviour
     private int curText;
     public List<GameObject> text;
 
+    public ItemProgress itemScriptableObject;
+    
     // Start is called before the first frame update
     void Start()
     {
+        if(itemScriptableObject != null)
+        {
+            itemScriptableObject.AddItem();
+        }
+
         itemTransform = transform;
         textTransform = pressInteractButtonText.transform;
 
@@ -103,6 +111,8 @@ public class textItem : MonoBehaviour
                     itemInfoActive = false;
                     if (PlayerControllerIsometric.canMove && !itemInfoActive)
                     {
+                        player.GetComponent<Inventory>().itemList.Add(itemScriptableObject);
+                        
                         Time.timeScale = 1;
                         //Debug.Log(PlayerControllerIsometric.canMove);
                         Destroy(itemInfoBox.gameObject);
