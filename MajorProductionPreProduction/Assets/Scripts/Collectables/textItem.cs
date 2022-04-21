@@ -112,8 +112,20 @@ public class textItem : MonoBehaviour
                     if (PlayerControllerIsometric.canMove && !itemInfoActive)
                     {
                         //player.GetComponent<Inventory>().itemList.Add(itemScriptableObject);
-
-                        Inventory.itemList.Add(itemScriptableObject);
+                        for(int i = 0; i <= Inventory.itemList.Count; i++)
+                        {
+                            //if(Inventory.itemList[i].itemData.itemName != )
+                            if (i == Inventory.itemList.Count)
+                            {
+                                Inventory.itemList.Add(itemScriptableObject);
+                                DebugEx.Log("Item Added");
+                                Time.timeScale = 1;
+                                //Debug.Log(PlayerControllerIsometric.canMove);
+                                Destroy(itemInfoBox.gameObject);
+                                Destroy(this.gameObject);
+                                return;
+                            }
+                        }
 
                         Time.timeScale = 1;
                         //Debug.Log(PlayerControllerIsometric.canMove);

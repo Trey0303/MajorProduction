@@ -57,6 +57,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private bool currentlyDashing;
     private Quaternion startRotation;
     private float timer = 0;
+    public Transform defaultDashPoint;
     
     private float knockbackTimer;
     
@@ -436,8 +437,6 @@ public class PlayerControllerIsometric : MonoBehaviour
                     gravity = !gravity;
                     //DebugEx.Log(gravity);
                     curMovement = movementType.idle;
-                    
-
                 }
                 break;
             case movementType.idle:
@@ -565,7 +564,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         }
         
 
-        Debug.DrawRay(transform.position, newDirection * 5);
+        Debug.DrawRay(transform.position, lastDirection * 5);
         Debug.DrawRay(transform.position, directionKnockedback.normalized * 5);
     }
 
@@ -614,6 +613,10 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     private void Dash()
     {
+        //if (input == Vector3.zero)
+        //{
+
+        //}
         invincibility = true;
         dashing = true;
         timer = timer + Time.deltaTime;
@@ -687,7 +690,19 @@ public class PlayerControllerIsometric : MonoBehaviour
     void Rotate(float rotateSpeed)
     {
         //rb.MoveRotation(Quaternion.LookRotation(lastDirection, Vector3.up));
-        rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * rotateSpeed);
+        //DebugEx.Log(lastDirection);
+        if(lastDirection != Vector3.zero)
+        {
+            rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * rotateSpeed);
+
+        }
+        else
+        {
+            //defaults to make player look behind them if lastDirection is set to (0,0,0)
+            lastDirection = (defaultDashPoint.position - transform.position).normalized;
+
+            rb.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastDirection, Vector3.up), Time.deltaTime * rotateSpeed);
+        }
     }
 
     private void SmoothRotate()

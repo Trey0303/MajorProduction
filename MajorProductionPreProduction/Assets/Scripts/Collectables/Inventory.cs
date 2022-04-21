@@ -19,7 +19,7 @@ public class Inventory: MonoBehaviour
         }
     }
 
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
