@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Item2
   description: 22222222222222222222222222222222222222
+  itemObject: {fileID: 8798817827012495638, guid: 675955b37928f38458bd0fb0f68944ff, type: 3}

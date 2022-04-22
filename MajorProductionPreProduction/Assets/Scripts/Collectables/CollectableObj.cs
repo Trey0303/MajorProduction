@@ -8,6 +8,7 @@ public class CollectableObj : ScriptableObject
 {
     public string itemName;
     public string description;
+    public GameObject itemObject;
 
     public virtual void display()
     {
