@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -114,23 +115,48 @@ public class textItem : MonoBehaviour
                         //player.GetComponent<Inventory>().itemList.Add(itemScriptableObject);
                         for(int i = 0; i <= Inventory.itemList.Count; i++)
                         {
-                            //if(Inventory.itemList[i].itemData.itemName != )
-                            if (i == Inventory.itemList.Count)
+                            if(Inventory.itemList.Count != 0)
                             {
-                                Inventory.itemList.Add(itemScriptableObject);
-                                DebugEx.Log("Item Added");
-                                Time.timeScale = 1;
-                                //Debug.Log(PlayerControllerIsometric.canMove);
-                                Destroy(itemInfoBox.gameObject);
-                                Destroy(this.gameObject);
-                                return;
+                                if (i == Inventory.itemList.Count)
+                                {
+                                    Inventory.itemList.Add(itemScriptableObject);
+                                    DebugEx.Log("Item Added");
+                                    Time.timeScale = 1;
+                                    //Debug.Log(PlayerControllerIsometric.canMove);
+                                    Destroy(itemInfoBox.gameObject);
+                                    Destroy(this.gameObject);
+                                    return;
+                                }
+                                else if (Inventory.itemList[i].itemData.itemName.Contains(itemScriptableObject.itemData.itemName))
+                                {
+                                    DebugEx.Log("already have item");
+                                    Time.timeScale = 1;
+                                    //Debug.Log(PlayerControllerIsometric.canMove);
+                                    Destroy(itemInfoBox.gameObject);
+                                    Destroy(this.gameObject);
+                                    return;
+                                }
+
+                            }
+                            else
+                            {
+                                if (i == Inventory.itemList.Count)
+                                {
+                                    Inventory.itemList.Add(itemScriptableObject);
+                                    DebugEx.Log("Item Added");
+                                    Time.timeScale = 1;
+                                    //Debug.Log(PlayerControllerIsometric.canMove);
+                                    Destroy(itemInfoBox.gameObject);
+                                    Destroy(this.gameObject);
+                                    return;
+                                }
                             }
                         }
 
-                        Time.timeScale = 1;
-                        //Debug.Log(PlayerControllerIsometric.canMove);
-                        Destroy(itemInfoBox.gameObject);
-                        Destroy(this.gameObject);
+                        //Time.timeScale = 1;
+                        ////Debug.Log(PlayerControllerIsometric.canMove);
+                        //Destroy(itemInfoBox.gameObject);
+                        //Destroy(this.gameObject);
 
                     }
                 }
