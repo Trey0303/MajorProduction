@@ -12,6 +12,14 @@ public class Gallery : MonoBehaviour
 
     private GameObject gallery;
 
+    private GameObject archives;
+    private GameObject relicInfo;
+    private GameObject library;
+
+    private GameObject pilots;
+    
+    private GameObject credits;
+
     public Text description;
 
     private GameObject displayItem;
@@ -25,8 +33,22 @@ public class Gallery : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gallery = GameObject.Find("IndexGallery");
+        gallery = GameObject.Find("Index");
         gallery.SetActive(false);
+
+        //ARCHIVES
+        archives = GameObject.Find("Archives");
+        archives.SetActive(false);
+
+        relicInfo = GameObject.Find("RelicInfo");
+        relicInfo.SetActive(false);
+
+        library = GameObject.Find("Library");
+        library.SetActive(false);
+
+        //PILOTS
+        pilots = GameObject.Find("Pilots");
+        pilots.SetActive(false);
 
         targetPos = GameObject.Find("targetPosition").transform;
 
@@ -66,14 +88,59 @@ public class Gallery : MonoBehaviour
         
     }
 
-    public void OpenGallery()
+    public void OpenIndex()
     {
         gallery.SetActive(true);
     }
 
-    public void CloseGallery()
+    public void OpenArchives()
+    {
+        archives.SetActive(true);
+    }
+
+    public void OpenRelicInfo()
+    {
+        relicInfo.SetActive(true);
+    }
+
+    public void OpenLibrary()
+    {
+        library.SetActive(true);
+    }
+
+    public void OpenPilots()
+    {
+        pilots.SetActive(true);
+    }
+
+    public void OpenCredits()
+    {
+        gallery.SetActive(true);
+    }
+
+    public void CloseIndex()
     {
         gallery.SetActive(false);
+    }
+
+    public void CloseArchives()
+    {
+        archives.SetActive(false);
+    }
+
+    public void CloseRelicInfo()
+    {
+        relicInfo.SetActive(false);
+    }
+
+    public void CloseLibrary()
+    {
+        library.SetActive(false);
+    }
+
+    public void ClosePilots()
+    {
+        pilots.SetActive(false);
     }
 
     public void DisplayItem()
