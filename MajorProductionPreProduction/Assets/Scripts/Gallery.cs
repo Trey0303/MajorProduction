@@ -18,6 +18,10 @@ public class Gallery : MonoBehaviour
     public List<GameObject> chapterText;
 
     private GameObject pilots;
+
+    private GameObject characterSelect;
+
+    private GameObject profiles;
     
     private GameObject credits;
 
@@ -57,6 +61,16 @@ public class Gallery : MonoBehaviour
         pilots = GameObject.Find("Pilots");
         pilots.SetActive(false);
 
+        characterSelect = GameObject.Find("CharacterSelect");
+        characterSelect.SetActive(false);
+
+        profiles = GameObject.Find("Profiles");
+        profiles.SetActive(false);
+
+        //CREDITS
+        credits = GameObject.Find("Credits");
+        credits.SetActive(false);
+
         targetPos = GameObject.Find("targetPosition").transform;
 
         //description = GameObject.Find("description").GetComponent<Text>();
@@ -87,12 +101,6 @@ public class Gallery : MonoBehaviour
         //    itemButtons[i].name = Inventory.itemList[i].itemData.itemName;
         //    itemButtons[i].interactable = true;
         //}
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OpenIndex()
@@ -150,10 +158,22 @@ public class Gallery : MonoBehaviour
         pilots.SetActive(true);
     }
 
+    public void OpenCharacterSelect()
+    {
+        characterSelect.SetActive(true);
+    }
+
+    public void OpenProfiles()
+    {
+        profiles.SetActive(true);
+    }
+
+    //Open Credits
     public void OpenCredits()
     {
-        gallery.SetActive(true);
+        credits.SetActive(true);
     }
+
 
     public void CloseIndex()
     {
@@ -176,6 +196,8 @@ public class Gallery : MonoBehaviour
         library.SetActive(false);
     }
 
+
+
     //close Library chapter
     public void CloseChapters()
     {
@@ -191,6 +213,21 @@ public class Gallery : MonoBehaviour
     public void ClosePilots()
     {
         pilots.SetActive(false);
+    }
+
+    public void CloseCharacterSelect()
+    {
+        characterSelect.SetActive(false);
+    }
+
+    public void CloseProfiles()
+    {
+        profiles.SetActive(false);
+    }
+
+    public void CloseCredits()
+    {
+        credits.SetActive(false);
     }
 
     public void DisplayItem()
