@@ -15,6 +15,7 @@ public class Gallery : MonoBehaviour
     private GameObject archives;
     private GameObject relicInfo;
     private GameObject library;
+    public List<GameObject> chapterText;
 
     private GameObject pilots;
     
@@ -43,8 +44,14 @@ public class Gallery : MonoBehaviour
         relicInfo = GameObject.Find("RelicInfo");
         relicInfo.SetActive(false);
 
+        //LIBRARY
         library = GameObject.Find("Library");
         library.SetActive(false);
+
+        for(int i = 0; i < chapterText.Count; i++)
+        {
+            chapterText[i].SetActive(false);
+        }
 
         //PILOTS
         pilots = GameObject.Find("Pilots");
@@ -93,6 +100,7 @@ public class Gallery : MonoBehaviour
         gallery.SetActive(true);
     }
 
+    //archiveMenu
     public void OpenArchives()
     {
         archives.SetActive(true);
@@ -108,6 +116,35 @@ public class Gallery : MonoBehaviour
         library.SetActive(true);
     }
 
+
+    //Open Library chapter
+    public void OpenChapter1()
+    {
+        chapterText[0].SetActive(true);
+    }
+
+    public void OpenChapter2()
+    {
+        chapterText[1].SetActive(true);
+    }
+
+    public void OpenChapter3()
+    {
+        chapterText[2].SetActive(true);
+    }
+
+    public void OpenChapter4()
+    {
+        chapterText[3].SetActive(true);
+    }
+
+    public void OpenChapter5()
+    {
+        chapterText[4].SetActive(true);
+    }
+
+
+    //pilot menu
     public void OpenPilots()
     {
         pilots.SetActive(true);
@@ -123,6 +160,7 @@ public class Gallery : MonoBehaviour
         gallery.SetActive(false);
     }
 
+    //close ArchiveMenu
     public void CloseArchives()
     {
         archives.SetActive(false);
@@ -138,6 +176,18 @@ public class Gallery : MonoBehaviour
         library.SetActive(false);
     }
 
+    //close Library chapter
+    public void CloseChapters()
+    {
+        for(int i = 0; i < chapterText.Count; i++)
+        {
+            chapterText[i].SetActive(false);
+
+        }
+
+    }
+
+    //close pilot menu
     public void ClosePilots()
     {
         pilots.SetActive(false);
