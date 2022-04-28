@@ -1,5 +1,86 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2489305930796887785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4935877874947066482}
+  - component: {fileID: 7119483591701088909}
+  - component: {fileID: 1820393006752096523}
+  m_Layer: 13
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4935877874947066482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2489305930796887785}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.00000040234, y: 0.00000011921, z: 8.24e-13}
+  m_LocalScale: {x: 4.4980097, y: 4.4980097, z: 4.4980097}
+  m_Children: []
+  m_Father: {fileID: 5242706521248784733}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7119483591701088909
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2489305930796887785}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1820393006752096523
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2489305930796887785}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8039f070425d0854491778072c824ec4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5242706520201260770
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,10 +192,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5242706521248784806}
   m_LocalRotation: {x: -0.000000029802319, y: 0.70710576, z: -0.000000014901159, w: 0.7071079}
-  m_LocalPosition: {x: -16.5, y: 1.14, z: 0.06574345}
+  m_LocalPosition: {x: -16.5, y: 1.14, z: 0.065742}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5242706520201260701}
+  - {fileID: 4935877874947066482}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -208,12 +290,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73f36820668c76e41832a12b1da399f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   moveSpeed: 10
+  playerRotationSpeed: 7
   dashTime: 0.1
   dashSpeed: 23.6
+  dashCost: 10
+  flightCost: 0
+  boostSpeed: 20
+  boostCost: 0.3
+  timeToWaitBeforeStaminaRegen: 1
+  endLagTime: 0.5
+  diveSpeed: 10
+  targetFlyPosY: 0
   rb: {fileID: 5242706521248784801}
+  cam: {fileID: 0}
   gravity: 1
+  defaultDashPoint: {fileID: 0}
+  staggered: 0
+  canToggleFlight: 0
+  flightMode: 0
+  canDash: 0
+  isAtFlightHeight: 0
 --- !u!114 &5242706521248784735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +324,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill:
-    skillData: {fileID: 11400000, guid: 07401c8cce937274088be3255ddf9c83, type: 2}
+  - skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  - skillData: {fileID: 0}
     name: 
     exp: 0
     maxExp: 0

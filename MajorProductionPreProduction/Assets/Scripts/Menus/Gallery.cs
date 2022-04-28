@@ -107,7 +107,8 @@ public class Gallery : MonoBehaviour
 
     public void Update()
     {
-        musicVol.text = "" + Settings.globalMusicVol.ToString("F1");
+        float tempVol = Settings.globalMusicVol * 10;//move decimal point right by 1
+        musicVol.text = "" + tempVol.ToString("F0");
     }
 
     public void OpenIndex()

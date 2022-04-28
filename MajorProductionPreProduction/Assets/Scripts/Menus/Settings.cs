@@ -13,11 +13,15 @@ public class Settings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        globalMusicVol = musicVol;
-
+        //globalMusicVol = musicVol;
+        DebugEx.Log(globalMusicVol);
         song.volume = globalMusicVol;
-        settings = GameObject.Find("Settings");
-        settings.SetActive(false);
+        if(GameObject.Find("Settings") != null)
+        {
+            settings = GameObject.Find("Settings");
+            settings.SetActive(false);
+
+        }
     }
 
     private void Update()
@@ -31,6 +35,7 @@ public class Settings : MonoBehaviour
     public void IncreaseMusicVol()
     {
         globalMusicVol = globalMusicVol + .1f;
+        globalMusicVol = Mathf.Round(globalMusicVol * 10.0f) * 0.1f;//rounds to the nearest .x
         if (globalMusicVol > 1f)
         {
             globalMusicVol = 1;
@@ -40,6 +45,7 @@ public class Settings : MonoBehaviour
     public void decreaseMusicVol()
     {
         globalMusicVol = globalMusicVol - .1f;
+        globalMusicVol = Mathf.Round(globalMusicVol * 10.0f) * 0.1f;//rounds to the nearest .x
         if (globalMusicVol < .1f)
         {
             globalMusicVol = 0;
