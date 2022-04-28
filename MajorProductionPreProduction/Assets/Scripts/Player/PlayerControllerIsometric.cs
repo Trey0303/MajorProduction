@@ -27,7 +27,7 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     [Header("height in flight mode")]
     public float targetFlyPosY;//target y position in flight mode
-    public float skyFlightBoarder = 20;
+    //public float skyFlightBoarder = 20;
 
 
     //programmer variables
@@ -371,7 +371,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     {
                         projectedPosition.y = flightPosY;
                     }
-                    if (rb.position.y < flightPosY && rb.position.y < skyFlightBoarder)
+                    if (rb.position.y < flightPosY /*&& rb.position.y < skyFlightBoarder*/)
                     {
                         Vector3 targetPos = rb.position;
                         targetPos.y = flightPosY;
@@ -382,10 +382,10 @@ public class PlayerControllerIsometric : MonoBehaviour
                         //rb.position = targetPos;
 
                     }
-                    else if(rb.position.y >= skyFlightBoarder && flightPosY > skyFlightBoarder)
-                    {
-                        flightPosY = skyFlightBoarder;
-                    }
+                    //else if(rb.position.y >= skyFlightBoarder && flightPosY > skyFlightBoarder)
+                    //{
+                    //    flightPosY = skyFlightBoarder;
+                    //}
                     else
                     {
                         if (canMove)
