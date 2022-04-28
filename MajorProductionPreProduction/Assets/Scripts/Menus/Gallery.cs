@@ -35,6 +35,8 @@ public class Gallery : MonoBehaviour
 
     public Transform targetPos;
 
+    public Text musicVol;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -101,6 +103,11 @@ public class Gallery : MonoBehaviour
         //    itemButtons[i].name = Inventory.itemList[i].itemData.itemName;
         //    itemButtons[i].interactable = true;
         //}
+    }
+
+    public void Update()
+    {
+        musicVol.text = "" + Settings.globalMusicVol.ToString("F1");
     }
 
     public void OpenIndex()
