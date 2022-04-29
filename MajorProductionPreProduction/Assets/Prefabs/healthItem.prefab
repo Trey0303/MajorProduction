@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1181549845590719571}
   - component: {fileID: 1181549845590719570}
   - component: {fileID: 1181549845590719582}
-  - component: {fileID: 2467456753761124645}
+  - component: {fileID: 2697444090159349067}
   m_Layer: 9
   m_Name: healthItem
-  m_TagString: Untagged
+  m_TagString: itemCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1181549845590719582
 MonoBehaviour:
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healAmount: 1
---- !u!54 &2467456753761124645
+--- !u!54 &2697444090159349067
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +125,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &3068134145990056113
 GameObject:
@@ -137,9 +137,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2165785254620204663}
   - component: {fileID: 7475562680141986151}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: GroundCollisionCheck
-  m_TagString: Untagged
+  m_TagString: itemCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,5 +169,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.72338235, y: 0.74438465, z: 0.9626193}
-  m_Center: {x: 0.041493904, y: -0.06663794, z: 0.018690296}
+  m_Size: {x: 0.01, y: 0.2, z: 0.01}
+  m_Center: {x: 0, y: -0.4, z: 0}

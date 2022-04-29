@@ -504,7 +504,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                 if (overlapped)
                 {
 
-                    if (!dashing)
+                    if (!dashing && hitColliders[i].gameObject.tag != "Enemy" /*&& dashing && hitColliders[i].gameObject.tag != "itemCollision"*/)
                     {
                         //                               (vector, planeNormal)
                         velocity = Vector3.ProjectOnPlane(velocity, direction * 2);

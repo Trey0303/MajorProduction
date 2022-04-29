@@ -7,11 +7,12 @@ TagManager:
   - Enemy
   - Boss
   - FlyingEnemies
+  - itemCollision
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Enemy
@@ -22,7 +23,7 @@ TagManager:
   - walkableFlyingEnemies
   - FlyingEnemies
   - Minimap
-  - 
+  - itemCollision
   - 
   - 
   - 

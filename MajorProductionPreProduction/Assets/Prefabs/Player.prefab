@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 5242706520201260701}
   - component: {fileID: 5242706520201260702}
   - component: {fileID: 5242706520201260703}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5242706521248784801}
   - component: {fileID: 5242706521248784732}
   - component: {fileID: 5242706521248784735}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -306,6 +306,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   gravity: 1
   defaultDashPoint: {fileID: 0}
+  dropShadowPrefab: {fileID: 0}
   staggered: 0
   canToggleFlight: 0
   flightMode: 0
