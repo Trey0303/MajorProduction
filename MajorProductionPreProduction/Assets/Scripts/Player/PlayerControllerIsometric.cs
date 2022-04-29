@@ -58,7 +58,10 @@ public class PlayerControllerIsometric : MonoBehaviour
     private Quaternion startRotation;
     private float timer = 0;
     public Transform defaultDashPoint;
-    
+
+    LayerMask groundLayerMask;
+    public GameObject dropShadowPrefab;
+
     private float knockbackTimer;
     
     public bool staggered;//staggered state
@@ -138,6 +141,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         velocity = rb.velocity;
         mask = LayerMask.GetMask("Default", "Enemy");
+        groundLayerMask = LayerMask.GetMask("Default");
         thisCollider = this.GetComponent<BoxCollider>();
         originalSize = thisCollider.size;
         skinWidthSize = new Vector3(thisCollider.size.x + skinWidth, thisCollider.size.y + skinWidth, thisCollider.size.z + skinWidth);
@@ -339,10 +343,12 @@ public class PlayerControllerIsometric : MonoBehaviour
                 {
                     if (isAtFlightHeight)
                     {
+                        DropShadow();
+
                         PlayerHealth.RegenWaitTimer = timeToWaitBeforeStaminaRegen;
                         stamina = stamina - flightCost;
                     }
-                    if(flightCost > stamina)
+                    if(flightCost > stamina)//player drops if runs out of stamina
                     {
                         isAtFlightHeight = false;
                         flightMode = false;
@@ -362,6 +368,8 @@ public class PlayerControllerIsometric : MonoBehaviour
                 }
                 break;
             case movementType.fly:
+                //spawn drop shadow
+                DropShadow();
 
                 if (canMove)
                 {
@@ -400,6 +408,8 @@ public class PlayerControllerIsometric : MonoBehaviour
             case movementType.boost:
                 if (canMove && canDash)
                 {
+                    DropShadow();
+
                     PlayerHealth.RegenWaitTimer = timeToWaitBeforeStaminaRegen;
                     stamina = stamina - boostCost;
                     Boost(input);
@@ -566,6 +576,22 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         Debug.DrawRay(transform.position, lastDirection * 5);
         Debug.DrawRay(transform.position, directionKnockedback.normalized * 5);
+    }
+
+    private void DropShadow()
+    {
+        RaycastHit hit1;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit1, Mathf.Infinity, groundLayerMask))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1000, Color.yellow);
+            //Instantiate(dropShadowPrefab, hit1.point, Quaternion.identity);
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
+            Debug.Log("Did not Hit");
+        }
     }
 
     private void knockbackLogic(float strength, Vector3 direction)
