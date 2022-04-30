@@ -573,6 +573,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             //DebugEx.Log(isGrounded);
         }
         
+        
 
         Debug.DrawRay(transform.position, lastDirection * 5);
         Debug.DrawRay(transform.position, directionKnockedback.normalized * 5);
