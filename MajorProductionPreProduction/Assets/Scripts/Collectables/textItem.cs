@@ -31,6 +31,14 @@ public class textItem : MonoBehaviour
 
     public ItemProgress itemScriptableObject;
     
+    //Relic Upgrades
+    [Header("Relic Upgrades")]
+
+    public bool maxHealth;
+    public bool attack;
+    public bool stamina;
+    public int increaseAmount = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -118,12 +126,6 @@ public class textItem : MonoBehaviour
                                 if (i == Inventory.itemList.Count)
                                 {
                                     AddItem();
-                                    //Inventory.itemList.Add(itemScriptableObject);
-                                    //DebugEx.Log("Item Added");
-                                    //Time.timeScale = 1;
-                                    ////Debug.Log(PlayerControllerIsometric.canMove);
-                                    //Destroy(itemInfoBox.gameObject);
-                                    //Destroy(this.gameObject);
                                     return;
                                 }
                                 else if (Inventory.itemList[i].itemData.itemName.Contains(itemScriptableObject.itemData.itemName))
@@ -142,28 +144,13 @@ public class textItem : MonoBehaviour
                                 if (i == Inventory.itemList.Count)
                                 {
                                     AddItem();
-                                    //Inventory.itemList.Add(itemScriptableObject);
-                                    //DebugEx.Log("Item Added");
-                                    //Time.timeScale = 1;
-                                    ////Debug.Log(PlayerControllerIsometric.canMove);
-                                    //Destroy(itemInfoBox.gameObject);
-                                    //Destroy(this.gameObject);
                                     return;
                                 }
                             }
                         }
 
-                        //Time.timeScale = 1;
-                        ////Debug.Log(PlayerControllerIsometric.canMove);
-                        //Destroy(itemInfoBox.gameObject);
-                        //Destroy(this.gameObject);
-
                     }
                 }
-
-                //PlayerControllerIsometric.canMove = true;
-                //Destroy(this.gameObject);
-                //Destroy(itemInfoBox.gameObject);
             }
 
 
@@ -176,12 +163,41 @@ public class textItem : MonoBehaviour
     private void AddItem()
     {
         Inventory.itemList.Add(itemScriptableObject);
-        PlayerHealth.maxHealth = PlayerHealth.maxHealth + 1;//increase max health
+        
+        //increase selected stat
+        if (maxHealth)
+        {
+            IncreaseMaxHealth();
+        }
+        if (stamina)
+        {
+            IncreaseMaxStamina();
+        }
+        if (attack)
+        {
+            IncreaseAttack();
+        }
+        
         DebugEx.Log("Item Added");
         Time.timeScale = 1;
         //Debug.Log(PlayerControllerIsometric.canMove);
         Destroy(itemInfoBox.gameObject);
         Destroy(this.gameObject);
+    }
+
+    private void IncreaseMaxStamina()
+    {
+        PlayerHealth.maxStamina = PlayerHealth.maxStamina + increaseAmount;// increase max stamina
+    }
+
+    private void IncreaseMaxHealth()
+    {
+        PlayerHealth.maxHealth = PlayerHealth.maxHealth + increaseAmount;//increase max health
+    }
+
+    private void IncreaseAttack()
+    {
+        PlayerAttack.normalAttackDamage = PlayerAttack.normalAttackDamage + increaseAmount;
     }
 
     private void RangeCheck()

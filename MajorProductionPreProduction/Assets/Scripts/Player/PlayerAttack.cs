@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public List<SkillProgress> skill = new List<SkillProgress>();
+    public static int normalAttackDamage { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -21,17 +22,22 @@ public class PlayerAttack : MonoBehaviour
             if (skill.Count != 0)
             {
                 skill[i].AddSkill();
-
             }
         }
+
+        normalAttackDamage = skill[0].skillData.damage;
+        DebugEx.Log(normalAttackDamage);
     }
 
     // Update is called once per frame
-    //void Update()
-    //{
-    //    Attack();
-
-    //}
+    void LateUpdate()
+    {
+        if (skill[0].skillData.damage != normalAttackDamage)
+        {
+            skill[0].SetDamage(normalAttackDamage);
+            DebugEx.Log(skill[0].damage);
+        }
+    }
 
     public void Attack()
     {

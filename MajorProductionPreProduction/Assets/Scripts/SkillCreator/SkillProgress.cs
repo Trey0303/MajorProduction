@@ -43,6 +43,11 @@ public class SkillProgress
 
     }
 
+    public void SetDamage(int damageIncrease)
+    {
+        damage = damageIncrease;
+    }
+
     public void AddSkill()
     {
         //set defaults

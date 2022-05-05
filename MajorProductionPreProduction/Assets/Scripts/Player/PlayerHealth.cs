@@ -12,17 +12,17 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthbar;
     public int gameoverScene;
     public static float curHealth { get; set; }
+    public static float maxHealth { get; set; }
 
     //stamina
     public Slider staminabar;
 
 
-    public float maxStamina = 100;
+    public static float maxStamina { get; set; }
     public float RegenBy;
 
     public static float RegenWaitTimer { get; set; }
 
-    public static float maxHealth { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +31,8 @@ public class PlayerHealth : MonoBehaviour
         curHealth = healthbar.value;
         maxHealth = healthbar.maxValue;
 
-        PlayerControllerIsometric.stamina = maxStamina;
-        staminabar.maxValue = PlayerControllerIsometric.stamina;
+        PlayerControllerIsometric.stamina = staminabar.maxValue;
+        maxStamina = staminabar.maxValue;
         staminabar.value = PlayerControllerIsometric.stamina;
     }
 
@@ -71,6 +71,15 @@ public class PlayerHealth : MonoBehaviour
                 healthbar.maxValue = maxHealth;
                 curHealth = healthbar.maxValue;
             }
+
+        }
+
+        //MAX STAMINA
+        if (staminabar.maxValue != maxStamina)//if player max health increases/decreases
+        {
+            staminabar.maxValue = maxStamina;
+            PlayerControllerIsometric.stamina = staminabar.maxValue;
+            DebugEx.Log("MAX STAMINA CHANGE");
         }
 
         if (staminabar != null)
@@ -81,21 +90,18 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        if (PlayerControllerIsometric.stamina < maxStamina)
+        if (RegenWaitTimer <= 0)
         {
-            if (RegenWaitTimer <= 0)
+            if (PlayerControllerIsometric.stamina < staminabar.maxValue)
             {
-                if(PlayerControllerIsometric.stamina  < staminabar.maxValue)
-                {
-                    PlayerControllerIsometric.stamina = PlayerControllerIsometric.stamina + RegenBy * Time.deltaTime;
-
-                }
+                PlayerControllerIsometric.stamina = PlayerControllerIsometric.stamina + RegenBy * Time.deltaTime;
 
             }
-            else
-            {
-                RegenWaitTimer = RegenWaitTimer - Time.deltaTime;
-            }
+
+        }
+        else
+        {
+            RegenWaitTimer = RegenWaitTimer - Time.deltaTime;
         }
     }
 }
