@@ -49,6 +49,11 @@ public class PlayerHealth : MonoBehaviour
                     healthbar.value = curHealth;//update health ui
 
                 }
+                else if (curHealth > healthbar.maxValue)
+                {
+                    curHealth = healthbar.maxValue;
+                    healthbar.value = curHealth;
+                }
                 else
                 {
                     curHealth = healthbar.value;
@@ -87,7 +92,31 @@ public class PlayerHealth : MonoBehaviour
             if (staminabar.value != PlayerControllerIsometric.stamina)//if there was a change in value for stamina
             {
                 staminabar.value = PlayerControllerIsometric.stamina;
+
+                if (curHealth <= healthbar.maxValue)//limits healing to no more than max health
+                {
+                    //healthbar.value = curHealth;//update health ui
+
+                    staminabar.value = PlayerControllerIsometric.stamina;
+
+                }
+                else if (curHealth > healthbar.maxValue)
+                {
+                    //curHealth = healthbar.maxValue;
+                    //healthbar.value = curHealth;
+
+                    PlayerControllerIsometric.stamina = staminabar.maxValue;
+                    staminabar.value = PlayerControllerIsometric.stamina;
+                }
+                else
+                {
+                    //curHealth = healthbar.value;
+
+                    PlayerControllerIsometric.stamina = staminabar.value;
+                }
             }
+
+
         }
 
         if (RegenWaitTimer <= 0)

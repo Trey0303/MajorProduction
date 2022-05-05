@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhysicalSkillData
   m_EditorClassIdentifier: 
   skillName: PhysAttack
-  damage: 2
+  damage: 3
   maxLevel: 1
   cost: 0
   activeHitBoxTimer: 0.1
