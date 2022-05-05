@@ -37,9 +37,12 @@ public class Gallery : MonoBehaviour
 
     public Text musicVol;
 
+    public Text sfxVol;
+
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         gallery = GameObject.Find("Index");
         gallery.SetActive(false);
 
@@ -109,6 +112,9 @@ public class Gallery : MonoBehaviour
     {
         float tempVol = Settings.globalMusicVol * 10;//move decimal point right by 1
         musicVol.text = "" + tempVol.ToString("F0");
+
+        float tempSfxVol = Settings.globalSfxVol * 10;//move decimal point right by 1
+        sfxVol.text = "" + tempSfxVol.ToString("F0");
     }
 
     public void OpenIndex()

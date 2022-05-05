@@ -19,4 +19,4 @@ MonoBehaviour:
   activeHitBoxTimer: 0.1
   hurtboxPrefab: {fileID: 863276530170334723, guid: 70c710a149c92f64194f991ee901e668, type: 3}
   rangeX: 1.87
-  rangeY: 0
+  rangeY: 0.95

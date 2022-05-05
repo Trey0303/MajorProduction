@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
 {
     private GameObject player;
 
+    [Header("Sound Effects")]
+    public AudioSource deathAudio;
+
     //health
     public Slider healthbar;
     public int gameoverScene;
@@ -20,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
 
     public static float maxStamina { get; set; }
     public float RegenBy;
+    private bool deathAudioPlayed;
 
     public static float RegenWaitTimer { get; set; }
 
@@ -63,11 +67,31 @@ public class PlayerHealth : MonoBehaviour
             //GAME OVER
             if(healthbar.value <= 0)//if player dies
             {
+                if (!deathAudioPlayed)
+                {
+                    Time.timeScale = 0;
+                    deathAudio.Play();
+                    deathAudioPlayed = true;
+                }
+                else if(!deathAudio.isPlaying)
+                {
+                    ////move to gameover scene
+                    DebugEx.Log("Player dead");
+                    SceneManager.LoadScene(gameoverScene);
+
+                }
+
                 //play death animation
 
-                //move to gameover scene
-                DebugEx.Log("Player dead");
-                SceneManager.LoadScene(gameoverScene);
+                //StartCoroutine(Death());
+                //yield return new WaitWhile(() => deathAudio.isPlaying);
+
+                //while (deathAudio.isPlaying)
+                //{
+                //    Time.timeScale = 0;
+                //    yield return null;
+                //}
+
             }
 
             //MAX HEALTH
@@ -91,7 +115,7 @@ public class PlayerHealth : MonoBehaviour
         {
             if (staminabar.value != PlayerControllerIsometric.stamina)//if there was a change in value for stamina
             {
-                staminabar.value = PlayerControllerIsometric.stamina;
+                //staminabar.value = PlayerControllerIsometric.stamina;
 
                 if (curHealth <= healthbar.maxValue)//limits healing to no more than max health
                 {
@@ -133,4 +157,22 @@ public class PlayerHealth : MonoBehaviour
             RegenWaitTimer = RegenWaitTimer - Time.deltaTime;
         }
     }
+
+    //IEnumerator Death()
+    //{
+    //    //deathAudio.Play();
+
+    //    //play death animation
+
+    //    //StartCoroutine(Death());
+    //    while (deathAudio.isPlaying)
+    //    {
+    //        Time.timeScale = 0;
+    //        yield return null;
+    //    }
+    //    //yield return new WaitWhile(() => deathAudio.isPlaying);
+    //    //move to gameover scene
+    //    DebugEx.Log("Player dead");
+    //    SceneManager.LoadScene(gameoverScene);
+    //}
 }
