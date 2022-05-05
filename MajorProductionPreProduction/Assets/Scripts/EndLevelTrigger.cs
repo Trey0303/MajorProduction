@@ -6,12 +6,17 @@ using UnityEngine.SceneManagement;
 public class EndLevelTrigger : MonoBehaviour
 {
     public int selectScene;
+    public int targetKills;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            SceneManager.LoadScene(selectScene);
+            if(PlayerControllerIsometric.killcount >= targetKills)
+            {
+                SceneManager.LoadScene(selectScene);
+
+            }
         }
     }
 }

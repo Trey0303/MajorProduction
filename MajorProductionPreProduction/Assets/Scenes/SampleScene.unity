@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectScene: 2
+  targetKills: 7
 --- !u!65 &34148541
 BoxCollider:
   m_ObjectHideFlags: 0

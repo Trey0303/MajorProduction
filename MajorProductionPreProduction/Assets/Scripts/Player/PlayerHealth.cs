@@ -22,11 +22,14 @@ public class PlayerHealth : MonoBehaviour
 
     public static float RegenWaitTimer { get; set; }
 
+    public static float maxHealth { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         curHealth = healthbar.value;
+        maxHealth = healthbar.maxValue;
 
         PlayerControllerIsometric.stamina = maxStamina;
         staminabar.maxValue = PlayerControllerIsometric.stamina;
@@ -38,6 +41,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(healthbar != null)
         {
+            //CURRENT HEALTH
             if(healthbar.value != curHealth)//if player loss or gained health
             {
                 if(curHealth <= healthbar.maxValue)//limits healing to no more than max health
@@ -51,12 +55,21 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
 
+            //GAME OVER
             if(healthbar.value <= 0)//if player dies
             {
                 //play death animation
 
                 //move to gameover scene
+                DebugEx.Log("Player dead");
                 SceneManager.LoadScene(gameoverScene);
+            }
+
+            //MAX HEALTH
+            if (healthbar.maxValue != maxHealth)//if player max health increases/decreases
+            {
+                healthbar.maxValue = maxHealth;
+                curHealth = healthbar.maxValue;
             }
         }
 

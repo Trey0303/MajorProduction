@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class textItem : MonoBehaviour
 {
-
-
     [SerializeField]
     Text pressInteractButtonText;
     [SerializeField]
@@ -119,12 +117,13 @@ public class textItem : MonoBehaviour
                             {
                                 if (i == Inventory.itemList.Count)
                                 {
-                                    Inventory.itemList.Add(itemScriptableObject);
-                                    DebugEx.Log("Item Added");
-                                    Time.timeScale = 1;
-                                    //Debug.Log(PlayerControllerIsometric.canMove);
-                                    Destroy(itemInfoBox.gameObject);
-                                    Destroy(this.gameObject);
+                                    AddItem();
+                                    //Inventory.itemList.Add(itemScriptableObject);
+                                    //DebugEx.Log("Item Added");
+                                    //Time.timeScale = 1;
+                                    ////Debug.Log(PlayerControllerIsometric.canMove);
+                                    //Destroy(itemInfoBox.gameObject);
+                                    //Destroy(this.gameObject);
                                     return;
                                 }
                                 else if (Inventory.itemList[i].itemData.itemName.Contains(itemScriptableObject.itemData.itemName))
@@ -142,12 +141,13 @@ public class textItem : MonoBehaviour
                             {
                                 if (i == Inventory.itemList.Count)
                                 {
-                                    Inventory.itemList.Add(itemScriptableObject);
-                                    DebugEx.Log("Item Added");
-                                    Time.timeScale = 1;
-                                    //Debug.Log(PlayerControllerIsometric.canMove);
-                                    Destroy(itemInfoBox.gameObject);
-                                    Destroy(this.gameObject);
+                                    AddItem();
+                                    //Inventory.itemList.Add(itemScriptableObject);
+                                    //DebugEx.Log("Item Added");
+                                    //Time.timeScale = 1;
+                                    ////Debug.Log(PlayerControllerIsometric.canMove);
+                                    //Destroy(itemInfoBox.gameObject);
+                                    //Destroy(this.gameObject);
                                     return;
                                 }
                             }
@@ -171,6 +171,17 @@ public class textItem : MonoBehaviour
             RangeCheck();
         }
 
+    }
+
+    private void AddItem()
+    {
+        Inventory.itemList.Add(itemScriptableObject);
+        PlayerHealth.maxHealth = PlayerHealth.maxHealth + 1;//increase max health
+        DebugEx.Log("Item Added");
+        Time.timeScale = 1;
+        //Debug.Log(PlayerControllerIsometric.canMove);
+        Destroy(itemInfoBox.gameObject);
+        Destroy(this.gameObject);
     }
 
     private void RangeCheck()
