@@ -15,11 +15,11 @@ GameObject:
   - component: {fileID: 70030304500151492}
   - component: {fileID: 70030304500151551}
   - component: {fileID: 70030304500151550}
-  - component: {fileID: 70030304500151493}
   - component: {fileID: 70030304500151548}
   - component: {fileID: 70030304500151549}
+  - component: {fileID: 7460843078361329132}
   m_Layer: 6
-  m_Name: Enemy
+  m_Name: Enemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,47 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76545fe13bfb7f419fbde5f9528375c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &70030304500151493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70030304500151494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeAttackAudio: {fileID: 0}
-  shootAudio: {fileID: 0}
-  range: 21.12
-  bulletPrefab: {fileID: 6653186488722813522, guid: 6451285676a1bb94fa52dc4f15e90730, type: 3}
-  shootRange: 11.18
-  firingInterval: 0.9
-  canShoot: 0
-  attack:
-    skillData: {fileID: 0}
-    name: 
-    exp: 0
-    maxExp: 0
-    level: 0
-    damage: 0
-    cost: 0
-  meleeRange: 3.15
-  meleeStartup: 1.5
-  playerMeleeStaggerTime: 0.7
-  meleeKnockback: 4.5
-  playerKnockedbackTimeSet: 1
-  canHit: 0
-  attackEndLag: 0.7
-  setStaggerTime: 1
-  navAgent: {fileID: 70030304500151548}
-  target: {fileID: 0}
-  staggerTimer: 0
-  staggered: 0
-  bulletSpawnY: 3
-  midAttack: 0
 --- !u!195 &70030304500151548
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -224,6 +183,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 70030304500151548}
   target: {fileID: 0}
+--- !u!114 &7460843078361329132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70030304500151494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f82351554503349a5ba24750b2e8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeAttackAudio: {fileID: 0}
+  shootAudio: {fileID: 7893276845632225181, guid: 3911e2fb1f294c24996bec5e6f1307a0, type: 3}
+  range: 5
+  bulletPrefab: {fileID: 2731041784718487174}
+  shootRange: 11.12
+  firingInterval: 1
+  canShoot: 0
+  attack:
+    skillData: {fileID: 0}
+    name: 
+    exp: 0
+    maxExp: 0
+    level: 0
+    damage: 0
+    cost: 0
+  meleeRange: 3.15
+  meleeStartup: 1.5
+  playerMeleeStaggerTime: 0.7
+  meleeKnockback: 4.5
+  playerKnockedbackTimeSet: 1
+  canHit: 0
+  attackEndLag: 0.7
+  setStaggerTime: 1
+  navAgent: {fileID: 70030304500151548}
+  target: {fileID: 0}
+  staggerTimer: 0
+  staggered: 0
+  bulletSpawnY: 3
+  midAttack: 0
 --- !u!1 &70030304725659455
 GameObject:
   m_ObjectHideFlags: 0
