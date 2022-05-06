@@ -6,8 +6,9 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
-
-    //public Agent agent;
+    [Header("Sound Effect")]
+    public AudioSource meleeAttackAudio;
+    public AudioSource shootAudio;
 
     //public float speed = 3.0f;
 
@@ -285,6 +286,11 @@ public class EnemyAi : MonoBehaviour
     {
         if (attack.skillData != null)
         {
+            if(meleeAttackAudio != null && !meleeAttackAudio.isPlaying)
+            {
+                meleeAttackAudio.Play();
+            }
+
             midAttack = true;
             playerKnockedBackTime = playerKnockedbackTimeSet;
             attack.Use(this.gameObject, meleeKnockback, playerKnockedBackTime);
@@ -296,6 +302,11 @@ public class EnemyAi : MonoBehaviour
     {
         if (!staggered)
         {
+            if(shootAudio != null && !shootAudio.isPlaying)
+            {
+                shootAudio.Play();
+            }
+
             GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + bulletSpawnY, transform.position.z), transform.rotation);
             Vector3 playerPositionCopy = target.position;
             playerPositionCopy.y = newBullet.transform.position.y;

@@ -8,7 +8,9 @@ public class PlayerControllerIsometric : MonoBehaviour
     [Header("Sound Effect")]
     public AudioSource attackAudio;
     public AudioSource dashAudio;
-    public AudioSource flyingAudio;
+    public AudioSource GroundToFlightAudio;
+    public AudioSource walkAudio;
+    public AudioSource slamAudio;
 
     [Header("Movement")]
     //player movement Speed
@@ -262,9 +264,9 @@ public class PlayerControllerIsometric : MonoBehaviour
             }
             else
             {
-                if (flyingAudio != null && flyingAudio.isPlaying)
+                if (GroundToFlightAudio != null && GroundToFlightAudio.isPlaying)
                 {
-                    flyingAudio.Stop();
+                    GroundToFlightAudio.Stop();
                 }
                 curMovement = movementType.walk;
             }
@@ -388,9 +390,9 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 if (canMove)
                 {
-                    if (flyingAudio != null && !flyingAudio.isPlaying)
+                    if (GroundToFlightAudio != null && !GroundToFlightAudio.isPlaying)
                     {
-                        flyingAudio.Play();
+                        GroundToFlightAudio.Play();
                     }
 
                     //canToggleFlight = false;
@@ -477,6 +479,11 @@ public class PlayerControllerIsometric : MonoBehaviour
                 projectedPosition = rb.position + (velocity) * Time.deltaTime;
                 if (isGrounded)
                 {
+                    if(slamAudio != null)
+                    {
+                        slamAudio.Play();
+
+                    }
                     curMovement = movementType.walk;
 
                 }
@@ -726,12 +733,25 @@ public class PlayerControllerIsometric : MonoBehaviour
 
         if (input.magnitude != 0)
         {
+            if (isGrounded && walkAudio != null && !walkAudio.isPlaying)
+            {
+                walkAudio.Play();
+            }
+
             lastDirection = input.normalized;
             //lastDirection = input.normalized;
             //radian = degree * Mathf.Deg2Rad;
             //newDirection = Vector3.RotateTowards(lastDirection, input.normalized * Time.deltaTime, radian, 0.0f);
 
             SmoothRotate();
+        }
+
+        if(input.magnitude == 0)
+        {
+            if (isGrounded && walkAudio != null && walkAudio.isPlaying)
+            {
+                walkAudio.Stop();
+            }
         }
         //rb.MoveRotation(Quaternion.LookRotation(lastDirection, Vector3.up));
 

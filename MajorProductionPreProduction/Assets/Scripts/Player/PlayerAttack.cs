@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         normalAttackDamage = skill[0].skillData.damage;
-        DebugEx.Log(normalAttackDamage);
+        //DebugEx.Log(normalAttackDamage);
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
         if (skill[0].skillData.damage != normalAttackDamage)
         {
             skill[0].SetDamage(normalAttackDamage);
-            DebugEx.Log(skill[0].damage);
+            //DebugEx.Log(skill[0].damage);
         }
     }
 

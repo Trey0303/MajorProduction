@@ -19,15 +19,16 @@ public class Settings : MonoBehaviour
     void Start()
     {
         //globalMusicVol = musicVol;
-        DebugEx.Log(globalMusicVol);
-        if(song.gameObject != null)//music
+        //DebugEx.Log(globalMusicVol);
+        if(song != null)//music
         {
             song.volume = globalMusicVol;
 
         }
-        if (soundEffects.Count > 0)//sound effects
+
+        for (int i = 0; i < soundEffects.Count; i++)//sound effects
         {
-            for(int i = 0; i < soundEffects.Count; i++)
+            if(soundEffects[i] != null)
             {
                 soundEffects[i].volume = globalSfxVol;
 
@@ -35,7 +36,8 @@ public class Settings : MonoBehaviour
 
 
         }
-        if(GameObject.Find("Settings") != null)
+
+        if (GameObject.Find("Settings") != null)
         {
             settings = GameObject.Find("Settings");
             settings.SetActive(false);
@@ -43,21 +45,31 @@ public class Settings : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if(song.volume != globalMusicVol)
+        if(song != null)
         {
-            song.volume = globalMusicVol;
+            if(song.volume != globalMusicVol)
+            {
+                song.volume = globalMusicVol;
+            }
+
         }
 
         if (lastSoundCheck != globalSfxVol)
         {
             lastSoundCheck = globalSfxVol;
-            for(int i = 0; i < soundEffects.Count; i++)
+            for (int i = 0; i < soundEffects.Count; i++)
             {
-                soundEffects[i].volume = globalSfxVol;
+                if(soundEffects[i] != null)
+                {
+                    soundEffects[i].volume = globalSfxVol;
+
+                }
             }
         }
+
+
     }
 
     public void IncreaseMusicVol()
@@ -70,7 +82,7 @@ public class Settings : MonoBehaviour
         }
     }
 
-    public void decreaseMusicVol()
+    public void DecreaseMusicVol()
     {
         globalMusicVol = globalMusicVol - .1f;
         globalMusicVol = Mathf.Round(globalMusicVol * 10.0f) * 0.1f;//rounds to the nearest .x

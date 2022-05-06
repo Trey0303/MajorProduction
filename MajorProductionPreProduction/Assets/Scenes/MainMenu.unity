@@ -2084,7 +2084,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1828965966}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: decreaseMusicVol
+        m_MethodName: DecreaseMusicVol
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3214,9 +3214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song: {fileID: 1828965965}
-  playerDeathSFX: {fileID: 1828965967}
-  musicVol: 0.1
-  sfx: 0.1
+  soundEffects: []
 --- !u!82 &1828965967
 AudioSource:
   m_ObjectHideFlags: 0
