@@ -7,8 +7,9 @@ using UnityEngine.AI;
 public class EnemyAi : MonoBehaviour
 {
     [Header("Sound Effect")]
-    public AudioSource meleeAttackAudio;
-    public AudioSource shootAudio;
+    public AudioClip meleeAttackAudio;
+    public AudioClip shootAudio;
+    public AudioSource audioSource;
 
     //public float speed = 3.0f;
 
@@ -79,7 +80,11 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
-        
+        if(gameObject.GetComponent<AudioSource>())
+        {
+            audioSource = gameObject.GetComponent<AudioSource>();
+        }
+
         //get information for all attached skills
         if (attack.skillData != null)
         {
@@ -286,9 +291,14 @@ public class EnemyAi : MonoBehaviour
     {
         if (attack.skillData != null)
         {
-            if(meleeAttackAudio != null && !meleeAttackAudio.isPlaying)
+            if(audioSource.clip != meleeAttackAudio)
             {
-                meleeAttackAudio.Play();
+                audioSource.clip = meleeAttackAudio;
+
+            }
+            if(audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.Play();
             }
 
             midAttack = true;
@@ -300,11 +310,16 @@ public class EnemyAi : MonoBehaviour
 
     void Fire()
     {
+        if(audioSource.clip != shootAudio)
+        {
+            audioSource.clip = shootAudio;
+        }
+
         if (!staggered)
         {
-            if(shootAudio != null && !shootAudio.isPlaying)
+            if(audioSource != null && audioSource.clip != null/* && !audioSource.isPlaying*/)
             {
-                shootAudio.Play();
+                audioSource.Play();
             }
 
             GameObject newBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + bulletSpawnY, transform.position.z), transform.rotation);
