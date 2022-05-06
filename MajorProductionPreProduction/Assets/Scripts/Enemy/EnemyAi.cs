@@ -291,7 +291,7 @@ public class EnemyAi : MonoBehaviour
     {
         if (attack.skillData != null)
         {
-            if(audioSource.clip != meleeAttackAudio)
+            if(audioSource != null && audioSource.clip != meleeAttackAudio)
             {
                 audioSource.clip = meleeAttackAudio;
 
@@ -310,7 +310,7 @@ public class EnemyAi : MonoBehaviour
 
     void Fire()
     {
-        if(audioSource.clip != shootAudio)
+        if(audioSource != null && audioSource.clip != shootAudio)
         {
             audioSource.clip = shootAudio;
         }
