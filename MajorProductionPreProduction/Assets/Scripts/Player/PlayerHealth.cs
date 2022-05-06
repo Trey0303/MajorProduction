@@ -157,22 +157,4 @@ public class PlayerHealth : MonoBehaviour
             RegenWaitTimer = RegenWaitTimer - Time.deltaTime;
         }
     }
-
-    //IEnumerator Death()
-    //{
-    //    //deathAudio.Play();
-
-    //    //play death animation
-
-    //    //StartCoroutine(Death());
-    //    while (deathAudio.isPlaying)
-    //    {
-    //        Time.timeScale = 0;
-    //        yield return null;
-    //    }
-    //    //yield return new WaitWhile(() => deathAudio.isPlaying);
-    //    //move to gameover scene
-    //    DebugEx.Log("Player dead");
-    //    SceneManager.LoadScene(gameoverScene);
-    //}
 }

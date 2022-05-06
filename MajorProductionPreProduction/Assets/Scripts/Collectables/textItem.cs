@@ -152,9 +152,6 @@ public class textItem : MonoBehaviour
                     }
                 }
             }
-
-
-
             RangeCheck();
         }
 
@@ -232,27 +229,9 @@ public class textItem : MonoBehaviour
         }
     }
 
-    //private void FixedUpdate()
-    //{
-    //    if (player != null)
-    //    {
-
-
-
-    //    }
-    //}
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Player")
-    //    {
-    //    }
-    //}
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
-

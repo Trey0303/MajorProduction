@@ -8642,8 +8642,6 @@ MonoBehaviour:
   song: {fileID: 1489801103}
   soundEffects:
   - {fileID: 1489801104}
-  musicVol: 0.1
-  sfx: 0.1
 --- !u!82 &1489801103
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12965,12 +12963,16 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6031581871815321865, guid: d67e906e7f4e3bb4bb65df420f5a6b7a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 120.98817
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031581871815321865, guid: d67e906e7f4e3bb4bb65df420f5a6b7a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6031581871815321865, guid: d67e906e7f4e3bb4bb65df420f5a6b7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.4
+      value: -86
       objectReference: {fileID: 0}
     - target: {fileID: 6031581871815321865, guid: d67e906e7f4e3bb4bb65df420f5a6b7a, type: 3}
       propertyPath: m_LocalPosition.z

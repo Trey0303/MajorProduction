@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class PlayerControllerIsometric : MonoBehaviour
 {
+    [Header("Sound Effect")]
+    public AudioSource attackAudio;
+    public AudioSource dashAudio;
+    public AudioSource flyingAudio;
+
     [Header("Movement")]
     //player movement Speed
     public float moveSpeed = 10;
@@ -207,7 +212,7 @@ public class PlayerControllerIsometric : MonoBehaviour
             ToggleFlightMode();
         }
 
-        if (Input.GetKey(KeyCode.Space) && stamina >= flightCost && rb.position.y == flightPosY)
+        if (Input.GetKey(KeyCode.Space) && stamina >= flightCost && rb.position.y == flightPosY)//flight
         {
             if (canDash)
             {
@@ -221,10 +226,16 @@ public class PlayerControllerIsometric : MonoBehaviour
         //    dashing = false;
         //}
 
-        if (Input.GetKeyDown(KeyCode.Space) && stamina >= dashCost && rb.position.y != flightPosY)
+        if (Input.GetKeyDown(KeyCode.Space) && stamina >= dashCost && rb.position.y != flightPosY)//grounded
         {
-            if (canDash)//TODO: ADD another condition for checking if grounded
+            if (canDash)
             {
+                if(dashAudio != null)
+                {
+                    dashAudio.Play();
+
+                }
+
                 curMovement = movementType.dash;
                 timer = 0;
                 //stamina = stamina - dashCost;
@@ -251,6 +262,10 @@ public class PlayerControllerIsometric : MonoBehaviour
             }
             else
             {
+                if (flyingAudio != null && flyingAudio.isPlaying)
+                {
+                    flyingAudio.Stop();
+                }
                 curMovement = movementType.walk;
             }
 
@@ -373,7 +388,11 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 if (canMove)
                 {
-                    
+                    if (flyingAudio != null && !flyingAudio.isPlaying)
+                    {
+                        flyingAudio.Play();
+                    }
+
                     //canToggleFlight = false;
                     if(rb.position.y > flightPosY)
                     {
@@ -421,6 +440,11 @@ public class PlayerControllerIsometric : MonoBehaviour
                 MouseRotation();
                 break;
             case movementType.attack:
+                if(attackAudio != null)
+                {
+                    attackAudio.Play();
+
+                }
                 playerAttack.Attack();
                 curMovement = movementType.endLag;
                 break;
@@ -776,5 +800,3 @@ public class PlayerControllerIsometric : MonoBehaviour
 
     }
 }
-
-//
