@@ -291,6 +291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73f36820668c76e41832a12b1da399f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAudio: {fileID: 0}
+  dashAudio: {fileID: 0}
+  GroundToFlightAudio: {fileID: 0}
+  walkAudio: {fileID: 0}
+  slamAudio: {fileID: 0}
   moveSpeed: 10
   playerRotationSpeed: 7
   dashTime: 0.1
