@@ -67,18 +67,22 @@ public class PlayerHealth : MonoBehaviour
             //GAME OVER
             if(healthbar.value <= 0)//if player dies
             {
-                if (!deathAudioPlayed)
+                if (!deathAudioPlayed && deathAudio != null)
                 {
                     Time.timeScale = 0;
                     deathAudio.Play();
                     deathAudioPlayed = true;
                 }
-                else if(!deathAudio.isPlaying)
+                else if(deathAudio != null && !deathAudio.isPlaying)
                 {
                     ////move to gameover scene
                     DebugEx.Log("Player dead");
                     SceneManager.LoadScene(gameoverScene);
 
+                }
+                else if(deathAudio == null)
+                {
+                    SceneManager.LoadScene(gameoverScene);
                 }
 
                 //play death animation
@@ -99,6 +103,7 @@ public class PlayerHealth : MonoBehaviour
             {
                 healthbar.maxValue = maxHealth;
                 curHealth = healthbar.maxValue;
+                healthbar.gameObject.transform.localScale = new Vector3(healthbar.gameObject.transform.localScale.x + .1f, healthbar.gameObject.transform.localScale.y, healthbar.gameObject.transform.localScale.z);
             }
 
         }
@@ -108,6 +113,7 @@ public class PlayerHealth : MonoBehaviour
         {
             staminabar.maxValue = maxStamina;
             PlayerControllerIsometric.stamina = staminabar.maxValue;
+            staminabar.gameObject.transform.localScale = new Vector3(staminabar.gameObject.transform.localScale.x + .1f, staminabar.gameObject.transform.localScale.y, staminabar.gameObject.transform.localScale.z);
             DebugEx.Log("MAX STAMINA CHANGE");
         }
 
