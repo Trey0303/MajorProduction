@@ -26,8 +26,9 @@ public class PlayerControllerIsometric : MonoBehaviour
     public float boostCost = .3f;
     
     public float timeToWaitBeforeStaminaRegen = 1f;
-    
+
     [Header("Normal Attack")]
+    public float startupTimer = 0;
     public float endLagTime = .5f;
     [Header("Dive Attack")]
     public float diveSpeed = 10f;
@@ -107,6 +108,7 @@ public class PlayerControllerIsometric : MonoBehaviour
     private PlayerAttack playerAttack;
     private float endLagTimer;
     private float fallSpeed;
+    private bool attacking;
 
     //private bool flying;
 
@@ -117,6 +119,7 @@ public class PlayerControllerIsometric : MonoBehaviour
         canDash = true;
         killcount = 0;
         startingDialogueActive = false;
+        attacking = false;
         
         //gravity
         gravity = true;
@@ -192,7 +195,11 @@ public class PlayerControllerIsometric : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0) && canToggleFlight)//left click
             {
-                curMovement = movementType.mouseRotate;
+                if (!attacking)
+                {
+                    curMovement = movementType.mouseRotate;
+
+                }
             }
 
         }
@@ -378,6 +385,10 @@ public class PlayerControllerIsometric : MonoBehaviour
             case movementType.dash:
                 if (canMove && canDash)
                 {
+                    if (attacking)
+                    {
+                        attacking = false;
+                    }
                     PlayerHealth.RegenWaitTimer = timeToWaitBeforeStaminaRegen;
                     stamina = stamina - dashCost;
                     Dash();   
@@ -390,6 +401,10 @@ public class PlayerControllerIsometric : MonoBehaviour
 
                 if (canMove)
                 {
+                    if (attacking)
+                    {
+                        attacking = false;
+                    }
                     if (GroundToFlightAudio != null && !GroundToFlightAudio.isPlaying)
                     {
                         GroundToFlightAudio.Play();
@@ -400,12 +415,13 @@ public class PlayerControllerIsometric : MonoBehaviour
                     {
                         projectedPosition.y = flightPosY;
                     }
-                    if (rb.position.y < flightPosY /*&& rb.position.y < skyFlightBoarder*/)
+                    if (rb.position.y < flightPosY)
                     {
+                        velocity = new Vector3(0,0,0);
                         Vector3 targetPos = rb.position;
                         targetPos.y = flightPosY;
                         Vector3 direction = (targetPos - rb.position).normalized;
-                        projectedPosition.y = rb.position.y + (velocity.y + direction.y * moveSpeed) * Time.deltaTime;
+                        projectedPosition.y = rb.position.y + (/*velocity.y + */direction.y * moveSpeed) * Time.deltaTime;
                         Debug.DrawRay(transform.position, direction * 5);
                         
                         //rb.position = targetPos;
@@ -415,7 +431,7 @@ public class PlayerControllerIsometric : MonoBehaviour
                     //{
                     //    flightPosY = skyFlightBoarder;
                     //}
-                    else
+                    else if(rb.position.y > flightPosY)
                     {
                         if (canMove)
                         {
@@ -431,6 +447,11 @@ public class PlayerControllerIsometric : MonoBehaviour
                 {
                     DropShadow();
 
+                    if (attacking)
+                    {
+                        attacking = false;
+                    }
+
                     PlayerHealth.RegenWaitTimer = timeToWaitBeforeStaminaRegen;
                     stamina = stamina - boostCost;
                     Boost(input);
@@ -442,13 +463,21 @@ public class PlayerControllerIsometric : MonoBehaviour
                 MouseRotation();
                 break;
             case movementType.attack:
-                if(attackAudio != null)
+                attacking = true;
+                startupTimer = startupTimer + Time.deltaTime;
+
+                if (startupTimer >= .2f)
                 {
-                    attackAudio.Play();
+                    startupTimer = 0;
+                    if(attackAudio != null)
+                    {
+                        attackAudio.Play();
+
+                    }
+                    playerAttack.Attack();
+                    curMovement = movementType.endLag;
 
                 }
-                playerAttack.Attack();
-                curMovement = movementType.endLag;
                 break;
             case movementType.endLag:
                 endLagTimer = endLagTimer - Time.deltaTime;
@@ -456,11 +485,16 @@ public class PlayerControllerIsometric : MonoBehaviour
                 lastDirection = input.normalized;
                 if (endLagTimer <= 0)
                 {
+                    attacking = false;
                     endLagTimer = endLagTime;
                     curMovement = movementType.walk;
                 }
                 break;
             case movementType.diveAttack:
+                if (attacking)
+                {
+                    attacking = false;
+                }
                 playerAttack.DiveAttack();
                 if (canMove && canToggleFlight)
                 {
